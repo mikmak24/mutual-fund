@@ -24,7 +24,8 @@ class LoginController extends Controller
         $data = [
             'message' => 'SUCCESS',
             'username' => $request['username'],
-            'token' => Session::getId()
+            'token' => Session::getId(),
+            'isAuthenticated' => TRUE
         ];
 
         return response()->json($data);
@@ -39,7 +40,9 @@ class LoginController extends Controller
         return response()->json([
             'message' => 'SUCCESS',
             'username' => '',
-            'token' => ''
+            'token' => '',
+            'isAuthenticated' => FALSE
+
         ]);
 
     }

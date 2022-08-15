@@ -6,11 +6,15 @@ import router from '../../router';
 const state = {
     token: '',
     username: 'hahahah',
+    isAuthenticated: false,
     credentials: []
 }
 const getters = {
     getUserCredential (state, getters) {
         return state.credentials
+    },
+    isAuthenticated(state, getters){
+        return state.isAuthenticated
     }
 }
 
@@ -20,7 +24,7 @@ const actions = {
         .then(
           function (response){
             commit('setUserCredentials', response.data)
-            
+            commit('setIsAuthenticated', true)
             router.push('/dashboard')
         }).catch((error) => {
 
@@ -33,6 +37,8 @@ const actions = {
         .then(
           function (response){         
             commit('setUserCredentials', response.data)
+            commit('setIsAuthenticated', false)
+
             router.push('/')
         }).catch((error) => { 
         }); 
@@ -41,6 +47,10 @@ const actions = {
 const mutations = {
     setUserCredentials (state, payload) {
         state.credentials = payload
+    },
+
+    setIsAuthenticated(state, payload){
+        state.isAuthenticated = payload
 
     }
 }

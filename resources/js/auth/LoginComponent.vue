@@ -3,7 +3,7 @@
     <b-card no-body class="overflow-hidden" align-v="center" style="max-width: 50%; margin-left: 25%; margin-top: 10%;">
     <b-row no-gutters>
       <b-col md="6">
-        <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0"></b-card-img>
+        <b-card-img src="https://picsum.photos/400/400/?image=309" alt="Image" class="rounded-0"></b-card-img>
       </b-col>
       <b-col md="6">
         <br><br><br><br>
@@ -12,7 +12,7 @@
 
             <div class="text-center"><img src="../assets/images/logo/gogreen.png" /></div>
             <p class="text-center"><b>PH Retirement Portal</b></p>
-            <p class="text-center">Please use your Eclipse Login {{$store.getters['authentication/getUserCredential']}}</p>
+            <p class="text-center">Please use your Eclipse Login</p>
                 <b-form @submit="onSubmit" v-if="show">     
                     <b-form-group         
                         id="input-group-1"
