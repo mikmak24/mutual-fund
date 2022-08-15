@@ -12,20 +12,20 @@
   <b-navbar type="light" variant="light">
     <b-navbar-toggle target="nav-text-collapse"></b-navbar-toggle>
 
-    <b-navbar-brand><img src="../assets/images/logo/gogreen.png" /></b-navbar-brand>
+    <b-navbar-brand><img src="../assets/images/logo/gogreen.png" /><br> 
+    </b-navbar-brand>
 
     <b-collapse id="nav-text-collapse" is-nav>
       <b-navbar-nav>
-        <b-nav-text>PH Retirement Portal</b-nav-text>
+        <b-nav-text>PH Retirement Portal - Logged in as: {{username}}</b-nav-text>
       </b-navbar-nav>
     </b-collapse>
 
     
-         <b-button variant="outline-dark" right>
-        <b-icon icon="person-fill"></b-icon> Logout
+    <b-button @click="logout()" variant="outline-dark" right>
+    <b-icon icon="person-fill"></b-icon> Logout
     </b-button>
    
-
   </b-navbar>
 </div>
 
@@ -33,9 +33,28 @@
 </template>
 
 <script>
-    export default {
-        mounted() {
-            console.log('Component mounted.')
-        }
+  export default {
+    data() {
+      return {
+        username: '',
+        token: ''
+      }
+    },
+    mounted() {
+      this.username = this.$store.getters['authentication/getUserCredential'].username
+      this.token = this.$store.getters['authentication/getUserCredential'].token
+
+    },
+    methods: {
+      logout(){
+          this.$store.dispatch("authentication/logout", {'token': this.token})
+            .then((response) => {
+
+            })
+            .catch((error) => {
+            
+          });
+      }
     }
+  }
 </script>

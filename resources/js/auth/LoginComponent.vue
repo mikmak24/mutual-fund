@@ -12,7 +12,7 @@
 
             <div class="text-center"><img src="../assets/images/logo/gogreen.png" /></div>
             <p class="text-center"><b>PH Retirement Portal</b></p>
-            <p class="text-center">Please use your Eclipse Login </p>
+            <p class="text-center">Please use your Eclipse Login {{$store.getters['authentication/getUserCredential']}}</p>
                 <b-form @submit="onSubmit" v-if="show">     
                     <b-form-group         
                         id="input-group-1"

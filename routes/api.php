@@ -26,5 +26,7 @@ use App\Http\Controllers\Auth\LoginController;
 Route::group(['middleware' => ['web']], function () {
     Route::group(['prefix' => 'auth'], function () {
         Route::post('login', [LoginController::class, 'login']);
+        Route::post('logout', [LoginController::class, 'logout']);
+
     });
 });

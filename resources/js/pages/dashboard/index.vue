@@ -45,7 +45,6 @@ export default {
         Footer
     },
     mounted() {
-        console.log('Component mounted.')
     }
 }
 </script>
