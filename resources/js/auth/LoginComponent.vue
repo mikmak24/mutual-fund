@@ -1,5 +1,6 @@
 <template>
 <div>
+    <FlashMessage :position="'right top'"/>
     <b-card no-body class="overflow-hidden" align-v="center" style="max-width: 50%; margin-left: 25%; margin-top: 10%;">
     <b-row no-gutters>
       <b-col md="6">
@@ -13,6 +14,7 @@
             <div class="text-center"><img src="../assets/images/logo/gogreen.png" /></div>
             <p class="text-center"><b>PH Retirement Portal</b></p>
             <p class="text-center">Please use your Eclipse Login</p>
+
                 <b-form @submit="onSubmit" v-if="show">     
                     <b-form-group         
                         id="input-group-1"
@@ -66,10 +68,22 @@ export default {
             event.preventDefault()
             this.$store.dispatch("authentication/signIn", this.form)
             .then(response => {
-              
               if(response.status == 'ERROR'){
+                  this.flashMessage.setStrategy('single');
+                  this.flashMessage.error({
+                    title: 'INVALID CREDENTIALS',
+                    message: 'Username or Password doesnt match any account in Eclipse',
+                    icon: false,
+                  });
 
               } else {
+                this.flashMessage.setStrategy('single');
+                this.flashMessage.success({
+                  title: 'LOGIN SUCCESSFUL',
+                  icon: false,
+                  message: 'Welcome Back...'
+                });
+                this.$router.replace("/dashboard");
 
               }
             })

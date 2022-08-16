@@ -3,14 +3,17 @@ import Axios from 'axios'
 import router from './router/'
 import store from './store/'
 
+import FlashMessage from '@smartweb/vue-flash-message';
+
+
 // Import Bootstrap and BootstrapVue CSS files (order is important)
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
-
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
+Vue.use(FlashMessage);
 Vue.prototype.$http = Axios;
 
 Vue.component('App', require('./App.vue').default)

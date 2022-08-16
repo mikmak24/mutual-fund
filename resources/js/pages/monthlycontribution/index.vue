@@ -5,13 +5,14 @@
     <div class="container-fluid">
       <div class="row">
         <Sidebar/>
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+        <main role="main" style="margin-left: 1%;" >
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h5 class="">
                 <b-icon icon="file-earmark" variant="dark"></b-icon>
                 Upload Monthly Contribution
             </h5>
           </div>
+          <b-form-datepicker id="example-datepicker" v-model="date" class="mb-2"></b-form-datepicker>
 
           <b-form-file v-model="file" ref="file-input" class="mb-2"></b-form-file>
           <b-button @click="clearFiles" class="mr-2">Upload File</b-button>
@@ -47,7 +48,8 @@ export default {
     },
     data() {
       return {
-        file: null
+        file: null,
+        date: ''
       }
     },
     methods: {

@@ -1,6 +1,6 @@
 <template>
-<footer class=" footer bg-dark text-center text-white">
-  <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.2);">
+<footer class=" footer text-center text-white" style="background-color:#1f824b">
+  <div class="text-center bg-dark p-4" >
     © 2022 Copyright:
     <a class="text-white" href="https://mdbootstrap.com/">G.O Green Enterprise</a>
   </div>
