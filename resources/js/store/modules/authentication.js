@@ -5,7 +5,7 @@ import router from '../../router';
 
 const state = {
     token: '',
-    username: 'hahahah',
+    username: '',
     isAuthenticated: false,
     credentials: []
 }
@@ -20,16 +20,16 @@ const getters = {
 
 const actions = {
     async signIn({commit}, payload) {
-        const res = axios.post("api/auth/login", payload)
-        .then(
-          function (response){
+        const response = await axios.post("api/auth/login", payload)
+        if(response.data.status === 'SUCCESS'){
             commit('setUserCredentials', response.data)
             commit('setIsAuthenticated', true)
-            router.push('/dashboard')
-        }).catch((error) => {
 
-            
-        }); 
+        } else {
+            commit('setUserCredentials', response.data)
+            commit('setIsAuthenticated', false)
+        }
+        return response.data
     },
 
     async logout({commit}, payload) {

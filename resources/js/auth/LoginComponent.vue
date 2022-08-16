@@ -65,10 +65,13 @@ export default {
         onSubmit(event) {
             event.preventDefault()
             this.$store.dispatch("authentication/signIn", this.form)
-            .then((response) => {
-                console.log(response)
-                //this.$router.replace("/dashboard");
+            .then(response => {
+              
+              if(response.status == 'ERROR'){
 
+              } else {
+
+              }
             })
             .catch((error) => {
             
