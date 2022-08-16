@@ -48,7 +48,7 @@
     },
     methods: {
       logout(){
-          this.$store.dispatch("authentication/logout", {'token': this.token})
+          this.$store.dispatch("authentication/logout")
             .then((response) => {
 
             })

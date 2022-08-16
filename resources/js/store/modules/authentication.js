@@ -32,8 +32,8 @@ const actions = {
         return response.data
     },
 
-    async logout({commit}, payload) {
-        const res = axios.post("api/auth/logout", payload)
+    async logout({commit}) {
+        const res = axios.post("api/auth/logout")
         .then(
           function (response){         
             commit('setUserCredentials', response.data)

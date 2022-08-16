@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Log;
+use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -17,6 +19,8 @@ class LoginController extends Controller
     }
 
     public function login(Request $request){
+        $data = [];
+      
         $username = strtoupper($request["username"]);
         $password = strtoupper($request["password"]);
 
@@ -46,37 +50,48 @@ class LoginController extends Controller
                 'status' => 'ERROR',
                 'message' => 'INVALID CREDENTIALS',
                 'username' => '',
-                'token' => '',
                 'isAuthenticated' => FALSE
             ];
         } else if ((string)($xml->CheckEclipseLoginResponse->StatusResult->attributes()->Success) != "No") {
-            $password = Hash::make($request['password']);
-            Session::put('username', $request['username']);
-            Session::put('password', $password);
-            Session::save();
-    
-            $data = [
-                'status' => 'SUCCESS',
-                'message' => 'SUCCESSFULL LOGIN...',
-                'username' => $request['username'],
-                'token' => Session::getId(),
-                'isAuthenticated' => TRUE
-            ];
+
+            $request->validate([
+                'username' => 'required|string|max:255',
+                'password' => 'required|string|min:8',
+            ]);
+
+            $user = User::where('username', '=', $request['username'])->first();
+            if ($user === null) {
+               
+                User::create([
+                    'username' => $request['username'],
+                    'password' => Hash::make($request['password']),
+                ]);
+            }
+
+            $fieldType = filter_var($request['username'], FILTER_VALIDATE_EMAIL) ? 'username' : 'email';
+            if(auth()->attempt(array($fieldType => $request['username'], 'password' => $request['password'])))
+            {
+                $data = [
+                    'status' => 'SUCCESS',
+                    'message' => 'SUCCESSFULL LOGIN...',
+                    'username' => Auth::user()->username,
+                    'isAuthenticated' => TRUE
+                ];
+            } 
     
         }
+
         return response()->json($data);
     }
 
     public function logout(Request $request){
-        $request->session()->forget('username');
-        $request->session()->forget('password');
+        Auth::logout();
 
         return response()->json([
             'message' => 'SUCCESS',
             'username' => '',
             'token' => '',
             'isAuthenticated' => FALSE
-
         ]);
 
     }
