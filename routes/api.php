@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 //Controllers
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\ContributionController;
 
 
 /*
@@ -26,7 +27,13 @@ use App\Http\Controllers\Auth\LoginController;
 Route::group(['middleware' => ['web']], function () {
     Route::group(['prefix' => 'auth'], function () {
         Route::post('login', [LoginController::class, 'login']);
-        Route::post('logout', [LoginController::class, 'logout']);
-
+        Route::post('logout', [LoginController::class, 'logout'])->middleware('auth');
     });
+
+    Route::middleware('auth')->group( function () {
+        Route::post('logout', [LoginController::class, 'logout']);
+        Route::post('uploadcontribution', [ContributionController::class, 'uploadContribution']);
+    });
+
+
 });

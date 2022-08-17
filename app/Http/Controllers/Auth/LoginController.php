@@ -45,6 +45,8 @@ class LoginController extends Controller
         $errStr = 'ErrorMessage';
         $xml = simplexml_load_string($temp);
 
+       
+
         if (Str::contains($json, $errStr) || $temp == "No response generated.") {
             $data = [
                 'status' => 'ERROR',
@@ -52,7 +54,11 @@ class LoginController extends Controller
                 'username' => '',
                 'isAuthenticated' => FALSE
             ];
+
+
         } else if ((string)($xml->CheckEclipseLoginResponse->StatusResult->attributes()->Success) != "No") {
+
+          
 
             $request->validate([
                 'username' => 'required|string|max:255',
@@ -68,7 +74,10 @@ class LoginController extends Controller
                 ]);
             }
 
-            $fieldType = filter_var($request['username'], FILTER_VALIDATE_EMAIL) ? 'username' : 'email';
+            
+
+            $fieldType = 'username';
+
             if(auth()->attempt(array($fieldType => $request['username'], 'password' => $request['password'])))
             {
                 $data = [
@@ -77,11 +86,15 @@ class LoginController extends Controller
                     'username' => Auth::user()->username,
                     'isAuthenticated' => TRUE
                 ];
+
+
             } 
     
         }
 
         return response()->json($data);
+
+
     }
 
     public function logout(Request $request){

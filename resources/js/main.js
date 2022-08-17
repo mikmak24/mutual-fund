@@ -4,7 +4,7 @@ import router from './router/'
 import store from './store/'
 
 import FlashMessage from '@smartweb/vue-flash-message';
-
+import JsonExcel from "vue-json-excel";
 
 // Import Bootstrap and BootstrapVue CSS files (order is important)
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
@@ -17,6 +17,7 @@ Vue.use(FlashMessage);
 Vue.prototype.$http = Axios;
 
 Vue.component('App', require('./App.vue').default)
+Vue.component("downloadExcel", JsonExcel);
 
 const app = new Vue({
     store,
