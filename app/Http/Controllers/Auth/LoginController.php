@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use Log;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Ui\Presets\React;
 
 class LoginController extends Controller
 {
@@ -18,7 +19,7 @@ class LoginController extends Controller
         //$this->middleware('guest')->except('logout');
     }
 
-    public function login(Request $request){
+    public function slogin(Request $request){
         $data = [];
       
         $username = strtoupper($request["username"]);
@@ -88,6 +89,44 @@ class LoginController extends Controller
             } 
     
         }
+
+        return response()->json($data);
+
+
+    }
+
+    public function login(Request $request){
+
+        $request->validate([
+            'username' => 'required|string|max:255'
+        ]);
+
+        $user = User::where('username', '=', $request['username'])->first();
+        if ($user === null) {
+           
+            User::create([
+                'username' => $request['username'],
+                'password' => Hash::make($request['password']),
+            ]);
+        }
+
+        
+
+        $fieldType = 'username';
+
+        if(auth()->attempt(array($fieldType => $request['username'], 'password' => $request['password'])))
+        {
+            $data = [
+                'status' => 'SUCCESS',
+                'message' => 'SUCCESSFULL LOGIN...',
+                'username' => Auth::user()->username,
+                'isAuthenticated' => TRUE
+            ];
+
+
+        } 
+
+    
 
         return response()->json($data);
 

@@ -1,78 +1,88 @@
 <template>
-  <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-          <div class="sidebar-sticky">
-            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-              <span>Administration</span>
-              <a class="d-flex align-items-center text-muted" href="#">
-                <span data-feather="plus-circle"></span>
-              </a>
-            </h6>
-            <ul class="nav flex-column">
-              <li class="nav-item">
-                <router-link to="/dashboard" class="nav-link active" href="#">
-                <b-icon icon="box-arrow-right" variant="dark"></b-icon>
-                  <span style="color: black">Dashboard</span>
-                </router-link>              
-              </li>
-              <li class="nav-item">
-                <router-link to="/uploadcontribution" class="nav-link active" href="#">
-                 <b-icon icon="file-earmark" variant="dark"></b-icon>
-                  <span style="color: black">Upload Monthly Contribution</span>
-                </router-link>
-              </li>
-               <li class="nav-item">
-                <router-link to="/employeelist" class="nav-link active" href="#">
-                 <b-icon icon="list" variant="dark"></b-icon>
-                  <span style="color: black">List of Employees</span>
-                </router-link>
-              </li>
-              <li class="nav-item">
-                <router-link to="/ss" class="nav-link active" href="#">
-                 <b-icon icon="file-bar-graph" variant="dark"></b-icon>
-                  <span style="color: black">Reports</span>
-                </router-link>
-              </li>
-            </ul>
+	<nav id="sidebar">
+		<div class="p-4 pt-5">
+			<h4 style="color: white; font-family:verdana;">G.O GREEN MUTUAL FUND</h4>
+			<hr />
+			<hr />
 
-            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-              <span>Employees</span>
-              <a class="d-flex align-items-center text-muted" href="#">
-                <span data-feather="plus-circle"></span>
-              </a>
-            </h6>
-            <ul class="nav flex-column">
-              <li class="nav-item">
-                <router-link to="/dashboard" class="nav-link active" href="#">
-                <b-icon icon="box-arrow-right" variant="dark"></b-icon>
-                  <span style="color: black">Dashboard</span>
-                </router-link>              
-              </li>
-              <li class="nav-item">
-                <router-link to="/ss" class="nav-link active" href="#">
-                 <b-icon icon="file-earmark" variant="dark"></b-icon>
-                  <span style="color: black">Upload Monthly Contribution</span>
-                </router-link>
-              </li>
-               <li class="nav-item">
-                <router-link to="/ss" class="nav-link active" href="#">
-                 <b-icon icon="list" variant="dark"></b-icon>
-                  <span style="color: black">List of Employees</span>
-                </router-link>
-              </li>
-              <li class="nav-item">
-                <router-link to="/ss" class="nav-link active" href="#">
-                 <b-icon icon="file-bar-graph" variant="dark"></b-icon>
-                  <span style="color: black">Reports</span>
-                </router-link>
-              </li>
-            </ul>
-          </div>
-        </nav>
+			<h5 style="color: white; font-family:verdana;">ADMINISTRATION</h5>
+			<ul class="nav flex-column">
+				<li class="nav-item pd-10">
+					<router-link to="/dashboard" class="nav-link active" href="#">
+						<h6 style="color: white">
+							<b-icon icon="box-arrow-right" variant="light"></b-icon> Dashboard
+						</h6>
+					</router-link>
+				</li>
+				<li class="nav-item">
+					<router-link to="/uploadcontribution" class="nav-link active" href="#">
+						<h6 style="color: white">
+							<b-icon icon="file-earmark" variant="light"></b-icon> Upload Monthly
+							Contribution
+						</h6>
+					</router-link>
+				</li>
+				<li class="nav-item">
+					<router-link to="/employeelist" class="nav-link active" href="#">
+						<h6 style="color: white">
+							<b-icon icon="list" variant="light"></b-icon> List of Employees
+						</h6>
+					</router-link>
+				</li>
+				<li class="nav-item">
+					<router-link to="/ss" class="nav-link active" href="#">
+						<h6 style="color: white">
+							<b-icon icon="file-bar-graph" variant="light"></b-icon> Reports
+						</h6>
+					</router-link>
+				</li>
+			</ul>
+			<br />
+			<h5 style="color: white; font-family:verdana;">Employees</h5>
+			<ul class="nav flex-column">
+				<li class="nav-item pd-10">
+					<router-link to="/dashboard" class="nav-link active" href="#">
+						<h6 style="color: white">
+							<b-icon icon="box-arrow-right" variant="light"></b-icon> Dashboard
+						</h6>
+					</router-link>
+				</li>
+				<li class="nav-item">
+					<router-link to="/uploadcontribution" class="nav-link active" href="#">
+						<h6 style="color: white">
+							<b-icon icon="file-earmark" variant="light"></b-icon> Upload Monthly
+							Contribution
+						</h6>
+					</router-link>
+				</li>
+				<li class="nav-item">
+					<router-link to="/employeelist" class="nav-link active" href="#">
+						<h6 style="color: white">
+							<b-icon icon="list" variant="light"></b-icon> List of Employees
+						</h6>
+					</router-link>
+				</li>
+				<li class="nav-item">
+					<router-link to="/ss" class="nav-link active" href="#">
+						<h6 style="color: white">
+							<b-icon icon="file-bar-graph" variant="light"></b-icon> Reports
+						</h6>
+					</router-link>
+				</li>
+			</ul>
+
+			<div class="footer"></div>
+		</div>
+	</nav>
 </template>
 
 <script>
-    export default {
-        mounted() {
-        }
-    }
+export default {
+	mounted() {}
+};
 </script>
+<style scoped>
+#font {
+	font-family: Arial, Helvetica, sans-serif;
+}</style
+>>

@@ -1,14 +1,14 @@
 <template>
-  <div>
-    <Navbar />
+	<div class="wrapper d-flex align-items-stretch">
+		<Sidebar />
+		<!-- Page Content  -->
+		<div id="content" class="p-4 p-md-5">
+				<Navbar />
 
-    <div class="container-fluid">
-      <div class="row">
-        <Sidebar />
         <main
           role="main"
           style="margin-left: 1%"
-          class="col-md-9 ml-sm-auto col-lg-10 px-4"
+         
         >
           <FlashMessage :position="'right bottom'" />
           <div
@@ -151,14 +151,9 @@
             </b-col>
           </b-row>
         </main>
-      </div>
-    </div>
-
-      <b-modal id="modal-lg" size="lg" title="Large Modal">Hello Large Modal!</b-modal>
-
-
-    <Footer />
-  </div>
+		
+		</div>
+	</div>
 </template>
 
 <script>
