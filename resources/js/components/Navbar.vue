@@ -1,7 +1,10 @@
 <template>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="container-fluid">
-			<img id="sidebarCollapse" src="../assets/images/logo/gogreen.png" />
+			 <b-button size="s" id="sidebarCollapse"  class="mb-2 mt-2">
+      <b-icon icon="arrow-left-circle-fill" aria-label="Help"></b-icon>
+    </b-button>
+			<h4 style="font-family: Lucida Console;" class="ml-3"><b>PH Retirement Portal</b></h4>
 			<button
 				class="btn btn-dark d-inline-block d-lg-none ml-auto"
 				type="button"
@@ -23,7 +26,7 @@
 						<a class="nav-link" href="#">ABOUT</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">SETTINGS</a>
+						<a class="nav-link" href="#"><b-icon icon="gear-fill" aria-hidden="true"></b-icon> Settings</a>
 					</li>
 					<li class="nav-item">
 						<b-button @click="logout()" variant="dark" right>
