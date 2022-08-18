@@ -3,10 +3,11 @@ import VueRouter from 'vue-router'
 import store from '../store'
 
 
-//Pages
+//AdminPages
 import Login from '../auth/LoginComponent.vue'
-import Dashboard from '../pages/dashboard/index.vue'
-import UploadMonthlyContribution from '../pages/monthlycontribution/index.vue'
+import Dashboard from '../pages/admin/dashboard.vue'
+import UploadMonthlyContribution from '../pages/admin/monthlycontribution.vue'
+import ListOfEmployees from '../pages/admin/listofemployees.vue'
 
 
 Vue.use(VueRouter)
@@ -29,6 +30,11 @@ const routes = [
         path: '/uploadcontribution',
         component: UploadMonthlyContribution,
         name: 'UploadMonthlyContribution'
+    },
+    {
+        path: '/employeelist',
+        component: ListOfEmployees,
+        name: 'ListOfEmployees'
     }
 ]
 

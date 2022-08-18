@@ -21,7 +21,7 @@
                 </router-link>
               </li>
                <li class="nav-item">
-                <router-link to="/ss" class="nav-link active" href="#">
+                <router-link to="/employeelist" class="nav-link active" href="#">
                  <b-icon icon="list" variant="dark"></b-icon>
                   <span style="color: black">List of Employees</span>
                 </router-link>

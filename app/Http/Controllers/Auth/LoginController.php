@@ -58,11 +58,8 @@ class LoginController extends Controller
 
         } else if ((string)($xml->CheckEclipseLoginResponse->StatusResult->attributes()->Success) != "No") {
 
-          
-
             $request->validate([
-                'username' => 'required|string|max:255',
-                'password' => 'required|string|min:8',
+                'username' => 'required|string|max:255'
             ]);
 
             $user = User::where('username', '=', $request['username'])->first();
@@ -101,6 +98,7 @@ class LoginController extends Controller
         Auth::logout();
 
         return response()->json([
+            'status' => 'LOGOUT',
             'message' => 'SUCCESS',
             'username' => '',
             'token' => '',

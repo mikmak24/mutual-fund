@@ -76,16 +76,11 @@ export default {
                     icon: false,
                   });
 
-              } else {
-                this.flashMessage.setStrategy('single');
-                this.flashMessage.success({
-                  title: 'LOGIN SUCCESSFUL',
-                  icon: false,
-                  message: 'Welcome Back...'
-                });
-                this.$router.replace("/dashboard");
-
-              }
+              } else if (response.status == 'SUCCESS'){
+                
+                  this.$router.replace("/dashboard");
+              } 
+           
             })
             .catch((error) => {
             

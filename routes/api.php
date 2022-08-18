@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 //Controllers
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ContributionController;
-
+use App\Http\Controllers\EmployeesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +33,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::middleware('auth')->group( function () {
         Route::post('logout', [LoginController::class, 'logout']);
         Route::post('uploadcontribution', [ContributionController::class, 'uploadContribution']);
+        Route::get('employeeslist', [EmployeesController::class, 'fetch']);
+
     });
 
 

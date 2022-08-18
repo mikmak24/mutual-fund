@@ -18,11 +18,19 @@ class ContributionController extends Controller
     }
 
     public function uploadContribution(Request $request){
-        Log::alert("------------");
-        Log::alert($request['date']);
         if($request->hasFile('file')) {
-            Excel::import(new ImportContribution, $request['file']);
+            Excel::import(new ImportContribution($request['date']), $request['file']);
+
+            return response()->json([
+                'message' => 'Import Success!',
+                'status' => 'SUCCESS'
+            ]);    
         }
+
+        return response()->json([
+            'message' => 'Please upload a file.',
+            'status' => 'ERROR.'
+        ]);
 
     }
 

@@ -17,10 +17,8 @@ const actions = {
                 "Content-Type": "multipart/form-data"
             }
         };
-
-
-
         const response = await axios.post("api/uploadcontribution", payload,config)
+        return response.data
     },
 
  
