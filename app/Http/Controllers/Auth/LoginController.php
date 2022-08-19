@@ -19,7 +19,7 @@ class LoginController extends Controller
         //$this->middleware('guest')->except('logout');
     }
 
-    public function slogin(Request $request){
+    public function login(Request $request){
         $data = [];
       
         $username = strtoupper($request["username"]);
@@ -95,7 +95,7 @@ class LoginController extends Controller
 
     }
 
-    public function login(Request $request){
+    public function slogin(Request $request){
 
         $request->validate([
             'username' => 'required|string|max:255'

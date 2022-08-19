@@ -32,7 +32,12 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::middleware('auth')->group( function () {
         Route::post('logout', [LoginController::class, 'logout']);
+
+        //Contribution
         Route::post('uploadcontribution', [ContributionController::class, 'uploadContribution']);
+        Route::get('contributionlist', [ContributionController::class, 'fetch']);
+
+        //Employee
         Route::get('employeeslist', [EmployeesController::class, 'fetch']);
 
     });

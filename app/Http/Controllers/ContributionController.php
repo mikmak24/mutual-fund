@@ -6,9 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Log;
 use Illuminate\Support\Facades\Auth;
-
 use App\Imports\ImportContribution;
 use Maatwebsite\Excel\Facades\Excel;
+use App\User;
+use App\Models\Contribution;
 
 class ContributionController extends Controller
 {
@@ -33,6 +34,13 @@ class ContributionController extends Controller
         ]);
 
     }
+
+    public function fetch(){
+        return Contribution::select('*')
+        ->get();
+
+    }
+
 
   
 

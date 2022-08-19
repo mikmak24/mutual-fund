@@ -21,6 +21,11 @@ const actions = {
         return response.data
     },
 
+    async fetch({ commit }) {
+        const response = await axios.get("/api/contributionlist")
+        return response.data;
+    },
+
  
 }
 const mutations = {

@@ -29,11 +29,11 @@
 						<a class="nav-link" href="#"><b-icon icon="gear-fill" aria-hidden="true"></b-icon> Settings</a>
 					</li>
 					<li class="nav-item">
-						<b-button @click="logout()" variant="dark" right>
-							<b-icon icon="person-fill"></b-icon> Logout: {{ username }}
+						<b-button variant="dark" @click="logout()"  right>
+							<b-icon  icon="person-fill"></b-icon> Logout: {{ username }}
 						</b-button>
 					</li>
-				</ul>
+				</ul> 
 			</div>
 		</div>
 	</nav>
