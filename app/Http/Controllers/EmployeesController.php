@@ -45,4 +45,18 @@ class EmployeesController extends Controller
         ->get();
     }
 
+    public function fetchEmpDashboardCardDetails(){
+        
+        return User::select('users.username', 'users.monthly_contribution',
+        DB::raw('SUM(contributions.employee_contribution) as total_employee_contr'), 
+        DB::raw('SUM(contributions.employer_contribution) as total_employer_contr'), 
+        DB::raw('count(contributions.employer_contribution) as total_month_contr'), 
+        )
+        ->leftJoin('contributions', 'users.username', '=', 'contributions.user_id')
+        ->where('user_id', Auth::user()->username)
+        ->get();
+    }
+
+    
+
 }

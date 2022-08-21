@@ -4,54 +4,77 @@
 		<!-- Page Content  -->
 		<div id="content" class="p-4 p-md-5">
 			<Navbar />
-                    <h2 class="mb-4">Employee Dashboard</h2>
+            <h2 class="mb-4">Employee Dashboard</h2>
 
-			<div class="row">
-				<div class="col-xl-3 col-md-6">
-					<div class="card bg-primary text-white mb-4">
-						<div class="card-body">Total Month Contributed</div>
-						<div
-							class="card-footer d-flex align-items-center justify-content-between"
-						>
-							<a class="small text-white stretched-link" href="#">View Details</a>
-							<div class="small text-white"><i class="fas fa-angle-right"></i></div>
-						</div>
-					</div>
-				</div>
-				<div class="col-xl-3 col-md-6">
-					<div class="card bg-warning text-white mb-4">
-						<div class="card-body">Total Amount Contributed</div>
-						<div
-							class="card-footer d-flex align-items-center justify-content-between"
-						>
-							<a class="small text-white stretched-link" href="#">View Details</a>
-							<div class="small text-white"><i class="fas fa-angle-right"></i></div>
-						</div>
-					</div>
-				</div>
-				<div class="col-xl-3 col-md-6">
-					<div class="card bg-success text-white mb-4">
-						<div class="card-body">Total Amount Contributed By Employer</div>
-						<div
-							class="card-footer d-flex align-items-center justify-content-between"
-						>
-							<a class="small text-white stretched-link" href="#">View Details</a>
-							<div class="small text-white"><i class="fas fa-angle-right"></i></div>
-						</div>
-					</div>
-				</div>
-				<div class="col-xl-3 col-md-6">
-					<div class="card bg-danger text-white mb-4">
-						<div class="card-body">Danger Card</div>
-						<div
-							class="card-footer d-flex align-items-center justify-content-between"
-						>
-							<a class="small text-white stretched-link" href="#">View Details</a>
-							<div class="small text-white"><i class="fas fa-angle-right"></i></div>
-						</div>
-					</div>
-				</div>
-			</div>
+			    <b-card-group deck>
+					<b-card
+						border-variant="primary"
+						header="Number of Month Contributed"
+						header-bg-variant="primary"
+						header-text-variant="white"
+						align="center"
+					>
+						<b-card-text>{{total_month_contr}}</b-card-text>
+					</b-card>
+
+					<b-card
+						border-variant="success"
+						header="Total Amount Contributed"
+						header-bg-variant="success"
+						header-text-variant="white"
+						align="center"
+					>
+						<b-card-text>{{total_employee_contr}}</b-card-text>
+					</b-card>
+
+					<b-card
+						border-variant="info"
+						header="Total Contribution By Employer"
+						header-bg-variant="info"
+						header-text-variant="white"
+						align="center"
+					>
+						<b-card-text>{{total_employer_contr}}</b-card-text>
+					</b-card>
+
+					<b-card
+						border-variant="danger"
+						header="Personal Contribution Amount"
+						header-bg-variant="danger"
+						header-text-variant="white"
+						align="center"
+					>
+						<b-card-text>{{monthly_contribution}}</b-card-text>
+					</b-card>
+				</b-card-group>
+				<br>
+
+	
+
+			  <b-card-group deck>
+				<b-card
+				header="featured"
+				header-tag="header"
+				footer="Card Footer"
+				footer-tag="footer"
+				title="Title"
+				>
+				<b-card-text>Header and footers using props.</b-card-text>
+				<b-button href="#" variant="primary">Go somewhere</b-button>
+				</b-card>
+
+				<b-card title="Title" header-tag="header" footer-tag="footer">
+				<template #header>
+					<h6 class="mb-0">Header Slot</h6>
+				</template>
+				<b-card-text>Header and footers using slots.</b-card-text>
+				<b-button href="#" variant="primary">Go somewhere</b-button>
+				<template #footer>
+					<em>Footer Slot</em>
+				</template>
+				</b-card>
+			</b-card-group>
+
 		</div>
 	</div>
 </template>
@@ -68,6 +91,27 @@ export default {
     Sidebar,
     Footer
 },
-	mounted() {}
+	mounted() {
+		this.$store.dispatch("monthlycontribution/fetchEmpDashboardCardDetails")
+        .then(res => {
+            console.log("-----------------")
+			this.monthly_contribution = res[0].monthly_contribution
+			this.total_employee_contr = res[0].total_employee_contr
+			this.total_employer_contr = res[0].total_employer_contr
+			this.total_month_contr = res[0].total_month_contr
+        })
+      .catch(err => console.log(err));
+	},
+	 data() {
+      return {
+		monthly_contribution: 0,
+		total_employee_contr: 0,
+		total_employer_contr: 0,
+		total_month_contr: 0,
+		form: {
+          contribution: '',
+        },
+      }
+    },
 };
 </script>

@@ -37,6 +37,12 @@ const actions = {
       return response.data
     },
 
+    async fetchEmpDashboardCardDetails({ commit }) {
+        const response = await axios.get("/api/fetchEmpDashboardCardDetails")
+        return response.data;
+    },
+
+
  
 }
 const mutations = {
