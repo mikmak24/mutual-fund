@@ -9,82 +9,81 @@
 			<hr />
 			<hr />
 			<div class="p-4">
-			<h5 style="color: white; font-family:verdana;">ADMINISTRATION</h5>
-			<br/>
-			<ul class="nav flex-column">
-				<li class="nav-item pd-10">
-					<router-link to="/dashboard" class="nav-link active" href="#">
-						<h6 style="color: white">
-							<b-icon icon="box-arrow-right" variant="light"></b-icon> Dashboard
-						</h6>
-					</router-link>
-				</li>
-				<li class="nav-item">
-					<router-link to="/uploadcontribution" class="nav-link active" href="#">
-						<h6 style="color: white">
-							<b-icon icon="file-earmark" variant="light"></b-icon> Upload Monthly
-							Contribution
-						</h6>
-					</router-link>
-				</li>
-				<li class="nav-item">
-					<router-link to="/employeelist" class="nav-link active" href="#">
-						<h6 style="color: white">
-							<b-icon icon="list" variant="light"></b-icon> List of Employees
-						</h6>
-					</router-link>
-				</li>
-				<li class="nav-item">
-					<router-link to="/contributionlist" class="nav-link active" href="#">
-						<h6 style="color: white">
-							<b-icon icon="list" variant="light"></b-icon> List of All Contributions
-						</h6>
-					</router-link>
-				</li>
-				<li class="nav-item">
-					<router-link to="/ss" class="nav-link active" href="#">
-						<h6 style="color: white">
-							<b-icon icon="file-bar-graph" variant="light"></b-icon> Reports
-						</h6>
-					</router-link>
-				</li>
-				
-			</ul>
-			<br />
-			<h5 style="color: white; font-family:verdana;">Employees</h5>
-						<br/>
+			
+			<div v-if="isAdmin == 1">
+				<h5 style="color: white; font-family:verdana;">ADMINISTRATION</h5>
+				<br/>
+				<ul class="nav flex-column">
+					<li class="nav-item pd-10">
+						<router-link to="/dashboard" class="nav-link active" href="#">
+							<h6 style="color: white">
+								<b-icon icon="box-arrow-right" variant="light"></b-icon> Dashboard
+							</h6>
+						</router-link>
+					</li>
+					<li class="nav-item">
+						<router-link to="/uploadcontribution" class="nav-link active" href="#">
+							<h6 style="color: white">
+								<b-icon icon="file-earmark" variant="light"></b-icon> Upload Monthly
+								Contribution
+							</h6>
+						</router-link>
+					</li>
+					<li class="nav-item">
+						<router-link to="/employeelist" class="nav-link active" href="#">
+							<h6 style="color: white">
+								<b-icon icon="list" variant="light"></b-icon> List of Employees
+							</h6>
+						</router-link>
+					</li>
+					<li class="nav-item">
+						<router-link to="/contributionlist" class="nav-link active" href="#">
+							<h6 style="color: white">
+								<b-icon icon="list" variant="light"></b-icon> List of All Contributions
+							</h6>
+						</router-link>
+					</li>
+					<li class="nav-item">
+						<router-link to="/ss" class="nav-link active" href="#">
+							<h6 style="color: white">
+								<b-icon icon="file-bar-graph" variant="light"></b-icon> Reports
+							</h6>
+						</router-link>
+					</li>
+					
+				</ul>
+			</div>
 
-			<ul class="nav flex-column">
-				<li class="nav-item pd-10">
-					<router-link to="/dashboard" class="nav-link active" href="#">
-						<h6 style="color: white">
-							<b-icon icon="box-arrow-right" variant="light"></b-icon> Dashboard
-						</h6>
-					</router-link>
-				</li>
-				<li class="nav-item">
-					<router-link to="/uploadcontribution" class="nav-link active" href="#">
-						<h6 style="color: white">
-							<b-icon icon="file-earmark" variant="light"></b-icon> Upload Monthly
-							Contribution
-						</h6>
-					</router-link>
-				</li>
-				<li class="nav-item">
-					<router-link to="/employeelist" class="nav-link active" href="#">
-						<h6 style="color: white">
-							<b-icon icon="list" variant="light"></b-icon> List of Employees
-						</h6>
-					</router-link>
-				</li>
-				<li class="nav-item">
-					<router-link to="/ss" class="nav-link active" href="#">
-						<h6 style="color: white">
-							<b-icon icon="file-bar-graph" variant="light"></b-icon> Reports
-						</h6>
-					</router-link>
-				</li>
-			</ul>
+
+			<div v-if="isAdmin == null">
+				<h5 style="color: white; font-family:verdana;">Employees</h5>
+							<br/>
+
+				<ul class="nav flex-column">
+					<li class="nav-item pd-10">
+						<router-link to="/empdashboard" class="nav-link active" href="#">
+							<h6 style="color: white">
+								<b-icon icon="box-arrow-right" variant="light"></b-icon> Dashboard
+							</h6>
+						</router-link>
+					</li>
+					<li class="nav-item">
+						<router-link to="/empcontributionlist" class="nav-link active" href="#">
+							<h6 style="color: white">
+								<b-icon icon="file-earmark" variant="light"></b-icon> Personal Contribution
+							</h6>
+						</router-link>
+					</li>
+					<li class="nav-item">
+						<router-link to="/ss" class="nav-link active" href="#">
+							<h6 style="color: white">
+								<b-icon icon="file-bar-graph" variant="light"></b-icon> Reports
+							</h6>
+						</router-link>
+					</li>
+				</ul>
+			</div>
+
 
 			</div>
 
@@ -94,7 +93,18 @@
 
 <script>
 export default {
-	mounted() {}
+	data() {
+		return {
+			isAdmin: ""
+		};
+	},
+	mounted() {
+		this.isAdmin = this.$store.getters[
+			"authentication/isAdmin"
+		];
+
+		console.log(this.isAdmin)
+	}
 };
 </script>
 <style scoped>

@@ -2,13 +2,20 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '../store'
 
+//LoginPage
+import Login from '../auth/LoginComponent.vue'
 
 //AdminPages
-import Login from '../auth/LoginComponent.vue'
 import Dashboard from '../pages/admin/dashboard.vue'
 import UploadMonthlyContribution from '../pages/admin/monthlycontribution.vue'
 import ListOfEmployees from '../pages/admin/listofemployees.vue'
 import ListOfContribution from '../pages/admin/listofcontribution.vue'
+
+
+//EmployeePages
+import EmployeeDashboard from '../pages/employees/dashboard.vue'
+import EmpListOfContribution from '../pages/employees/listofcontribution.vue'
+
 
 
 Vue.use(VueRouter)
@@ -41,7 +48,20 @@ const routes = [
         path: '/contributionlist',
         component: ListOfContribution,
         name: 'ListOfContribution'
-    }
+    },
+
+    //Employees
+    {
+        path: '/empdashboard',
+        component: EmployeeDashboard,
+        name: 'EmployeeDashboard'
+    },
+    {
+        path: '/empcontributionlist',
+        component: EmpListOfContribution,
+        name: 'EmpListOfContribution'
+    },
+
 ]
 
 const router = new VueRouter({

@@ -19,7 +19,7 @@ class LoginController extends Controller
         //$this->middleware('guest')->except('logout');
     }
 
-    public function login(Request $request){
+    public function slogin(Request $request){
         $data = [];
       
         $username = strtoupper($request["username"]);
@@ -95,7 +95,7 @@ class LoginController extends Controller
 
     }
 
-    public function slogin(Request $request){
+    public function login(Request $request){
 
         $request->validate([
             'username' => 'required|string|max:255'
@@ -111,7 +111,6 @@ class LoginController extends Controller
         }
 
         
-
         $fieldType = 'username';
 
         if(auth()->attempt(array($fieldType => $request['username'], 'password' => $request['password'])))
@@ -120,7 +119,8 @@ class LoginController extends Controller
                 'status' => 'SUCCESS',
                 'message' => 'SUCCESSFULL LOGIN...',
                 'username' => Auth::user()->username,
-                'isAuthenticated' => TRUE
+                'isAuthenticated' => TRUE,
+                'isAdmin' => Auth::user()->is_admin
             ];
 
 

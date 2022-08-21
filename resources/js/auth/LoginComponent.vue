@@ -77,8 +77,12 @@ export default {
                   });
 
               } else if (response.status == 'SUCCESS'){
+                  if(response.isAdmin == 1){
+                    this.$router.replace("/dashboard");
+                  } else {
+                    this.$router.replace("/empdashboard");
+                  }
                 
-                  this.$router.replace("/dashboard");
               } 
            
             })
