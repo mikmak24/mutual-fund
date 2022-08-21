@@ -26,6 +26,17 @@ const actions = {
         return response.data;
     },
 
+    async fetchEmployeeContribution({ commit }) {
+        const response = await axios.get("/api/fetchEmployeeContribution")
+        return response.data;
+    },
+
+    async updateEmpContribution({commit}, payload) {
+      console.log(payload)
+      const response = await axios.post("api/updateContribution", payload)
+      return response.data
+    },
+
  
 }
 const mutations = {

@@ -4,13 +4,11 @@
 		<!-- Page Content  -->
 		<div id="content" class="p-4 p-md-5">
 				<Navbar />
-
+        <FlashMessage :position="'right top'"/>
         <main
           role="main"
           style="margin-left: 1%"
-         
         >
-          <FlashMessage :position="'right bottom'" />
           <div
             class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
           >
@@ -18,7 +16,28 @@
               <b-icon icon="file-earmark" variant="dark"></b-icon>
               Personal Contribution
             </h5>
+              <b-button v-b-modal.modal-lg variant="info">Update Monthly Personal Contribution</b-button>
           </div>
+
+          <!-- Mdal -->
+          <b-modal id="modal-lg" size="lg" title="Personal Contribution">
+            <b-form @submit="updateContribution">
+             <b-form-group id="input-group-2" label="Enter Personal Contribution:" label-for="input-2">
+              <b-form-input
+                id="input-2"
+                v-model="form.contribution"
+                placeholder="Enter Contribution Amount"
+                required
+              ></b-form-input>
+              </b-form-group>
+
+              <b-button type="submit" variant="dark">Save Contribution</b-button>
+
+
+            </b-form>
+
+          </b-modal>
+
 
           <b-row>
             <b-col>
@@ -169,7 +188,7 @@ export default {
         Footer
     },
     mounted() {
-      this.$store.dispatch("monthlycontribution/fetch")
+      this.$store.dispatch("monthlycontribution/fetchEmployeeContribution")
         .then(res => {
               this.items = res
               this.totalRows = res.length
@@ -179,14 +198,13 @@ export default {
     },
     data() {
       return {
-
         perPage: 10,
         pageOptions: [5, 10, 15, { value: 100, text: "Show a lot" }],
         totalRows: 1,
         currentPage: 1,
         filter: null,
         filterOn: [],
-         fields: [
+        fields: [
           {
             key: 'user_id',
             label: 'Eclipse Username',
@@ -222,7 +240,10 @@ export default {
             // variant: 'danger'
           }
         ],
-        items: []
+        items: [],
+        form: {
+          contribution: '',
+        },
 
       }
     },
@@ -233,6 +254,35 @@ export default {
         // this.infoModal.content = JSON.stringify(item, null, 2)
         // this.$root.$emit('bv::show::modal', this.infoModal.id, button)
       },
+
+      updateContribution(event){
+         event.preventDefault()
+            this.$store.dispatch("monthlycontribution/updateEmpContribution", this.form)
+            .then(response => {
+              if(response.status == 'ERROR'){
+                  this.flashMessage.setStrategy('single');
+                  this.flashMessage.error({
+                    title: 'INVALID',
+                    message: 'There was an error updating your contribution. Please contact your administration.',
+                    icon: false,
+                  });
+
+              } else if (response.status == 'SUCCESS'){
+                 this.flashMessage.setStrategy('single');
+                  this.flashMessage.success({
+                    title: 'Personal Contribution',
+                    message: 'Your Contribution has been updated Successfully',
+                    icon: false,
+                  });
+                
+              } 
+           
+            })
+            .catch((error) => {
+            
+            });
+
+      }
     }
 }
 </script>

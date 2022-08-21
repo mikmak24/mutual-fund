@@ -27,13 +27,22 @@ class EmployeesController extends Controller
         ->leftJoin('contributions', 'users.username', '=', 'contributions.user_id')
         ->groupBy('users.username')
         ->get();
+    }
+
+    public function updateContribution(Request $request){
+        User::find(Auth::user()->id)->update(['monthly_contribution' => $request['contribution']]);
+
+        return $data = [
+            'status' => 'SUCCESS',
+            'message' => 'Updated Successfully...'
+        ];
 
     }
 
-  
-
-    
-
-    
+    public function fetchEmployeeContribution(){
+        return Contribution::select('*')
+        ->where('user_id', Auth::user()->username)
+        ->get();
+    }
 
 }
