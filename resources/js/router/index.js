@@ -10,7 +10,7 @@ import Dashboard from '../pages/admin/dashboard.vue'
 import UploadMonthlyContribution from '../pages/admin/monthlycontribution.vue'
 import ListOfEmployees from '../pages/admin/listofemployees.vue'
 import ListOfContribution from '../pages/admin/listofcontribution.vue'
-
+import MasterAccount from '../pages/admin/masteraccount.vue';
 
 //EmployeePages
 import EmployeeDashboard from '../pages/employees/dashboard.vue'
@@ -48,6 +48,11 @@ const routes = [
         path: '/contributionlist',
         component: ListOfContribution,
         name: 'ListOfContribution'
+    },
+    {
+        path: '/masteraccount',
+        component: MasterAccount,
+        name: 'MasterAccount'
     },
 
     //Employees

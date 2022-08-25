@@ -22,8 +22,13 @@
 					<li class="nav-item active">
 						<a class="nav-link" href="#">HOME</a>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">ABOUT</a>
+					<li v-if="isAdmin == 1" class="nav-item">
+						<router-link to="/masteraccount" class="nav-link active" href="#">
+							<h6 style="color: dark">
+								<b-icon icon="exclamation-triangle-fill" variant="warning"></b-icon>
+								Master Account
+							</h6>
+						</router-link>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#"><b-icon icon="gear-fill" aria-hidden="true"></b-icon> Settings</a>
@@ -44,7 +49,9 @@ export default {
 	data() {
 		return {
 			username: "",
-			token: ""
+			token: "",
+			isAdmin: ""
+
 		};
 	},
 	mounted() {
@@ -52,6 +59,10 @@ export default {
 			"authentication/getUserCredential"
 		].username;
 		this.token = this.$store.getters["authentication/getUserCredential"].token;
+
+		this.isAdmin = this.$store.getters[
+			"authentication/isAdmin"
+		];
 	},
 	methods: {
 		logout() {

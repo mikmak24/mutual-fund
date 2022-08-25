@@ -8,6 +8,8 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ContributionController;
 use App\Http\Controllers\EmployeesController;
 
+use App\Http\Controllers\MasterAccountController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -43,7 +45,9 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('fetchEmployeeContribution', [EmployeesController::class, 'fetchEmployeeContribution']);
         Route::get('fetchEmpDashboardCardDetails', [EmployeesController::class, 'fetchEmpDashboardCardDetails']);
 
-
+        //MasterAccount
+        Route::get('masteraccount', [MasterAccountController::class, 'fetch']);
+        Route::post('updateMasterAccount', [MasterAccountController::class, 'updateMasterAccount']);
 
 
     });
