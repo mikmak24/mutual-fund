@@ -23,16 +23,16 @@
 				></b-form-datepicker>
 
 				<b-form-file v-model="file" ref="file-input" class="mb-2"></b-form-file>
-				<b-button @click="uploadFiles()" class="mr-2">Upload File</b-button>
-				<b-button @click="clearFiles">Clear File</b-button>
+				<b-button variant="outline-primary" @click="uploadFiles()" class="mr-2">Upload File</b-button>
+				<b-button variant="outline-dark" @click="clearFiles">Clear File</b-button>
 				<download-excel
-					class="btn btn-primary"
+					class="btn btn-success"
 					:data="json_data"
 					:fields="json_fields"
 					worksheet="My Worksheet"
 					name="MonthlyContribution.xls"
 				>
-					Download Excel Format 
+					Download Format - List of Employees 
 				</download-excel>
 				<p class="mt-2">
 					Selected file: <b>{{ file ? file.name : "" }}</b>
@@ -63,7 +63,9 @@ export default {
 			json_fields: {
 				Eclipse_ID: "name",
 				Employee_Contribution: "employee_cont",
-				Employer_Contribution: "employer_cont"
+				Employer_Contribution: "employer_cont",
+				Employee_Salary: "employer_cont"
+
 			},
 
 			json_data: [{}]

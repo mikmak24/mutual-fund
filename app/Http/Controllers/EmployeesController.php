@@ -23,6 +23,8 @@ class EmployeesController extends Controller
         return User::select('users.username',
         DB::raw('SUM(employee_contributions.employee_contribution) as total_employee_contr'), 
         DB::raw('SUM(employee_contributions.employer_contribution) as total_employer_contr'), 
+        DB::raw('SUM(employee_contributions.employee_gained) as total_employee_shares'), 
+
         )
         ->leftJoin('employee_contributions', 'users.username', '=', 'employee_contributions.username')
         ->groupBy('users.username')
@@ -42,7 +44,7 @@ class EmployeesController extends Controller
 
     public function fetchEmployeeContribution(){
         return EmployeeContribution::select('*')
-        ->where('user_id', Auth::user()->username)
+        ->where('username', Auth::user()->username)
         ->get();
     }
 

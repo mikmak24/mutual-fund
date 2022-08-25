@@ -14,6 +14,7 @@ use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Maatwebsite\Excel\Concerns\WithCalculatedFormulas;
+use AmrShawky\LaravelCurrency\Facade\Currency;
 
 
 
@@ -34,14 +35,25 @@ class ImportContribution implements ToModel,  WithHeadingRow, WithChunkReading, 
     {
         try {
 
-            Log::alert($row);
-            dd();
-           
+            $employee_contr_in_peso = ($row['employee_contribution']*$row['employee_salary']) / 100;
+            $employee_contr_in_usd = Currency::convert()
+            ->from('PHP')
+            ->to('USD')
+            ->amount($employee_contr_in_peso)
+            ->get();
+
+            $employer_contr_in_peso = ($row['employer_contribution']*$row['employee_salary']) / 100;
+            $employer_contr_in_usd = Currency::convert()
+            ->from('PHP')
+            ->to('USD')
+            ->amount($employer_contr_in_peso)
+            ->get();
+
             EmployeeContribution::create([
-                'user_id' => $row['eclipse_id'],
-                'employee_contribution' =>  $row['employee_contribution'],
-                'employer_contribution' =>  $row['employer_contribution'],
-                'employee_gained' =>  $row['employee_gained'],
+                'username' => $row['eclipse_id'],
+                'employee_contribution' =>  $employee_contr_in_usd,
+                'employer_contribution' =>  $employer_contr_in_usd,
+                'employee_gained' =>  ($employee_contr_in_usd +  $employer_contr_in_usd),
                 'date_of_contribution' =>  $this->date_of_contribution,
                 'uploaded_by' => Auth::user()->username
             ]);

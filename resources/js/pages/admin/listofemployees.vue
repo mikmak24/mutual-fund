@@ -89,7 +89,16 @@
                 :filter="filter"
                 :filter-included-fields="filterOn"
                 
-              >
+              > 
+                <template #cell(total_employee_contr)="row">
+                  <p style="color: red;">${{row.item.total_employee_contr}}</p>
+                </template>
+                <template #cell(total_employer_contr)="row">
+                  <p style="color: red;">${{row.item.total_employer_contr}}</p>
+                </template>
+                <template #cell(total_employee_shares)="row">
+                  <p style="color: red;">${{row.item.total_employee_shares}}</p>
+                </template>
                 <template #cell(actions)="row">
                   <b-button
                     variant="info"
@@ -200,6 +209,12 @@ export default {
           {
             key: 'total_employer_contr',
             label: 'Total Employer Contribution',
+            sortable: true,
+            // variant: 'danger'
+          },
+          {
+            key: 'total_employee_shares',
+            label: 'Total Employee Shares',
             sortable: true,
             // variant: 'danger'
           },

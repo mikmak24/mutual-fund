@@ -14,7 +14,7 @@
 						header-text-variant="white"
 						align="center"
 					>
-						<b-card-text>{{total_month_contr}}</b-card-text>
+						<b-card-text><h6 style="color: blue;">{{total_month_contr}}</h6></b-card-text>
 					</b-card>
 
 					<b-card
@@ -24,7 +24,7 @@
 						header-text-variant="white"
 						align="center"
 					>
-						<b-card-text>{{total_employee_contr}}</b-card-text>
+						<b-card-text><h6 style="color: green;">${{total_employee_contr}}</h6></b-card-text>
 					</b-card>
 
 					<b-card
@@ -34,7 +34,7 @@
 						header-text-variant="white"
 						align="center"
 					>
-						<b-card-text>{{total_employer_contr}}</b-card-text>
+						<b-card-text><h6 style="color: skyblue;">${{total_employer_contr}}</h6></b-card-text>
 					</b-card>
 
 					<b-card
@@ -44,7 +44,7 @@
 						header-text-variant="white"
 						align="center"
 					>
-						<b-card-text><h6>{{monthly_contribution}}% - per month</h6></b-card-text>
+						<b-card-text><h6 style="color: red;">{{monthly_contribution}}% - per month</h6></b-card-text>
 					</b-card>
 				</b-card-group>
 				<br>

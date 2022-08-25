@@ -109,6 +109,15 @@
                 :filter-included-fields="filterOn"
                 
               >
+               <template #cell(employee_contribution)="row">
+                    <p style="color: red;">${{row.item.employee_contribution}}</p>
+                  </template>
+                  <template #cell(employer_contribution)="row">
+                    <p style="color: red;">${{row.item.employer_contribution}}</p>
+                  </template>
+                  <template #cell(employee_gained)="row">
+                    <p style="color: red;">${{row.item.employee_gained}}</p>
+                  </template>
                 <template #cell(actions)="row">
                   <b-button
                     variant="info"
@@ -206,7 +215,7 @@ export default {
         filterOn: [],
         fields: [
           {
-            key: 'user_id',
+            key: 'username',
             label: 'Eclipse Username',
             sortable: true
           },
@@ -218,6 +227,12 @@ export default {
           {
             key: 'employer_contribution',
             label: 'Employer Contribution',
+            sortable: true,
+            // variant: 'danger'
+          },
+          {
+            key: 'employee_gained',
+            label: 'Gained',
             sortable: true,
             // variant: 'danger'
           },
