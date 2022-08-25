@@ -4,7 +4,7 @@ namespace App\Imports;
 
 use Illuminate\Support\Collection;
 use Log;
-use App\Models\Contribution;
+use App\Models\EmployeeContribution;
 use Illuminate\Support\Facades\Auth;
 
 use Maatwebsite\Excel\Concerns\WithStartRow;
@@ -33,11 +33,15 @@ class ImportContribution implements ToModel,  WithHeadingRow, WithChunkReading, 
     public function model(array $row)
     {
         try {
+
+            Log::alert($row);
+            dd();
            
-            Contribution::create([
+            EmployeeContribution::create([
                 'user_id' => $row['eclipse_id'],
                 'employee_contribution' =>  $row['employee_contribution'],
                 'employer_contribution' =>  $row['employer_contribution'],
+                'employee_gained' =>  $row['employee_gained'],
                 'date_of_contribution' =>  $this->date_of_contribution,
                 'uploaded_by' => Auth::user()->username
             ]);

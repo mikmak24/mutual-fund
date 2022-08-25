@@ -44,7 +44,7 @@
 						header-text-variant="white"
 						align="center"
 					>
-						<b-card-text>{{monthly_contribution}}</b-card-text>
+						<b-card-text><h6>{{monthly_contribution}}% - per month</h6></b-card-text>
 					</b-card>
 				</b-card-group>
 				<br>
@@ -95,9 +95,9 @@ export default {
 		this.$store.dispatch("monthlycontribution/fetchEmpDashboardCardDetails")
         .then(res => {
             console.log("-----------------")
-			this.monthly_contribution = res[0].monthly_contribution
-			this.total_employee_contr = res[0].total_employee_contr
-			this.total_employer_contr = res[0].total_employer_contr
+			this.monthly_contribution = res[0].employee_monthly_contribution
+			this.total_employee_contr = res[0].total_employee_contr ?? 0
+			this.total_employer_contr = res[0].total_employer_contr ?? 0
 			this.total_month_contr = res[0].total_month_contr
         })
       .catch(err => console.log(err));

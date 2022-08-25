@@ -10,7 +10,7 @@ use App\Imports\ImportContribution;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
 use App\User;
-use App\Models\Contribution;
+use App\Models\EmployeeContribution;
 
 class EmployeesController extends Controller
 {
@@ -21,16 +21,17 @@ class EmployeesController extends Controller
 
     public function fetch(){
         return User::select('users.username',
-        DB::raw('SUM(contributions.employee_contribution) as total_employee_contr'), 
-        DB::raw('SUM(contributions.employer_contribution) as total_employer_contr'), 
+        DB::raw('SUM(employee_contributions.employee_contribution) as total_employee_contr'), 
+        DB::raw('SUM(employee_contributions.employer_contribution) as total_employer_contr'), 
         )
-        ->leftJoin('contributions', 'users.username', '=', 'contributions.user_id')
+        ->leftJoin('employee_contributions', 'users.username', '=', 'employee_contributions.username')
         ->groupBy('users.username')
+        ->where('users.is_admin', 0)
         ->get();
     }
 
     public function updateContribution(Request $request){
-        User::find(Auth::user()->id)->update(['monthly_contribution' => $request['contribution']]);
+        User::find(Auth::user()->id)->update(['employee_monthly_contribution' => $request['contribution']]);
 
         return $data = [
             'status' => 'SUCCESS',
@@ -40,20 +41,21 @@ class EmployeesController extends Controller
     }
 
     public function fetchEmployeeContribution(){
-        return Contribution::select('*')
+        return EmployeeContribution::select('*')
         ->where('user_id', Auth::user()->username)
         ->get();
     }
 
     public function fetchEmpDashboardCardDetails(){
         
-        return User::select('users.username', 'users.monthly_contribution',
-        DB::raw('SUM(contributions.employee_contribution) as total_employee_contr'), 
-        DB::raw('SUM(contributions.employer_contribution) as total_employer_contr'), 
-        DB::raw('count(contributions.employer_contribution) as total_month_contr'), 
+        return User::select('users.username', 'users.employee_monthly_contribution',
+        DB::raw('SUM(employee_contributions.employee_contribution) as total_employee_contr'), 
+        DB::raw('SUM(employee_contributions.employer_contribution) as total_employer_contr'), 
+        DB::raw('count(employee_contributions.employer_contribution) as total_month_contr'), 
         )
-        ->leftJoin('contributions', 'users.username', '=', 'contributions.user_id')
-        ->where('user_id', Auth::user()->username)
+        ->leftJoin('employee_contributions', 'users.username', '=', 'employee_contributions.username')
+        ->groupBy('users.username', 'users.employee_monthly_contribution')
+        ->where('users.username', Auth::user()->username)
         ->get();
     }
 

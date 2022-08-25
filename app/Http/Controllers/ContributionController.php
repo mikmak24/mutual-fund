@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Imports\ImportContribution;
 use Maatwebsite\Excel\Facades\Excel;
 use App\User;
-use App\Models\Contribution;
+use App\Models\EmployeeContribution;
 
 class ContributionController extends Controller
 {
@@ -36,7 +36,7 @@ class ContributionController extends Controller
     }
 
     public function fetch(){
-        return Contribution::select('*')
+        return EmployeeContribution::select('*')
         ->get();
 
     }

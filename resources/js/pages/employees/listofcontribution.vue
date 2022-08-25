@@ -14,7 +14,7 @@
           >
             <h5 class="">
               <b-icon icon="file-earmark" variant="dark"></b-icon>
-              Personal Contribution
+              Update Monthly Personal Contribution
             </h5>
               <b-button v-b-modal.modal-lg variant="info">Update Monthly Personal Contribution</b-button>
           </div>
@@ -22,7 +22,7 @@
           <!-- Mdal -->
           <b-modal id="modal-lg" size="lg" title="Personal Contribution">
             <b-form @submit="updateContribution">
-             <b-form-group id="input-group-2" label="Enter Personal Contribution:" label-for="input-2">
+             <b-form-group id="input-group-2" label="*Note: The amount is subject for approval by the Admin" label-for="input-2">
               <b-form-input
                 id="input-2"
                 v-model="form.contribution"
@@ -31,7 +31,7 @@
               ></b-form-input>
               </b-form-group>
 
-              <b-button type="submit" variant="dark">Save Contribution</b-button>
+              <b-button type="submit" variant="outline-success">Submit</b-button>
 
 
             </b-form>

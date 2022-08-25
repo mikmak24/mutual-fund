@@ -19,7 +19,7 @@ class LoginController extends Controller
         //$this->middleware('guest')->except('logout');
     }
 
-    public function slogin(Request $request){
+    public function login(Request $request){
         $data = [];
       
         $username = strtoupper($request["username"]);
@@ -46,8 +46,6 @@ class LoginController extends Controller
         $errStr = 'ErrorMessage';
         $xml = simplexml_load_string($temp);
 
-       
-
         if (Str::contains($json, $errStr) || $temp == "No response generated.") {
             $data = [
                 'status' => 'ERROR',
@@ -65,15 +63,24 @@ class LoginController extends Controller
 
             $user = User::where('username', '=', $request['username'])->first();
             if ($user === null) {
+
+                $is_admin = 0;
+                $monthly_contr = 5;
+
+                if($request['username'] == 'bradg' || $request['username'] == 'mikeg'){
+                    $is_admin = 1;
+                    $monthly_contr = 0;
+                } 
                
                 User::create([
                     'username' => $request['username'],
                     'password' => Hash::make($request['password']),
+                    'is_admin' => $is_admin,
+                    'employee_monthly_contribution' => $monthly_contr
                 ]);
             }
 
-            
-
+        
             $fieldType = 'username';
 
             if(auth()->attempt(array($fieldType => $request['username'], 'password' => $request['password'])))
@@ -82,7 +89,8 @@ class LoginController extends Controller
                     'status' => 'SUCCESS',
                     'message' => 'SUCCESSFULL LOGIN...',
                     'username' => Auth::user()->username,
-                    'isAuthenticated' => TRUE
+                    'isAuthenticated' => TRUE,
+                    'isAdmin' => Auth::user()->is_admin
                 ];
 
 
@@ -95,7 +103,7 @@ class LoginController extends Controller
 
     }
 
-    public function login(Request $request){
+    public function slogin(Request $request){
 
         $request->validate([
             'username' => 'required|string|max:255'

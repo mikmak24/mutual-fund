@@ -53,9 +53,8 @@
 					
 				</ul>
 			</div>
-
-
-			<div v-if="isAdmin == null">
+                                                    
+			<div v-if="isAdmin == 0 || isAdmin == null">
 				<h5 style="color: white; font-family:verdana;">Employees</h5>
 							<br/>
 
