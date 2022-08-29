@@ -4,13 +4,19 @@ import {store} from '../index'
 import router from '../../router';
 
 const state = {
-    employeeRequest: []
+    employeeRequest: [],
+    employeeList: []
+
     
 }
 const getters = {
 
     getArrayEmployeeRequest(state, getters){
         return state.employeeRequest
+    },
+
+    getArrayEmployeeList(state, getters){
+        return state.employeeList
     }
    
 }
@@ -18,6 +24,7 @@ const getters = {
 const actions = {
     async fetch({ commit }) {
         const response = await axios.get("/api/employeeslist")
+        commit('setArrayEmployeeList', response.data)
         return response.data;
     },
 
@@ -31,6 +38,10 @@ const actions = {
 const mutations = {
     setArrayEmployeeRequest (state, payload) {
         state.employeeRequest = payload
+    },
+
+    setArrayEmployeeList (state, payload) {
+        state.employeeList = payload
     },
 }
 

@@ -178,13 +178,8 @@ export default {
         Footer
     },
     mounted() {
-      this.$store.dispatch("employees/fetch")
-        .then(res => {
-              this.items = res
-              this.totalRows = res.length
-        })
-      .catch(err => console.log(err));
-
+      this.items = this.$store.getters["employees/getArrayEmployeeList"];
+      this.totalRows = this.$store.getters["employees/getArrayEmployeeList"].length;
     },
     data() {
       return {

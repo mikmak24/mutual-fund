@@ -178,10 +178,8 @@ export default {
         Footer
     },
     mounted() {
-      console.log('gggggggggggggggggggggggggg')
       this.items = this.$store.getters["monthlycontribution/getArrayOfContributions"];
       this.totalRows = this.$store.getters["monthlycontribution/getArrayOfContributions"].length;
-
     },
     data() {
       return {
