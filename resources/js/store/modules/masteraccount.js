@@ -4,25 +4,36 @@ import {store} from '../index'
 import router from '../../router';
 
 const state = {
+    value: 0
     
 }
 const getters = {
+
+    getMasterAccountValue(state, getters){
+        return state.value
+    }
    
 }
 
 const actions = {
     async fetch({ commit }) {
         const response = await axios.get("/api/masteraccount")
-        return response.data;
+        commit('setMasterAccountValue', response.data)
     },
 
     async updateMasterAccount({commit}, payload) {
-        console.log(payload)
         const response = await axios.post("api/updateMasterAccount", payload)
+
         return response.data
     },
 }
 const mutations = {
+
+    setMasterAccountValue (state, payload) {
+        console.log('heheheheheh')
+        console.log(payload[0].master_account_amount)
+        state.value = payload[0].master_account_amount
+    },
   
 }
 

@@ -15,7 +15,7 @@ use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Maatwebsite\Excel\Concerns\WithCalculatedFormulas;
 use AmrShawky\LaravelCurrency\Facade\Currency;
-
+use App\Models\MasterAccount;
 
 
 class ImportContribution implements ToModel,  WithHeadingRow, WithChunkReading, ShouldQueue, WithBatchInserts, WithCalculatedFormulas, WithStartRow
@@ -48,6 +48,11 @@ class ImportContribution implements ToModel,  WithHeadingRow, WithChunkReading, 
             ->to('USD')
             ->amount($employer_contr_in_peso)
             ->get();
+
+
+            $master_account_amount = MasterAccount::select('master_account_amount')->get();
+            $totalMasterAccount = $master_account_amount[0]['master_account_amount'] + ($employee_contr_in_usd +  $employer_contr_in_usd);
+            MasterAccount::find(1)->update(['master_account_amount' => $totalMasterAccount]);
 
             EmployeeContribution::create([
                 'username' => $row['eclipse_id'],

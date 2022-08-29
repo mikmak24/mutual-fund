@@ -32,14 +32,21 @@
 					<li class="nav-item">
 						<router-link to="/employeelist" class="nav-link active" href="#">
 							<h6 style="color: white">
-								<b-icon icon="list" variant="light"></b-icon> List of Employees
+								<b-icon icon="list" variant="light"></b-icon> Employee List
 							</h6>
 						</router-link>
 					</li>
 					<li class="nav-item">
 						<router-link to="/contributionlist" class="nav-link active" href="#">
 							<h6 style="color: white">
-								<b-icon icon="list" variant="light"></b-icon> List of All Contributions
+								<b-icon icon="list" variant="light"></b-icon> Contribution List
+							</h6>
+						</router-link>
+					</li>
+					<li class="nav-item">
+						<router-link to="/requestlist" class="nav-link active" href="#">
+							<h6 style="color: white">
+								<b-icon icon="list" variant="light"></b-icon> Change Employee Contribution
 							</h6>
 						</router-link>
 					</li>

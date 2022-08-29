@@ -68,6 +68,8 @@ export default {
     Sidebar,
     Footer
 },
-	mounted() {}
+	mounted() {
+   	this.$store.dispatch("masteraccount/fetch");
+	}
 };
 </script>

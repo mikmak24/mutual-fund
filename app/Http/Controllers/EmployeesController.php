@@ -11,6 +11,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
 use App\User;
 use App\Models\EmployeeContribution;
+use App\Models\EmployeeContributionRequest;
 
 class EmployeesController extends Controller
 {
@@ -33,7 +34,14 @@ class EmployeesController extends Controller
     }
 
     public function updateContribution(Request $request){
-        User::find(Auth::user()->id)->update(['employee_monthly_contribution' => $request['contribution']]);
+        EmployeeContributionRequest::create([
+            'username' => Auth::user()->username,
+            'requested_amount' =>  $request['contribution'],
+            'is_approved' =>  0,
+            'date_of_request' => date("Y/m/d"),
+            'approved_by' => 'not-yet'
+           
+        ]);
 
         return $data = [
             'status' => 'SUCCESS',

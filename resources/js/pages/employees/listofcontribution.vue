@@ -13,8 +13,7 @@
             class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
           >
             <h5 class="">
-              <b-icon icon="file-earmark" variant="dark"></b-icon>
-              Update Monthly Personal Contribution
+              List of All Contribution
             </h5>
               <b-button v-b-modal.modal-lg variant="info">Update Monthly Personal Contribution</b-button>
           </div>
@@ -26,7 +25,7 @@
               <b-form-input
                 id="input-2"
                 v-model="form.contribution"
-                placeholder="Enter Contribution Amount"
+                placeholder="Enter Percentage of Contribution"
                 required
               ></b-form-input>
               </b-form-group>
@@ -278,15 +277,15 @@ export default {
                   this.flashMessage.setStrategy('single');
                   this.flashMessage.error({
                     title: 'INVALID',
-                    message: 'There was an error updating your contribution. Please contact your administration.',
+                    message: 'There was an error requesting to update your contribution. Please contact your administration.',
                     icon: false,
                   });
 
               } else if (response.status == 'SUCCESS'){
                  this.flashMessage.setStrategy('single');
                   this.flashMessage.success({
-                    title: 'Personal Contribution',
-                    message: 'Your Contribution has been updated Successfully',
+                    title: 'Change Contribution Request',
+                    message: 'Your request for Contribution change has been submitted Successfully',
                     icon: false,
                   });
                 

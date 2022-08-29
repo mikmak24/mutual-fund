@@ -36,13 +36,7 @@ export default {
 		Footer
 	},
     mounted() {
-
-        this.$store.dispatch("masteraccount/fetch")
-        .then(res => {
-           this.value = res[0].master_account_amount
-        })
-      .catch(err => console.log(err));
-
+        this.value = this.$store.getters["masteraccount/getMasterAccountValue"];
     },
 	data() {
 		return {
