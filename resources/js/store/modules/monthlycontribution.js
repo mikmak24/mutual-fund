@@ -4,10 +4,29 @@ import {store} from '../index'
 import router from '../../router';
 
 const state = {
+    monthlyContribution: 0,
+    totalEmployeeContr: 0,
+    totalEmployerContr: 0,
+    totalMonthContr: 0
+
     
 }
 const getters = {
-   
+    getmonthlyContribution(state, getters){
+        return state.monthlyContribution
+    },
+
+    gettotalEmployeeContr(state, getters){
+        return state.totalEmployeeContr
+    },
+
+    gettotalEmployerContr(state, getters){
+        return state.totalEmployerContr
+    },
+
+    gettotalMonthContr(state, getters){
+        return state.totalMonthContr
+    }
 }
 
 const actions = {
@@ -39,13 +58,17 @@ const actions = {
 
     async fetchEmpDashboardCardDetails({ commit }) {
         const response = await axios.get("/api/fetchEmpDashboardCardDetails")
-        return response.data;
+        commit('setMonthlyContribution', response.data)
     },
-
-
- 
 }
 const mutations = {
+
+    setMonthlyContribution (state, payload) {
+        state.monthlyContribution =  payload[0].employee_monthly_contribution
+        state.totalEmployeeContr =  payload[0].total_employee_contr
+        state.totalEmployerContr =  payload[0].total_employer_contr
+        state.totalMonthContr =  payload[0].total_month_contr
+    },
   
 }
 

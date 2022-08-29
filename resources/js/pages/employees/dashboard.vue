@@ -92,15 +92,10 @@ export default {
     Footer
 },
 	mounted() {
-		this.$store.dispatch("monthlycontribution/fetchEmpDashboardCardDetails")
-        .then(res => {
-            console.log("-----------------")
-			this.monthly_contribution = res[0].employee_monthly_contribution
-			this.total_employee_contr = res[0].total_employee_contr ?? 0
-			this.total_employer_contr = res[0].total_employer_contr ?? 0
-			this.total_month_contr = res[0].total_month_contr
-        })
-      .catch(err => console.log(err));
+		this.monthly_contribution = this.$store.getters["monthlycontribution/getmonthlyContribution"];
+		this.total_employee_contr = this.$store.getters["monthlycontribution/gettotalEmployeeContr"];
+		this.total_employer_contr = this.$store.getters["monthlycontribution/gettotalEmployerContr"];
+		this.total_month_contr = this.$store.getters["monthlycontribution/gettotalMonthContr"];
 	},
 	 data() {
       return {

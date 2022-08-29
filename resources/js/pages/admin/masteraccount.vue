@@ -7,14 +7,14 @@
 			<Navbar />
             <FlashMessage :position="'right top'"/>
             <div>
-            <b-jumbotron bg-variant="info" text-variant="white" border-variant="dark">
+            <b-jumbotron bg-variant="warning" text-variant="white" border-variant="dark">
                 <template #header>Master Account Value</template>
                 <template #lead>
                     <p>*Currency: DOLLAR ($) </p>
                     <div class="form-group">
-                        <input style="color:red; font-size: 30px;" type="number" v-model="value" class="form-control">
+                        <input style="color:black; font-size: 30px;" type="number" v-model="value" class="form-control">
                     </div>
-                        <b-button type="submit" @click="updateMasterAccount()" variant="warning">Update Value of Master Account</b-button>
+                        <b-button type="submit" @click="updateMasterAccount()">Update Value of Master Account</b-button>
                 </template>               
             </b-jumbotron>
             </div>
@@ -55,9 +55,7 @@ export default {
 		};
 	},
 	methods: {
-
         updateMasterAccount(){
-
             this.$store.dispatch("masteraccount/updateMasterAccount",{'value':this.value})
             .then(response => {
               if(response.status == 'ERROR'){
@@ -81,8 +79,6 @@ export default {
                     .then(res => {
                     this.value = res[0].master_account_amount
                     })
-               
-                
               } 
            
             })

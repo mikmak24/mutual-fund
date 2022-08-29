@@ -19,6 +19,8 @@ const actions = {
     async fetch({ commit }) {
         const response = await axios.get("/api/masteraccount")
         commit('setMasterAccountValue', response.data)
+        return response.data
+
     },
 
     async updateMasterAccount({commit}, payload) {
@@ -30,8 +32,6 @@ const actions = {
 const mutations = {
 
     setMasterAccountValue (state, payload) {
-        console.log('heheheheheh')
-        console.log(payload[0].master_account_amount)
         state.value = payload[0].master_account_amount
     },
   

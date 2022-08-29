@@ -54,6 +54,8 @@
 
 <script>
 export default {
+    mounted() {
+	  },
     data() {
       return {
         form: {
@@ -80,6 +82,7 @@ export default {
                   if(response.isAdmin == 1){
                     this.$router.replace("/dashboard");
                   } else {
+                    this.$store.dispatch("monthlycontribution/fetchEmpDashboardCardDetails");
                     this.$router.replace("/empdashboard");
                   }
                 
