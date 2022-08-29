@@ -196,13 +196,8 @@ export default {
         Footer
     },
     mounted() {
-      this.$store.dispatch("monthlycontribution/fetchEmployeeContribution")
-        .then(res => {
-              this.items = res
-              this.totalRows = res.length
-        })
-      .catch(err => console.log(err));
-
+      this.items = this.$store.getters["monthlycontribution/getArrayOfEmployeeContributions"];
+      this.totalRows = this.$store.getters["monthlycontribution/getArrayOfEmployeeContributions"].length;
     },
     data() {
       return {

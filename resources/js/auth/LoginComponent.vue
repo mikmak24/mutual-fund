@@ -86,6 +86,7 @@ export default {
                     this.$router.replace("/dashboard");
                   } else {
                     this.$store.dispatch("monthlycontribution/fetchEmpDashboardCardDetails");
+                    this.$store.dispatch("monthlycontribution/fetchEmployeeContribution")
                     this.$router.replace("/empdashboard");
                   }
                 
