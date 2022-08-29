@@ -65,11 +65,8 @@
                   <b-form-checkbox value="username"
                     >Eclipse Username</b-form-checkbox
                   >
-                  <b-form-checkbox value="total_employee_contr"
-                    >Employee Contribution</b-form-checkbox
-                  >
-                  <b-form-checkbox value="total_employer_contr"
-                    >Employer Contribution</b-form-checkbox
+                  <b-form-checkbox value="requested_amount"
+                    >Requested Amount</b-form-checkbox
                   >
                 </b-form-checkbox-group>
               </b-form-group>
@@ -101,17 +98,17 @@
                 </template>
                 <template #cell(actions)="row">
                   <b-button
-                    variant="info"
+                    variant="success"
                     size="sm"
                     @click="info(row.item, row.index, $event.target)"
                     class="mr-1"
                   >
-                    SHOW DETAILS
+                    Accept
                   </b-button>
                   <b-button size="sm" @click="row.toggleDetails"
-                  variant="warning"
+                  variant="danger"
                   >
-                   EDIT Contribution
+                   Decline
                   </b-button>
                 </template>
 
@@ -178,13 +175,8 @@ export default {
         Footer
     },
     mounted() {
-      this.$store.dispatch("employees/fetch")
-        .then(res => {
-              this.items = res
-              this.totalRows = res.length
-        })
-      .catch(err => console.log(err));
-
+      this.items = this.$store.getters["employees/getArrayEmployeeRequest"];
+      this.totalRows = this.$store.getters["employees/getArrayEmployeeRequest"].length;
     },
     data() {
       return {
@@ -202,19 +194,25 @@ export default {
             sortable: true
           },
           {
-            key: 'total_employee_contr',
-            label: 'Total Employee Contribution',
+            key: 'requested_amount',
+            label: 'Requested Amount to Change',
             sortable: true
           },
           {
-            key: 'total_employer_contr',
-            label: 'Total Employer Contribution',
+            key: 'is_approved',
+            label: 'Is approved?',
             sortable: true,
             // variant: 'danger'
           },
           {
-            key: 'total_employee_shares',
-            label: 'Total Employee Shares',
+            key: 'date_of_request',
+            label: 'Date of Request',
+            sortable: true,
+            // variant: 'danger'
+          },
+          {
+            key: 'approved_by',
+            label: 'Approved By',
             sortable: true,
             // variant: 'danger'
           },

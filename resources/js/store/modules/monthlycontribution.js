@@ -7,7 +7,9 @@ const state = {
     monthlyContribution: 0,
     totalEmployeeContr: 0,
     totalEmployerContr: 0,
-    totalMonthContr: 0
+    totalMonthContr: 0,
+    contributionList: []
+
 
     
 }
@@ -25,7 +27,11 @@ const getters = {
     },
 
     gettotalMonthContr(state, getters){
-        return state.totalMonthContr
+        return state.contributionList
+    },
+
+    getArrayOfContributions(state, getters){
+        return state.contributionList
     }
 }
 
@@ -42,6 +48,7 @@ const actions = {
 
     async fetch({ commit }) {
         const response = await axios.get("/api/contributionlist")
+        commit('setArrayContributionList', response.data)
         return response.data;
     },
 
@@ -69,7 +76,10 @@ const mutations = {
         state.totalEmployerContr =  payload[0].total_employer_contr
         state.totalMonthContr =  payload[0].total_month_contr
     },
-  
+
+    setArrayContributionList (state, payload) {
+        state.contributionList = payload
+    },
 }
 
 export default {

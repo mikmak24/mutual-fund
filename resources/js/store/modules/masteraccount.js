@@ -8,11 +8,9 @@ const state = {
     
 }
 const getters = {
-
     getMasterAccountValue(state, getters){
         return state.value
     }
-   
 }
 
 const actions = {

@@ -108,8 +108,6 @@ export default {
 		this.isAdmin = this.$store.getters[
 			"authentication/isAdmin"
 		];
-
-		console.log(this.isAdmin)
 	}
 };
 </script>
