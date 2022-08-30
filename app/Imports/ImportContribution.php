@@ -34,7 +34,6 @@ class ImportContribution implements ToModel,  WithHeadingRow, WithChunkReading, 
     public function model(array $row)
     {
         try {
-
             $employee_contr_in_peso = ($row['employee_contribution']*$row['employee_salary']) / 100;
             $employee_contr_in_usd = Currency::convert()
             ->from('PHP')
@@ -48,7 +47,6 @@ class ImportContribution implements ToModel,  WithHeadingRow, WithChunkReading, 
             ->to('USD')
             ->amount($employer_contr_in_peso)
             ->get();
-
 
             $master_account_amount = MasterAccount::select('master_account_amount')->get();
             $totalMasterAccount = $master_account_amount[0]['master_account_amount'] + ($employee_contr_in_usd +  $employer_contr_in_usd);

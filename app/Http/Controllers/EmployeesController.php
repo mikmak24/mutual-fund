@@ -94,7 +94,7 @@ class EmployeesController extends Controller
 
     public function downloadEmployees(){
         return User::select('*')
-        ->where('is_admin', 0)
+        ->where('is_admin', '=', 0)
         ->get();
     }
 

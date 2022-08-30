@@ -58,12 +58,8 @@ export default {
 	},
 	mounted() {
 		this.$store.dispatch("monthlycontribution/downloadEmployees").then(response => {
-                    this.json_data = response
-                    
-
-
-                  })
-
+        	this.json_data = response
+        })
     },
 	data() {
 		return {
@@ -85,14 +81,21 @@ export default {
 			this.$refs["file-input"].reset();
 		},
 		uploadFiles() {
+			 let loader = this.$loading.show({
+                    // Optional parameters
+                    container: this.fullPage ? null : this.$refs.formContainer,
+                    canCancel: true,
+                    onCancel: this.onCancel,
+                    loader: 'spinner',
+                    color: '#54e375'
+                });
 			let formData = new FormData();
 			formData.append("file", this.file);
 			formData.append("date", this.date);
 			this.$store
 				.dispatch("monthlycontribution/uploadContribution", formData)
 				.then(response => {
-					console.log("------------------------");
-					console.log(response.status);
+					loader.hide()
 					if (response.status == "ERROR") {
 						this.flashMessage.setStrategy("single");
 						this.flashMessage.error({
@@ -101,6 +104,9 @@ export default {
 							icon: false
 						});
 					} else if (response.status == "SUCCESS") {
+						 this.$store.dispatch("employees/fetchEmployeeRequest");
+						 this.$store.dispatch("monthlycontribution/fetch");
+						 this.$store.dispatch("employees/fetch");
 						this.flashMessage.setStrategy("single");
 						this.flashMessage.success({
 							title: "IMPORT SUCCESS",
