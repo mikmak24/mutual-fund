@@ -74,8 +74,11 @@ export default {
                     container: this.fullPage ? null : this.$refs.formContainer,
                     canCancel: true,
                     onCancel: this.onCancel,
-                });
-              
+        	});
+
+			if(this.isAdmin == 0){
+				this.$store.dispatch("monthlycontribution/removeState")
+			}
 
 			this.$store
 				.dispatch("authentication/logout")

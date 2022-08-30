@@ -18,6 +18,7 @@ import 'vue-loading-overlay/dist/vue-loading.css';
 
 
 
+
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 Vue.use(FlashMessage);

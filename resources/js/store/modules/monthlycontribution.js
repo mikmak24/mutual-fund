@@ -10,9 +10,6 @@ const state = {
     totalMonthContr: 0,
     contributionList: [],
     empContributionList: []
-
-
-    
 }
 const getters = {
     getmonthlyContribution(state, getters){
@@ -59,8 +56,8 @@ const actions = {
 
     async fetchEmployeeContribution({ commit }) {
         const response = await axios.get("/api/fetchEmployeeContribution")
-        commit('setArrayOfEmpContributionList', response.data)
         return response.data;
+        commit('setArrayOfEmpContributionList', response.data)
     },
 
     async updateEmpContribution({commit}, payload) {
@@ -71,13 +68,17 @@ const actions = {
     async fetchEmpDashboardCardDetails({ commit }) {
         const response = await axios.get("/api/fetchEmpDashboardCardDetails")
         commit('setMonthlyContribution', response.data)
+        return response.data
     },
 
     async downloadEmployees({ commit }) {
         const response = await axios.get("/api/downloadEmployees")
         return response.data;
     },
-}
+
+    async removeState({ commit }) {
+        commit('setStatetoEmpty')
+    },}
 const mutations = {
 
     setMonthlyContribution (state, payload) {
@@ -94,6 +95,13 @@ const mutations = {
     setArrayOfEmpContributionList (state, payload) {
         state.empContributionList = payload
     },
+
+    setStatetoEmpty(state){
+        state.monthlyContribution =  0,
+        state.totalEmployeeContr =  0,
+        state.totalEmployerContr =  0,
+        state.totalMonthContr =  0
+    }
 }
 
 export default {

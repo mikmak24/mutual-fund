@@ -196,8 +196,21 @@ export default {
         Footer
     },
     mounted() {
-      this.items = this.$store.getters["monthlycontribution/getArrayOfEmployeeContributions"];
-      this.totalRows = this.$store.getters["monthlycontribution/getArrayOfEmployeeContributions"].length;
+       let loader = this.$loading.show({
+                    // Optional parameters
+                    container: this.fullPage ? null : this.$refs.formContainer,
+                    canCancel: true,
+                    onCancel: this.onCancel,
+                    loader: 'spinner',
+                    color: '#000'
+        });
+
+      this.$store.dispatch("monthlycontribution/fetchEmployeeContribution")
+       .then(response => {
+          loader.hide()
+          this.items = response;
+          this.totalRows = response.length;
+       })
     },
     data() {
       return {

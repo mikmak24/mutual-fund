@@ -14,7 +14,7 @@
 						header-text-variant="white"
 						align="center"
 					>
-						<b-card-text><h6 style="color: blue;">{{total_month_contr}}</h6></b-card-text>
+						<b-card-text><h6 style="color: blue;">{{$store.getters["monthlycontribution/gettotalMonthContr"]}}</h6></b-card-text>
 					</b-card>
 
 					<b-card
@@ -24,7 +24,7 @@
 						header-text-variant="white"
 						align="center"
 					>
-						<b-card-text><h6 style="color: green;">${{total_employee_contr}}</h6></b-card-text>
+						<b-card-text><h6 style="color: green;">${{$store.getters["monthlycontribution/gettotalEmployeeContr"]}}</h6></b-card-text>
 					</b-card>
 
 					<b-card
@@ -34,7 +34,7 @@
 						header-text-variant="white"
 						align="center"
 					>
-						<b-card-text><h6 style="color: skyblue;">${{total_employer_contr}}</h6></b-card-text>
+						<b-card-text><h6 style="color: skyblue;">${{$store.getters["monthlycontribution/gettotalEmployerContr"]}}</h6></b-card-text>
 					</b-card>
 
 					<b-card
@@ -44,7 +44,7 @@
 						header-text-variant="white"
 						align="center"
 					>
-						<b-card-text><h6 style="color: red;">{{monthly_contribution}}% - per month</h6></b-card-text>
+						<b-card-text><h6 style="color: red;">{{$store.getters["monthlycontribution/getmonthlyContribution"]}}% - per month</h6></b-card-text>
 					</b-card>
 				</b-card-group>
 				<br>
@@ -91,12 +91,16 @@ export default {
     Sidebar,
     Footer
 },
-	mounted() {
-		this.monthly_contribution = this.$store.getters["monthlycontribution/getmonthlyContribution"];
-		this.total_employee_contr = this.$store.getters["monthlycontribution/gettotalEmployeeContr"];
-		this.total_employer_contr = this.$store.getters["monthlycontribution/gettotalEmployerContr"];
-		this.total_month_contr = this.$store.getters["monthlycontribution/gettotalMonthContr"];
+	mounted(){
 	},
+	// mounted() {
+	// 	this.$store.dispatch("monthlycontribution/fetchEmpDashboardCardDetails").then(response => {
+	// 		this.monthly_contribution = response[0].employee_monthly_contribution
+	// 		this.total_employee_contr = response[0].total_employee_contr
+	// 		this.total_employer_contr = response[0].total_employer_contr
+	// 		this.total_month_contr = response[0].total_month_contr
+	// 	});
+	// },
 	 data() {
       return {
 		monthly_contribution: 0,

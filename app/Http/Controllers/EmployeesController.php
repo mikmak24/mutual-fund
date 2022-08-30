@@ -87,9 +87,7 @@ class EmployeesController extends Controller
     }
 
     public function fetchEmployeeContribution(){
-        return EmployeeContribution::select('*')
-        ->where('username', Auth::user()->username)
-        ->get();
+        return EmployeeContribution::where('username', Auth::user()->username)->get();
     }
 
     public function downloadEmployees(){

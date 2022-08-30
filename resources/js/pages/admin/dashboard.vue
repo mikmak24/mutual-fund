@@ -51,6 +51,9 @@
 						</div>
 					</div>
 				</div>
+
+				  <BarChart />
+
 			</div>
 		</div>
 	</div>
@@ -60,14 +63,17 @@
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import Footer from "../../components/Footer";
+import BarChart from '../../components/charts/BarChart'
+
 
 export default {
 	name: "Dashboard",
 	components: {
-    Navbar,
-    Sidebar,
-    Footer
-},
+		Navbar,
+		Sidebar,
+		Footer,
+		BarChart
+	},
 	mounted() {
    	this.$store.dispatch("masteraccount/fetch");
 	}
