@@ -72,6 +72,11 @@ const actions = {
         const response = await axios.get("/api/fetchEmpDashboardCardDetails")
         commit('setMonthlyContribution', response.data)
     },
+
+    async downloadEmployees({ commit }) {
+        const response = await axios.get("/api/downloadEmployees")
+        return response.data;
+    },
 }
 const mutations = {
 

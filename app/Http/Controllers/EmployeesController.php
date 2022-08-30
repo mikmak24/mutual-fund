@@ -92,6 +92,12 @@ class EmployeesController extends Controller
         ->get();
     }
 
+    public function downloadEmployees(){
+        return User::select('*')
+        ->where('is_admin', 0)
+        ->get();
+    }
+
     public function fetchEmpDashboardCardDetails(){
         return User::select('users.username', 'users.employee_monthly_contribution',
         DB::raw('SUM(employee_contributions.employee_contribution) as total_employee_contr'), 

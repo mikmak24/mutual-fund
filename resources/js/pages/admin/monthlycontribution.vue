@@ -56,13 +56,22 @@ export default {
 		Sidebar,
 		Footer
 	},
+	mounted() {
+		this.$store.dispatch("monthlycontribution/downloadEmployees").then(response => {
+                    this.json_data = response
+                    
+
+
+                  })
+
+    },
 	data() {
 		return {
 			date: "",
 			file: null,
 			json_fields: {
-				Eclipse_ID: "name",
-				Employee_Contribution: "employee_cont",
+				Eclipse_ID: "username",
+				Employee_Contribution: "employee_monthly_contribution",
 				Employer_Contribution: "employer_cont",
 				Employee_Salary: "employer_cont"
 
