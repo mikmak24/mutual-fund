@@ -45,12 +45,14 @@
 </template>
 
 <script>
+
 export default {
 	data() {
 		return {
 			username: "",
 			token: "",
-			isAdmin: ""
+			isAdmin: "",
+			fullPage: false
 
 		};
 	},
@@ -66,9 +68,21 @@ export default {
 	},
 	methods: {
 		logout() {
+
+			let loader = this.$loading.show({
+                    // Optional parameters
+                    container: this.fullPage ? null : this.$refs.formContainer,
+                    canCancel: true,
+                    onCancel: this.onCancel,
+                });
+              
+
 			this.$store
 				.dispatch("authentication/logout")
-				.then(response => {})
+				.then(response => {
+					loader.hide()
+                    this.$router.replace("/");
+				})
 				.catch(error => {});
 		}
 	}

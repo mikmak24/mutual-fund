@@ -34,6 +34,16 @@ const actions = {
 
         return response.data;
     },
+
+    async acceptEmpContribution({commit}, payload) {
+        const response = await axios.post("api/acceptContribution", payload)
+        return response.data
+    },
+
+    async declineEmpContribution({commit}, payload) {
+        const response = await axios.post("api/declineContribution", payload)
+        return response.data
+    },
 }
 const mutations = {
     setArrayEmployeeRequest (state, payload) {

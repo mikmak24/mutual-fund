@@ -47,6 +47,10 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('fetchEmployeeContribution', [EmployeesController::class, 'fetchEmployeeContribution']);
         Route::get('fetchEmpDashboardCardDetails', [EmployeesController::class, 'fetchEmpDashboardCardDetails']);
 
+        Route::post('acceptContribution', [EmployeesController::class, 'acceptContribution']);
+        Route::post('declineContribution', [EmployeesController::class, 'declineContribution']);
+
+
         //MasterAccount
         Route::get('masteraccount', [MasterAccountController::class, 'fetch']);
         Route::post('updateMasterAccount', [MasterAccountController::class, 'updateMasterAccount']);

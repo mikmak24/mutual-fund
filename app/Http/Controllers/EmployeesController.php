@@ -35,6 +35,7 @@ class EmployeesController extends Controller
 
     public function fetchemployeesrequest(){
         return EmployeeContributionRequest::select('*')
+        ->orderBy('created_at', 'DESC')
         ->get();
     }
 
@@ -42,7 +43,7 @@ class EmployeesController extends Controller
         EmployeeContributionRequest::create([
             'username' => Auth::user()->username,
             'requested_amount' =>  $request['contribution'],
-            'is_approved' =>  0,
+            'status' => 'Pending' ,
             'date_of_request' => date("Y/m/d"),
             'approved_by' => 'not-yet'
            
@@ -55,6 +56,36 @@ class EmployeesController extends Controller
 
     }
 
+    public function acceptContribution(Request $request){
+        EmployeeContributionRequest::where('id', $request['id'])->update([
+            'status' => 'Accepted',
+            'approved_by' => Auth::user()->username
+        ]);
+
+        User::where('username', $request['username'])->update([
+            'employee_monthly_contribution' => $request['value']
+        ]);
+
+        return $data = [
+            'status' => 'SUCCESS',
+            'message' => 'Updated Successfully...'
+        ];
+
+    }
+
+    public function declineContribution(Request $request){
+        EmployeeContributionRequest::where('id', $request['id'])->update([
+            'status' => 'Declined',
+            'approved_by' => 'Declined'
+        ]);
+
+        return $data = [
+            'status' => 'SUCCESS',
+            'message' => 'Declined Successfully...'
+        ];
+ 
+    }
+
     public function fetchEmployeeContribution(){
         return EmployeeContribution::select('*')
         ->where('username', Auth::user()->username)
@@ -62,7 +93,6 @@ class EmployeesController extends Controller
     }
 
     public function fetchEmpDashboardCardDetails(){
-        
         return User::select('users.username', 'users.employee_monthly_contribution',
         DB::raw('SUM(employee_contributions.employee_contribution) as total_employee_contr'), 
         DB::raw('SUM(employee_contributions.employer_contribution) as total_employer_contr'), 

@@ -13,10 +13,15 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 
+import VueLoading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
+
+
 
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 Vue.use(FlashMessage);
+Vue.use(VueLoading)
 Vue.prototype.$http = Axios;
 
 Vue.component('App', require('./App.vue').default)

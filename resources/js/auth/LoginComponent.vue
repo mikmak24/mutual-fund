@@ -68,9 +68,20 @@ export default {
     methods:{
         onSubmit(event) {
             event.preventDefault()
+
+             let loader = this.$loading.show({
+                    // Optional parameters
+                    container: this.fullPage ? null : this.$refs.formContainer,
+                    canCancel: true,
+                    onCancel: this.onCancel,
+                    loader: 'spinner',
+                    color: '#54e375'
+                });
+
             this.$store.dispatch("authentication/signIn", this.form)
             .then(response => {
               if(response.status == 'ERROR'){
+                  loader.hide()
                   this.flashMessage.setStrategy('single');
                   this.flashMessage.error({
                     title: 'INVALID CREDENTIALS',
@@ -79,6 +90,7 @@ export default {
                   });
 
               } else if (response.status == 'SUCCESS'){
+                  loader.hide()
                   if(response.isAdmin == 1){
                     this.$store.dispatch("employees/fetchEmployeeRequest");
                     this.$store.dispatch("monthlycontribution/fetch");

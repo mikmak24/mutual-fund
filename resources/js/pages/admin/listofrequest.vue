@@ -10,7 +10,7 @@
           style="margin-left: 1%"
          
         >
-          <FlashMessage :position="'right bottom'" />
+          <FlashMessage :position="'right top'" />
           <div
             class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
           >
@@ -100,12 +100,13 @@
                   <b-button
                     variant="success"
                     size="sm"
-                    @click="info(row.item, row.index, $event.target)"
+                    @click="acceptChange(row.item, row.index, $event.target)"
                     class="mr-1"
                   >
                     Accept
                   </b-button>
-                  <b-button size="sm" @click="row.toggleDetails"
+                  <b-button size="sm" 
+                    @click="declineChange(row.item, row.index, $event.target)"
                   variant="danger"
                   >
                    Decline
@@ -199,8 +200,8 @@ export default {
             sortable: true
           },
           {
-            key: 'is_approved',
-            label: 'Is approved?',
+            key: 'status',
+            label: 'Status',
             sortable: true,
             // variant: 'danger'
           },
@@ -228,11 +229,105 @@ export default {
       }
     },
     methods: {
-      info(item, index, button) {
-        console.log(button)
-        // this.infoModal.title = `Row index: ${index}`
-        // this.infoModal.content = JSON.stringify(item, null, 2)
-        // this.$root.$emit('bv::show::modal', this.infoModal.id, button)
+
+      
+      acceptChange(item, index, button) {
+
+          let loader = this.$loading.show({
+                    // Optional parameters
+                    container: this.fullPage ? null : this.$refs.formContainer,
+                    canCancel: true,
+                    onCancel: this.onCancel,
+                    loader: 'spinner',
+                    color: '#54e375'
+                });
+
+        this.$store.dispatch("employees/acceptEmpContribution", {
+          'id':item.id,
+          'username':item.username,
+          'value':item.requested_amount
+        })
+            .then(response => {
+              loader.hide()
+
+              if(response.status == 'ERROR'){
+                  this.flashMessage.setStrategy('single');
+                  this.flashMessage.error({
+                    title: 'INVALID',
+                    message: 'There was an error requesting to update your contribution. Please contact your administration.',
+                    icon: false,
+                  });
+
+              } else if (response.status == 'SUCCESS'){
+                 this.flashMessage.setStrategy('single');
+                  this.flashMessage.success({
+                    title: 'Change Contribution Accepted',
+                    message: 'The request has been accepted -- Reloading screen',
+                    icon: false,
+                  });
+
+                  this.$store.dispatch("employees/fetchEmployeeRequest").then(response => {
+                    this.items =response
+                    this.totalRows = response.length;
+
+
+                  })
+
+              } 
+             
+            })
+            .catch((error) => {
+            
+            });
+      },
+
+      declineChange(item, index, button) {
+
+          let loader = this.$loading.show({
+                    // Optional parameters
+                    container: this.fullPage ? null : this.$refs.formContainer,
+                    canCancel: true,
+                    onCancel: this.onCancel,
+                    loader: 'spinner',
+                    color: '#54e375'
+                });
+
+        this.$store.dispatch("employees/declineEmpContribution", {
+          'id':item.id,
+          'username':item.username,
+          'value':item.requested_amount
+        })
+            .then(response => {
+              loader.hide()
+
+              if(response.status == 'ERROR'){
+                  this.flashMessage.setStrategy('single');
+                  this.flashMessage.error({
+                    title: 'INVALID',
+                    message: 'There was an error requesting to update your contribution. Please contact your administration.',
+                    icon: false,
+                  });
+
+              } else if (response.status == 'SUCCESS'){
+                 this.flashMessage.setStrategy('single');
+                  this.flashMessage.success({
+                    title: 'Change Contribution Accepted',
+                    message: 'The request has been Declined -- Reloading screen',
+                    icon: false,
+                  });
+
+                   this.$store.dispatch("employees/fetchEmployeeRequest").then(response => {
+                    this.items =response
+                    this.totalRows = response.length;
+
+
+                  })
+              } 
+             
+            })
+            .catch((error) => {
+            
+            });
       },
     }
 }

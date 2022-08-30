@@ -17,7 +17,7 @@ class EmployeeContributionRequest extends Migration
             $table->increments('id');
             $table->string('username', 120);
             $table->float('requested_amount');
-            $table->boolean('is_approved');
+            $table->string('status', 120);
             $table->date('date_of_request');
             $table->string('approved_by', 120);
             $table->timestamps();

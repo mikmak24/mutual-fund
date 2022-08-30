@@ -266,8 +266,17 @@ export default {
 
       updateContribution(event){
          event.preventDefault()
+            let loader = this.$loading.show({
+                    // Optional parameters
+                    container: this.fullPage ? null : this.$refs.formContainer,
+                    canCancel: true,
+                    onCancel: this.onCancel,
+                    loader: 'spinner',
+                    color: '#54e375'
+            });
             this.$store.dispatch("monthlycontribution/updateEmpContribution", this.form)
             .then(response => {
+              loader.hide()
               if(response.status == 'ERROR'){
                   this.flashMessage.setStrategy('single');
                   this.flashMessage.error({

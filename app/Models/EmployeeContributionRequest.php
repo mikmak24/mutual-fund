@@ -14,7 +14,7 @@ class EmployeeContributionRequest extends Model
     protected $table = 'employee_contribution_request';
 
     protected $fillable = [
-        'username', 'requested_amount', 'is_approved', 'date_of_request', 'approved_by'
+        'username', 'requested_amount', 'status', 'date_of_request', 'approved_by'
     ];
 
     /**

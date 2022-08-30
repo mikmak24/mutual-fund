@@ -29,6 +29,7 @@
         "@smartweb/vue-flash-message": "^0.6.10",
         "jquery": "^3.6.0",
         "vue-json-excel": "^0.3.0",
+        "vue-loading-overlay": "^3.0.1",
         "vue-loading-spinner": "^1.0.11",
         "vue-spinner": "^1.0.4",
         "vuex-persistedstate": "^4.1.0"

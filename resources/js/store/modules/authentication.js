@@ -44,9 +44,8 @@ const actions = {
             commit('setUserCredentials', response.data)
             commit('setIsAuthenticated', false)
             commit('setIsAdmin', false)
-
-
-            router.push('/')
+            
+            return response.data
         }).catch((error) => { 
         }); 
     }
