@@ -92,7 +92,6 @@ export default {
               } else if (response.status == 'SUCCESS'){
                   loader.hide()
                   if(response.isAdmin == 1){
-                    this.$store.dispatch("employees/fetchEmployeeRequest");
                     this.$store.dispatch("monthlycontribution/fetch");
                     this.$store.dispatch("employees/fetch");
                     this.$router.replace("/dashboard");

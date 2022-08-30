@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\DB;
 use App\User;
 use App\Models\EmployeeContribution;
 use App\Models\EmployeeContributionRequest;
+use Spatie\QueryBuilder\QueryBuilder;
+
 
 class EmployeesController extends Controller
 {
@@ -91,9 +93,7 @@ class EmployeesController extends Controller
     }
 
     public function downloadEmployees(){
-        return User::select('*')
-        ->where('is_admin', '=', 0)
-        ->get();
+        return User::select('*')->where('is_admin', '=', 0)->get();
     }
 
     public function fetchEmpDashboardCardDetails(){

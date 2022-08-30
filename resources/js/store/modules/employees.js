@@ -30,9 +30,8 @@ const actions = {
 
     async fetchEmployeeRequest({ commit }) {
         const response = await axios.get("/api/employeesrequest")
-        commit('setArrayEmployeeRequest', response.data)
-
         return response.data;
+        commit('setArrayEmployeeRequest', response.data)
     },
 
     async acceptEmpContribution({commit}, payload) {
