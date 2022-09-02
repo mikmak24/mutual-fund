@@ -1,86 +1,86 @@
 <template>
-	<div class="wrapper d-flex align-items-stretch">
-		<Sidebar />
-		<!-- Page Content  -->
-		<div id="content" class="p-4 p-md-5">
-			<Navbar />
-                    <h2 class="mb-4">Dashboard</h2>
+  <div class="wrapper d-flex align-items-stretch">
+    <Sidebar />
+    <!-- Page Content  -->
+    <div id="content">
+      <Navbar />
+	  <div  class="p-4 p-md-5">
+      <h2 class="mb-4">Dashboard</h2>
 
-			<div class="row">
-				<div class="col-xl-3 col-md-6">
-					<div class="card bg-primary text-white mb-4">
-						<div class="card-body">Primary Card</div>
-						<div
-							class="card-footer d-flex align-items-center justify-content-between"
-						>
-							<a class="small text-white stretched-link" href="#">View Details</a>
-							<div class="small text-white"><i class="fas fa-angle-right"></i></div>
-						</div>
-					</div>
-				</div>
-				<div class="col-xl-3 col-md-6">
-					<div class="card bg-warning text-white mb-4">
-						<div class="card-body">Warning Card</div>
-						<div
-							class="card-footer d-flex align-items-center justify-content-between"
-						>
-							<a class="small text-white stretched-link" href="#">View Details</a>
-							<div class="small text-white"><i class="fas fa-angle-right"></i></div>
-						</div>
-					</div>
-				</div>
-				<div class="col-xl-3 col-md-6">
-					<div class="card bg-success text-white mb-4">
-						<div class="card-body">Success Card</div>
-						<div
-							class="card-footer d-flex align-items-center justify-content-between"
-						>
-							<a class="small text-white stretched-link" href="#">View Details</a>
-							<div class="small text-white"><i class="fas fa-angle-right"></i></div>
-						</div>
-					</div>
-				</div>
-				<div class="col-xl-3 col-md-6">
-					<div class="card bg-danger text-white mb-4">
-						<div class="card-body">Danger Card</div>
-						<div
-							class="card-footer d-flex align-items-center justify-content-between"
-						>
-							<a class="small text-white stretched-link" href="#">View Details</a>
-							<div class="small text-white"><i class="fas fa-angle-right"></i></div>
-						</div>
-					</div>
-				</div>
+      <div class="row">
+        <div class="col-xl-3 col-md-6">
+          <div class="card bg-primary text-white mb-4">
+            <div class="card-body">Primary Card</div>
+            <div
+              class="card-footer d-flex align-items-center justify-content-between"
+            >
+              <a class="small text-white stretched-link" href="#"
+                >View Details</a
+              >
+              <div class="small text-white">
+                <i class="fas fa-angle-right"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+          <div class="card bg-warning text-white mb-4">
+            <div class="card-body">Warning Card</div>
+            <div
+              class="card-footer d-flex align-items-center justify-content-between"
+            >
+              <a class="small text-white stretched-link" href="#"
+                >View Details</a
+              >
+              <div class="small text-white">
+                <i class="fas fa-angle-right"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+          <div class="card bg-success text-white mb-4">
+            <div class="card-body">Success Card</div>
+            <div
+              class="card-footer d-flex align-items-center justify-content-between"
+            >
+              <a class="small text-white stretched-link" href="#"
+                >View Details</a
+              >
+              <div class="small text-white">
+                <i class="fas fa-angle-right"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+          <div class="card bg-danger text-white mb-4">
+            <div class="card-body">Danger Card</div>
+            <div
+              class="card-footer d-flex align-items-center justify-content-between"
+            >
+              <a class="small text-white stretched-link" href="#"
+                >View Details</a
+              >
+              <div class="small text-white">
+                <i class="fas fa-angle-right"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-				<!-- <b-container class="bv-example-row">
-				<b-row>
-					<b-col>				  <LineChart /></b-col>
-					<b-col>				  				  <BarChart />
-</b-col>
-				</b-row>
-
-				</b-container> -->
-
-
-								  <!-- //https://github.com/devstark-com/vue-google-charts?ref=madewithvuejs.com -->
-
-
-			</div>
-
-			<div class="row">
-    <div class="col-sm">
-        <LineChart />
-    </div>
-    <div class="col-sm">
-      <BarChart />
-    </div>
-   
-  </div>
-
-
-
-		</div>
+      <div class="row">
+        <div class="col-sm">
+          <LineChart />
+        </div>
+        <div class="col-sm">
+          <BarChart />
+        </div>
+      </div>
 	</div>
+    </div>
+  </div>
 </template>
 
 <script>

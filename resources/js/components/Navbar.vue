@@ -1,10 +1,10 @@
 <template>
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: black;">
 		<div class="container-fluid">
 			 <b-button size="s" id="sidebarCollapse"  class="mb-2 mt-2">
-      <b-icon icon="arrow-left-circle-fill" aria-label="Help"></b-icon>
+      <b-icon icon="arrow-left-circle"  aria-label="Help"></b-icon>
     </b-button>
-			<h4  class="ml-3"><b>PH Retirement Portal</b></h4>
+			<h4  class="ml-3" style="color: white; padding-top: 12px"><b>PH Retirement Portal</b></h4>
 			<button
 				class="btn btn-dark d-inline-block d-lg-none ml-auto"
 				type="button"
