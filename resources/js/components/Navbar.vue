@@ -30,11 +30,9 @@
 							</h6>
 						</router-link>
 					</li>
+					
 					<li class="nav-item">
-						<a class="nav-link" href="#"><b-icon icon="gear-fill" aria-hidden="true"></b-icon> Settings</a>
-					</li>
-					<li class="nav-item">
-						<b-button variant="dark" @click="logout()"  right>
+						<b-button variant="light" @click="logout()"  right>
 							<b-icon  icon="person-fill"></b-icon> Logout: {{ username }}
 						</b-button>
 					</li>
