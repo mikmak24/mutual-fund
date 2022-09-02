@@ -4,7 +4,7 @@
 			 <b-button size="s" id="sidebarCollapse"  class="mb-2 mt-2">
       <b-icon icon="arrow-left-circle-fill" aria-label="Help"></b-icon>
     </b-button>
-			<h4 style="font-family: Lucida Console;" class="ml-3"><b>PH Retirement Portal</b></h4>
+			<h4  class="ml-3"><b>PH Retirement Portal</b></h4>
 			<button
 				class="btn btn-dark d-inline-block d-lg-none ml-auto"
 				type="button"

@@ -30,6 +30,7 @@
         "chart.js": "^3.9.1",
         "jquery": "^3.6.0",
         "vue-chartjs": "^4.1.1",
+        "vue-google-charts": "^1.1.0",
         "vue-json-excel": "^0.3.0",
         "vue-loading-overlay": "^3.0.1",
         "vue-loading-spinner": "^1.0.11",

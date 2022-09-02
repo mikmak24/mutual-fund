@@ -52,9 +52,33 @@
 					</div>
 				</div>
 
-				  <BarChart />
+				<!-- <b-container class="bv-example-row">
+				<b-row>
+					<b-col>				  <LineChart /></b-col>
+					<b-col>				  				  <BarChart />
+</b-col>
+				</b-row>
+
+				</b-container> -->
+
+
+								  <!-- //https://github.com/devstark-com/vue-google-charts?ref=madewithvuejs.com -->
+
 
 			</div>
+
+			<div class="row">
+    <div class="col-sm">
+        <LineChart />
+    </div>
+    <div class="col-sm">
+      <BarChart />
+    </div>
+   
+  </div>
+
+
+
 		</div>
 	</div>
 </template>
@@ -63,6 +87,7 @@
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import Footer from "../../components/Footer";
+import LineChart from '../../components/charts/LineChart'
 import BarChart from '../../components/charts/BarChart'
 
 
@@ -72,6 +97,7 @@ export default {
 		Navbar,
 		Sidebar,
 		Footer,
+		LineChart,
 		BarChart
 	},
 	mounted() {
