@@ -103,11 +103,13 @@
                   >
                     SHOW DETAILS
                   </b-button>
-                  <b-button size="sm" @click="row.toggleDetails"
+                  <b-button
+                  size="sm"
+                  @click="showModifyModal(row.item, row.index, $event.target)"
                   variant="warning"
-                  >
-                   EDIT Contribution
-                  </b-button>
+                >
+                  Modify Contribution
+                </b-button>
                 </template>
 
                 <template #row-details="row">
@@ -155,6 +157,33 @@
             </b-col>
           </b-row>
         </div>
+
+       <b-modal
+        ref="my-modal"
+        id="modal-lg"
+        size="lg"
+        title="Modify Contribution"
+      >
+        <b-form-group
+          id="input-group-1"
+          label="Total Employee Shares (As of the moment...)"
+          label-for="input-1"
+          description="We'll never share you're total contribution value with anyone else."
+        >
+          <b-form-input
+            id="input-1"
+            v-model="form.total_employee_shares"
+            readonly
+          ></b-form-input>
+        </b-form-group>
+
+        <b-form-group id="input-group-2" label="Employee Contribution :" label-for="input-2">
+          <b-form-input
+            id="input-2"
+            v-model="form.total_employee_shares"
+          ></b-form-input>
+        </b-form-group>
+      </b-modal>
 		
 		</div>
 	</div>
@@ -178,7 +207,10 @@ export default {
     },
     data() {
       return {
-
+        form: {
+          total_employee_shares: '',
+         
+        },
         perPage: 10,
         pageOptions: [5, 10, 15, { value: 100, text: "Show a lot" }],
         totalRows: 1,
@@ -236,6 +268,11 @@ export default {
         // this.infoModal.content = JSON.stringify(item, null, 2)
         // this.$root.$emit('bv::show::modal', this.infoModal.id, button)
       },
+      showModifyModal(item, index, button){
+        this.form.total_employee_shares = item.employee_gained
+        this.$refs['my-modal'].show()
+      }
+
     }
 }
 </script>

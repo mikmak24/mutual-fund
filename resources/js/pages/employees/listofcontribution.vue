@@ -121,7 +121,9 @@
                     @click="info(row.item, row.index, $event.target)"
                     class="mr-1"
                   >
-                    SHOW DETAILS
+                      <b-icon-arrow-up></b-icon-arrow-up>
+
+                    Show details
                   </b-button>
                   <b-button size="sm" @click="row.toggleDetails"
                   variant="warning"
@@ -174,6 +176,36 @@
               ></b-pagination>
             </b-col>
           </b-row>
+
+           <div v-if="showModal">
+    <transition name="modal">
+      <div class="modal-mask">
+        <div class="modal-wrapper">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true" @click="showModal = false">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>Modal body text goes here.</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" @click="showModal = false">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </transition>
+  </div>
+
+
+
+
         </div>
 		
 		</div>
@@ -191,7 +223,7 @@ export default {
         Navbar,
         Sidebar,
         Footer
-    },
+    }, 
     mounted() {
        let loader = this.$loading.show({
                     // Optional parameters
@@ -211,6 +243,7 @@ export default {
     },
     data() {
       return {
+        infoModal: false,
         perPage: 10,
         pageOptions: [5, 10, 15, { value: 100, text: "Show a lot" }],
         totalRows: 1,
@@ -269,9 +302,8 @@ export default {
     methods: {
       info(item, index, button) {
         console.log(button)
-        // this.infoModal.title = `Row index: ${index}`
-        // this.infoModal.content = JSON.stringify(item, null, 2)
-        // this.$root.$emit('bv::show::modal', this.infoModal.id, button)
+        this.infoModal =true
+     
       },
 
       updateContribution(event){
