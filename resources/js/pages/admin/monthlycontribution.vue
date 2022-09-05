@@ -2,9 +2,9 @@
 	<div class="wrapper d-flex align-items-stretch">
 		<Sidebar />
 		<!-- Page Content  -->
-		<div id="content" class="p-4 p-md-5">
-			<main role="main" style="margin-left: 1%">
+		<div id="content">
 				<Navbar />
+				<div  class="p-4 p-md-5">
 				<div class="row">
 					<FlashMessage :position="'right top'" />
 
@@ -39,7 +39,9 @@
 				</p>
 
 				<canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
-			</main>
+			
+			
+			</div>
 		</div>
 	</div>
 </template>

@@ -2,13 +2,10 @@
 	<div class="wrapper d-flex align-items-stretch">
 		<Sidebar />
 		<!-- Page Content  -->
-		<div id="content" class="p-4 p-md-5">
+		<div id="content">
 				<Navbar />
         <FlashMessage :position="'right top'"/>
-        <main
-          role="main"
-          style="margin-left: 1%"
-        >
+        <div  class="p-4 p-md-5">
           <div
             class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
           >
@@ -177,7 +174,7 @@
               ></b-pagination>
             </b-col>
           </b-row>
-        </main>
+        </div>
 		
 		</div>
 	</div>

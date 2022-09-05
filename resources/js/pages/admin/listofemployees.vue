@@ -2,23 +2,14 @@
 	<div class="wrapper d-flex align-items-stretch">
 		<Sidebar />
 		<!-- Page Content  -->
-		<div id="content" class="p-4 p-md-5">
+		<div id="content">
 				<Navbar />
 
-        <main
-          role="main"
-          style="margin-left: 1%"
-         
-        >
+        	<div  class="p-4 p-md-5">
+      <h2 class="mb-4">List of Employees</h2>
+
           <FlashMessage :position="'right bottom'" />
-          <div
-            class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
-          >
-            <h5 class="">
-              <b-icon icon="file-earmark" variant="dark"></b-icon>
-              List of Employees
-            </h5>
-          </div>
+       
 
           <b-row>
             <b-col>
@@ -159,7 +150,8 @@
               ></b-pagination>
             </b-col>
           </b-row>
-        </main>
+        
+        </div>
 		
 		</div>
 	</div>

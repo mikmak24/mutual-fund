@@ -2,9 +2,10 @@
 	<div class="wrapper d-flex align-items-stretch">
 		<Sidebar />
 		<!-- Page Content  -->
-		<div id="content" class="p-4 p-md-5">
-			<main role="main" style="margin-left: 1%">
-			<Navbar />
+		<div id="content">
+            			<Navbar />
+
+          <div  class="p-4 p-md-5">
             <FlashMessage :position="'right top'"/>
             <div>
             <b-jumbotron bg-variant="warning" text-variant="white" border-variant="dark">
@@ -18,7 +19,7 @@
                 </template>               
             </b-jumbotron>
             </div>
-			</main>
+			</div>
 		</div>
 	</div>
 </template>

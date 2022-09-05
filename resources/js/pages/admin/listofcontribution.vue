@@ -2,22 +2,17 @@
 	<div class="wrapper d-flex align-items-stretch">
 		<Sidebar />
 		<!-- Page Content  -->
-		<div id="content" class="p-4 p-md-5">
+		<div id="content">
 				<Navbar />
-
-        <main
-          role="main"
-          style="margin-left: 1%"
-         
-        >
+          <div  class="p-4 p-md-5">
           <FlashMessage :position="'right bottom'" />
           <div
             class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
           >
-            <h5 class="">
+            <h3 class="">
               <b-icon icon="file-earmark" variant="dark"></b-icon>
               List of Contributions
-            </h5>
+            </h3>
           </div>
 
           <b-row>
@@ -159,7 +154,7 @@
               ></b-pagination>
             </b-col>
           </b-row>
-        </main>
+        </div>
 		
 		</div>
 	</div>

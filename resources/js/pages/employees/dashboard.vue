@@ -2,8 +2,10 @@
 	<div class="wrapper d-flex align-items-stretch">
 		<Sidebar />
 		<!-- Page Content  -->
-		<div id="content" class="p-4 p-md-5">
+		<div id="content">
 			<Navbar />
+				  <div  class="p-4 p-md-5">
+
             <h2 class="mb-4">Employee Dashboard</h2>
 
 			    <b-card-group deck>
@@ -74,7 +76,7 @@
 				</template>
 				</b-card>
 			</b-card-group>
-
+		</div>
 		</div>
 	</div>
 </template>
