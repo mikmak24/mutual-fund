@@ -58,6 +58,22 @@ class EmployeesController extends Controller
 
     }
 
+    public function modifyContribution(Request $request){
+        EmployeeContribution::where('id', $request[0]['id'])->update([
+            'employee_contribution' => $request[0]['employee_contribution'],
+            'employer_contribution' => $request[0]['employer_contribution'],
+            'employee_gained' => ($request[0]['employee_contribution'] +  $request[0]['employer_contribution'])
+        ]);
+
+        return $data = [
+            'status' => 'SUCCESS',
+            'message' => 'Updated Successfully...'
+        ];
+
+    }
+
+    
+
     public function acceptContribution(Request $request){
         EmployeeContributionRequest::where('id', $request['id'])->update([
             'status' => 'Accepted',

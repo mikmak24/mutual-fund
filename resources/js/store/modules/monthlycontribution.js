@@ -48,6 +48,12 @@ const actions = {
         return response.data
     },
 
+    async updateContribution ({commit}, payload) {
+        console.log(payload)
+        const response = await axios.post("api/modifyContribution", payload)
+        return response.data
+    },
+
     async fetch({ commit }) {
         const response = await axios.get("/api/contributionlist")
         commit('setArrayContributionList', response.data)
@@ -61,7 +67,7 @@ const actions = {
     },
 
     async updateEmpContribution({commit}, payload) {
-      const response = await axios.post("api/updateContribution", payload)
+      const response = await axios.post("api/updateEmpContribution", payload)
       return response.data
     },
 
