@@ -198,8 +198,20 @@ export default {
         Footer
     },
     mounted() {
-      this.items = this.$store.getters["employees/getArrayEmployeeList"];
-      this.totalRows = this.$store.getters["employees/getArrayEmployeeList"].length;
+      let loader = this.$loading.show({
+                    // Optional parameters
+                    container: this.fullPage ? null : this.$refs.formContainer,
+                    canCancel: true,
+                    onCancel: this.onCancel,
+                    loader: 'spinner',
+                    color: '#000000'
+        });
+      this.$store.dispatch("employees/fetch")
+      .then(response => {
+          loader.hide()
+          this.items = response;
+          this.totalRows = response.length;
+      })
     },
     data() {
       return {

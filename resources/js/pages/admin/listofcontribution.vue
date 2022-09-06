@@ -225,13 +225,13 @@ export default {
         Footer
     },
     mounted() {
-        let loader = this.$loading.show({
+      let loader = this.$loading.show({
                     // Optional parameters
                     container: this.fullPage ? null : this.$refs.formContainer,
                     canCancel: true,
                     onCancel: this.onCancel,
                     loader: 'spinner',
-                    color: '#54e375'
+                    color: '#000000'
         });
       this.$store.dispatch("monthlycontribution/fetch")
       .then(response => {
