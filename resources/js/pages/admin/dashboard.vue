@@ -4,8 +4,29 @@
     <!-- Page Content  -->
     <div id="content">
       <Navbar />
-	  <div  class="p-4 p-md-5">
-      <h2 class="mb-4">Dashboard</h2>
+	  <div  class="p-2 p-md-3">
+
+      <div class="row">
+        <div class="col-sm">
+
+            <b-card
+        border-variant="info"
+        header="ADMIN DASHBOARD"
+        header-bg-variant="info"
+        header-text-variant="white"
+        style="font-size: 25px;"
+      >
+      
+      <h5> <b-icon-calendar2-date></b-icon-calendar2-date> Date Today: {{current_date}} </h5>
+      <h5> <b-icon-currency-dollar ></b-icon-currency-dollar> Dollar as the moment: {{$store.getters["authentication/getCurrentDollar"]}} </h5>
+      <h5> <b-icon-person-circle ></b-icon-person-circle> Number of Employees: {{$store.getters["authentication/getNumberOfEmp"]}} </h5>
+      </b-card>
+        
+        </div>
+
+
+      </div>
+      <br>
 
       <div class="row">
         <div class="col-xl-3 col-md-6">
@@ -101,7 +122,15 @@ export default {
 		BarChart
 	},
 	mounted() {
+    var currentDate = new Date();
+    this.current_date = currentDate
+
    	this.$store.dispatch("masteraccount/fetch");
-	}
+	},
+  data() {
+      return {
+          current_date: ''
+      }
+    },
 };
 </script>

@@ -11,6 +11,7 @@ use Log;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Ui\Presets\React;
+use AmrShawky\LaravelCurrency\Facade\Currency;
 
 class LoginController extends Controller
 {
@@ -21,7 +22,7 @@ class LoginController extends Controller
 
     public function login(Request $request){
         $data = [];
-      
+
         $username = strtoupper($request["username"]);
         $password = strtoupper($request["password"]);
 
@@ -85,12 +86,22 @@ class LoginController extends Controller
 
             if(auth()->attempt(array($fieldType => $request['username'], 'password' => $request['password'])))
             {
+                $dollar = Currency::convert()
+                ->from('USD')
+                ->to('PHP')
+                ->amount(1)
+                ->get();
+
+                $count = User::where('is_admin', 0)->count();
+
                 $data = [
                     'status' => 'SUCCESS',
                     'message' => 'SUCCESSFULL LOGIN...',
                     'username' => Auth::user()->username,
                     'isAuthenticated' => TRUE,
-                    'isAdmin' => Auth::user()->is_admin
+                    'isAdmin' => Auth::user()->is_admin,
+                    'dollarToday' => $dollar,
+                    'numberOfEmp' => $count
                 ];
 
 

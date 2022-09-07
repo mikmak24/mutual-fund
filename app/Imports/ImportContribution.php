@@ -34,14 +34,20 @@ class ImportContribution implements ToModel,  WithHeadingRow, WithChunkReading, 
     public function model(array $row)
     {
         try {
-            $employee_contr_in_peso = ($row['employee_contribution']*$row['employee_salary']) / 100;
+            $employee_salary_in_peso =  Currency::convert()
+            ->from('USD')
+            ->to('PHP')
+            ->amount($row['employee_salary'])
+            ->get();
+
+            $employee_contr_in_peso = ($row['employee_contribution']* $employee_salary_in_peso) / 100;
             $employee_contr_in_usd = Currency::convert()
             ->from('PHP')
             ->to('USD')
             ->amount($employee_contr_in_peso)
             ->get();
 
-            $employer_contr_in_peso = ($row['employer_contribution']*$row['employee_salary']) / 100;
+            $employer_contr_in_peso = ($row['employer_contribution']* $employee_salary_in_peso) / 100;
             $employer_contr_in_usd = Currency::convert()
             ->from('PHP')
             ->to('USD')

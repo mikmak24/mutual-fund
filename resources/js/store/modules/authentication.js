@@ -8,7 +8,9 @@ const state = {
     username: '',
     isAuthenticated: false,
     credentials: [],
-    isAdmin: false
+    isAdmin: false,
+    dollarToday: '',
+    numberOfEmp: 0
 }
 const getters = {
     getUserCredential (state, getters) {
@@ -19,7 +21,15 @@ const getters = {
     },
     isAdmin(state, getters){
         return state.isAdmin
-    }
+    },
+    getCurrentDollar(state, getters){
+        return state.dollarToday
+    },
+
+    getNumberOfEmp(state, getters){
+        return state.numberOfEmp
+    },
+
 }
 
 const actions = {
@@ -29,6 +39,9 @@ const actions = {
             commit('setUserCredentials', response.data)
             commit('setIsAuthenticated', true)
             commit('setIsAdmin', response.data.isAdmin)
+            commit('setDollar',  response.data.dollarToday)
+            commit('setNumberOfEmployee',  response.data.numberOfEmp)
+
 
         } else {
             commit('setUserCredentials', response.data)
@@ -62,6 +75,14 @@ const mutations = {
 
     setIsAdmin(state, payload){
         state.isAdmin = payload
+    },
+
+    setDollar(state, payload){
+        state.dollarToday = payload
+    },
+
+    setNumberOfEmployee(state, payload){
+        state.numberOfEmp = payload
     }
 }
 

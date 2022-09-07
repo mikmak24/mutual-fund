@@ -50,9 +50,6 @@
 					</b-card>
 				</b-card-group>
 				<br>
-
-	
-
 			  <b-card-group deck>
 				<b-card
 				header="featured"
