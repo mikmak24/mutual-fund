@@ -101,7 +101,7 @@ class LoginController extends Controller
                     'isAuthenticated' => TRUE,
                     'isAdmin' => Auth::user()->is_admin,
                     'dollarToday' => $dollar,
-                    'numberOfEmp' => $count
+                    'numberOfEmp' => $count                
                 ];
 
 

@@ -71,8 +71,6 @@ export default {
 				Eclipse_ID: "username",
 				Employee_Contribution: "employee_monthly_contribution",
 				Employer_Contribution: "employer_cont",
-				Employee_Salary: "employer_cont"
-
 			},
 
 			json_data: [{}]

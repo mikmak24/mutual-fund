@@ -10,7 +10,7 @@ use App\Imports\ImportContribution;
 use Maatwebsite\Excel\Facades\Excel;
 use App\User;
 use App\Models\EmployeeContribution;
-
+use App\Models\EmployeeContributionRequest;
 class ContributionController extends Controller
 {
     public function __construct()
@@ -39,6 +39,14 @@ class ContributionController extends Controller
         return EmployeeContribution::select('*')
         ->get();
 
+    }
+
+    public function getContributionRequestCount(){
+        $data = [
+            'count' => EmployeeContributionRequest::where('status', 'Pending')->count()
+        ];
+
+        return $data;
     }
 
 

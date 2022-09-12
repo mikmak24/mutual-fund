@@ -34,35 +34,35 @@ class ImportContribution implements ToModel,  WithHeadingRow, WithChunkReading, 
     public function model(array $row)
     {
         try {
-            $employee_salary_in_peso =  Currency::convert()
-            ->from('USD')
-            ->to('PHP')
-            ->amount($row['employee_salary'])
-            ->get();
+            // $employee_salary_in_peso =  Currency::convert()
+            // ->from('USD')
+            // ->to('PHP')
+            // ->amount($row['employee_salary'])
+            // ->get();
 
-            $employee_contr_in_peso = ($row['employee_contribution']* $employee_salary_in_peso) / 100;
-            $employee_contr_in_usd = Currency::convert()
-            ->from('PHP')
-            ->to('USD')
-            ->amount($employee_contr_in_peso)
-            ->get();
+            // $employee_contr_in_peso = ($row['employee_contribution']* $employee_salary_in_peso) / 100;
+            // $employee_contr_in_usd = Currency::convert()
+            // ->from('PHP')
+            // ->to('USD')
+            // ->amount($employee_contr_in_peso)
+            // ->get();
 
-            $employer_contr_in_peso = ($row['employer_contribution']* $employee_salary_in_peso) / 100;
-            $employer_contr_in_usd = Currency::convert()
-            ->from('PHP')
-            ->to('USD')
-            ->amount($employer_contr_in_peso)
-            ->get();
+            // $employer_contr_in_peso = ($row['employer_contribution']* $employee_salary_in_peso) / 100;
+            // $employer_contr_in_usd = Currency::convert()
+            // ->from('PHP')
+            // ->to('USD')
+            // ->amount($employer_contr_in_peso)
+            // ->get();
 
             $master_account_amount = MasterAccount::select('master_account_amount')->get();
-            $totalMasterAccount = $master_account_amount[0]['master_account_amount'] + ($employee_contr_in_usd +  $employer_contr_in_usd);
+            $totalMasterAccount = $master_account_amount[0]['master_account_amount'] + ($row['employee_contribution'] +  $row['employer_contribution']);
             MasterAccount::find(1)->update(['master_account_amount' => $totalMasterAccount]);
 
             EmployeeContribution::create([
                 'username' => $row['eclipse_id'],
-                'employee_contribution' =>  $employee_contr_in_usd,
-                'employer_contribution' =>  $employer_contr_in_usd,
-                'employee_gained' =>  ($employee_contr_in_usd +  $employer_contr_in_usd),
+                'employee_contribution' =>  $row['employee_contribution'],
+                'employer_contribution' =>  $row['employer_contribution'],
+                'employee_gained' =>  ($row['employee_contribution'] +  $row['employer_contribution']),
                 'date_of_contribution' =>  $this->date_of_contribution,
                 'uploaded_by' => Auth::user()->username
             ]);

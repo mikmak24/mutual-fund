@@ -38,6 +38,8 @@ Route::group(['middleware' => ['web']], function () {
         //Contribution
         Route::post('uploadcontribution', [ContributionController::class, 'uploadContribution']);
         Route::get('contributionlist', [ContributionController::class, 'fetch']);
+        Route::get('countContributionRequest', [ContributionController::class, 'getContributionRequestCount']);
+
 
         //Employee
         Route::get('employeeslist', [EmployeesController::class, 'fetch']);

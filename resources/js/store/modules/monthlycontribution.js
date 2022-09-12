@@ -82,6 +82,11 @@ const actions = {
         return response.data;
     },
 
+    async countContributionRequest({ commit }) {
+        const response = await axios.get("/api/countContributionRequest")
+        return response.data;
+    },
+
     async removeState({ commit }) {
         commit('setStatetoEmpty')
     },}

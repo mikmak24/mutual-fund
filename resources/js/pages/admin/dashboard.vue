@@ -7,37 +7,13 @@
 	  <div  class="p-2 p-md-3">
 
       <div class="row">
-        <div class="col-sm">
-
-            <b-card
-        border-variant="info"
-        header="ADMIN DASHBOARD"
-        header-bg-variant="info"
-        header-text-variant="white"
-        style="font-size: 25px;"
-      >
-      
-      <h5> <b-icon-calendar2-date></b-icon-calendar2-date> Date Today: {{current_date}} </h5>
-      <h5> <b-icon-currency-dollar ></b-icon-currency-dollar> Dollar as the moment: {{$store.getters["authentication/getCurrentDollar"]}} </h5>
-      <h5> <b-icon-person-circle ></b-icon-person-circle> Number of Employees: {{$store.getters["authentication/getNumberOfEmp"]}} </h5>
-      </b-card>
-        
-        </div>
-
-
-      </div>
-      <br>
-
-      <div class="row">
         <div class="col-xl-3 col-md-6">
           <div class="card bg-primary text-white mb-4">
-            <div class="card-body">Primary Card</div>
+            <div class="card-body"><h5 style="color:white;"><b-icon-calendar2-date></b-icon-calendar2-date> Date Today</h5></div>
             <div
               class="card-footer d-flex align-items-center justify-content-between"
             >
-              <a class="small text-white stretched-link" href="#"
-                >View Details</a
-              >
+              <h2>{{current_date}}</h2>
               <div class="small text-white">
                 <i class="fas fa-angle-right"></i>
               </div>
@@ -46,13 +22,11 @@
         </div>
         <div class="col-xl-3 col-md-6">
           <div class="card bg-warning text-white mb-4">
-            <div class="card-body">Warning Card</div>
+            <div class="card-body"><h5 style="color:white;"><b-icon-currency-dollar ></b-icon-currency-dollar> Dollar as the moment</h5></div>
             <div
               class="card-footer d-flex align-items-center justify-content-between"
             >
-              <a class="small text-white stretched-link" href="#"
-                >View Details</a
-              >
+              <h2>{{$store.getters["authentication/getCurrentDollar"]}}</h2>
               <div class="small text-white">
                 <i class="fas fa-angle-right"></i>
               </div>
@@ -61,13 +35,11 @@
         </div>
         <div class="col-xl-3 col-md-6">
           <div class="card bg-success text-white mb-4">
-            <div class="card-body">Success Card</div>
+            <div class="card-body"><h5 style="color:white;"><b-icon-person-circle ></b-icon-person-circle> Number of Employees:</h5></div>
             <div
               class="card-footer d-flex align-items-center justify-content-between"
             >
-              <a class="small text-white stretched-link" href="#"
-                >View Details</a
-              >
+              <h2>{{$store.getters["authentication/getNumberOfEmp"]}}</h2>
               <div class="small text-white">
                 <i class="fas fa-angle-right"></i>
               </div>
@@ -76,13 +48,11 @@
         </div>
         <div class="col-xl-3 col-md-6">
           <div class="card bg-danger text-white mb-4">
-            <div class="card-body">Danger Card</div>
+            <div class="card-body"><h5 style="color:white;"> <b-icon-arrow-up></b-icon-arrow-up> Notifications</h5> </div>
             <div
               class="card-footer d-flex align-items-center justify-content-between"
             >
-              <a class="small text-white stretched-link" href="#"
-                >View Details</a
-              >
+              <h2>{{notifications}}</h2>
               <div class="small text-white">
                 <i class="fas fa-angle-right"></i>
               </div>
@@ -119,17 +89,21 @@ export default {
 		Sidebar,
 		Footer,
 		LineChart,
-		BarChart
+		BarChart,
 	},
 	mounted() {
-    var currentDate = new Date();
-    this.current_date = currentDate
-
+    var date = new Date();
+    this.current_date = date.getMonth()+"-"+ date.getDate()+"-"+date.getFullYear();
    	this.$store.dispatch("masteraccount/fetch");
+
+    this.$store.dispatch("monthlycontribution/countContributionRequest").then(response => {
+      this.notifications = response.count
+		});
 	},
   data() {
       return {
-          current_date: ''
+          current_date: '',
+          notifications: 0,
       }
     },
 };

@@ -99,12 +99,14 @@
                     size="sm"
                     @click="acceptChange(row.item, row.index, $event.target)"
                     class="mr-1"
+                    :disabled="row.item.status === 'Accepted' || row.item.status === 'Declined' "
                   >
                     Accept
                   </b-button>
                   <b-button size="sm" 
                     @click="declineChange(row.item, row.index, $event.target)"
-                  variant="danger"
+                    variant="danger"
+                    :disabled="row.item.status === 'Accepted' || row.item.status === 'Declined' "
                   >
                    Decline
                   </b-button>

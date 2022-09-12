@@ -41,8 +41,6 @@ const actions = {
             commit('setIsAdmin', response.data.isAdmin)
             commit('setDollar',  response.data.dollarToday)
             commit('setNumberOfEmployee',  response.data.numberOfEmp)
-
-
         } else {
             commit('setUserCredentials', response.data)
             commit('setIsAuthenticated', false)

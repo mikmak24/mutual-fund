@@ -13,9 +13,16 @@
                 <template #lead>
                     <p>*Currency: DOLLAR ($) </p>
                     <div class="form-group">
-                        <input style="color:black; font-size: 30px;" type="number" v-model="value" class="form-control">
+                        <input style="color:black; font-size: 30px;" v-if="showString" value="*********************" class="form-control">
+                        <input style="color:black; font-size: 30px;" v-if="showValue" type="number" v-model="value" class="form-control">
                     </div>
-                        <b-button type="submit" @click="updateMasterAccount()">Update Value of Master Account</b-button>
+                        <b-button v-if="showString" @click="clickShowValue()" variant="outline-dark">SHOW</b-button>
+                        <b-button v-if="showValue"  @click="clickShowString()" variant="outline-dark">HIDE</b-button>
+
+                         <b-button v-if="showValue" type="submit" variant="success" @click="updateMasterAccount()">
+                            <b-icon icon="save"></b-icon> Save Changes
+                        </b-button>
+
                 </template>               
             </b-jumbotron>
             </div>
@@ -37,7 +44,18 @@ export default {
 		Footer
 	},
     mounted() {
-        this.value = this.$store.getters["masteraccount/getMasterAccountValue"];
+        let loader = this.$loading.show({
+                    // Optional parameters
+                    container: this.fullPage ? null : this.$refs.formContainer,
+                    canCancel: true,
+                    onCancel: this.onCancel,
+                    loader: 'spinner',
+                    color: '#000000'
+        });
+       this.$store.dispatch("masteraccount/fetch").then(response => {
+            loader.hide()
+            this.value = response[0].master_account_amount
+       })
     },
 	data() {
 		return {
@@ -48,17 +66,36 @@ export default {
 				Employee_Contribution: "employee_cont",
 				Employer_Contribution: "employer_cont",
 				Employee_Salary: "employer_cont"
-
 			},
             value: 0,
-
-			json_data: [{}]
+			json_data: [{}],
+            showString: true,
+            showValue: false
 		};
 	},
 	methods: {
+        clickShowValue(){
+            this.showString = false
+            this.showValue = true
+        },
+
+        clickShowString(){
+            this.showString = true
+            this.showValue = false
+        },
+
         updateMasterAccount(){
+            let loader = this.$loading.show({
+                    // Optional parameters
+                    container: this.fullPage ? null : this.$refs.formContainer,
+                    canCancel: true,
+                    onCancel: this.onCancel,
+                    loader: 'spinner',
+                    color: '#000000'
+            });
             this.$store.dispatch("masteraccount/updateMasterAccount",{'value':this.value})
             .then(response => {
+              loader.hide()
               if(response.status == 'ERROR'){
                   this.flashMessage.setStrategy('single');
                   this.flashMessage.error({
