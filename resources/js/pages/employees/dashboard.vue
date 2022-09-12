@@ -8,7 +8,31 @@
 
             <h2 class="mb-4">Employee Dashboard</h2>
 
-			    <b-card-group deck>
+			  <b-card-group deck>
+			
+				<b-card
+					overlay
+					:img-src="require('../../assets/images/account.jpg')"
+					img-alt="Card Image"
+					text-variant="black"
+				>
+				<p style="color: black; font-size: 20px;"><b-icon-calendar2-date></b-icon-calendar2-date> Date Today: {{current_date}} </p>
+				<p style="color: black;  font-size: 20px;"><b-icon-currency-dollar ></b-icon-currency-dollar>Total shares in the Company: ${{$store.getters["monthlycontribution/gettotalEmployeeContr"] + $store.getters["monthlycontribution/gettotalEmployerContr"]}}</p>
+				</b-card>
+
+				<b-card
+					overlay
+					img-alt="Card Image"
+					text-variant="black"
+				>
+					<h2><b-icon-currency-dollar ></b-icon-currency-dollar>Current Dollar Rate: <b>{{$store.getters["authentication/getCurrentDollar"]}}</b></h2>
+
+				</b-card>
+
+				</b-card-group>
+				<br>
+
+				  <b-card-group deck>
 					<b-card
 						border-variant="primary"
 						header="Number of Month Contributed"
@@ -50,29 +74,6 @@
 					</b-card>
 				</b-card-group>
 				<br>
-			  <b-card-group deck>
-				<b-card
-				header="featured"
-				header-tag="header"
-				footer="Card Footer"
-				footer-tag="footer"
-				title="Title"
-				>
-				<b-card-text>Header and footers using props.</b-card-text>
-				<b-button href="#" variant="primary">Go somewhere</b-button>
-				</b-card>
-
-				<b-card title="Title" header-tag="header" footer-tag="footer">
-				<template #header>
-					<h6 class="mb-0">Header Slot</h6>
-				</template>
-				<b-card-text>Header and footers using slots.</b-card-text>
-				<b-button href="#" variant="primary">Go somewhere</b-button>
-				<template #footer>
-					<em>Footer Slot</em>
-				</template>
-				</b-card>
-			</b-card-group>
 		</div>
 		</div>
 	</div>
@@ -91,6 +92,8 @@ export default {
     Footer
 },
 	mounted(){
+		var currentDate = new Date();
+    	this.current_date = currentDate
 	},
 	// mounted() {
 	// 	this.$store.dispatch("monthlycontribution/fetchEmpDashboardCardDetails").then(response => {
@@ -109,6 +112,8 @@ export default {
 		form: {
           contribution: '',
         },
+		current_date: ''
+
       }
     },
 };
