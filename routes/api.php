@@ -44,6 +44,8 @@ Route::group(['middleware' => ['web']], function () {
         //Employee
         Route::get('employeeslist', [EmployeesController::class, 'fetch']);
         Route::get('employeesrequest', [EmployeesController::class, 'fetchemployeesrequest']);
+        Route::get('fetchChartData', [EmployeesController::class, 'fetchChartData']);
+
 
         Route::post('updateEmpContribution', [EmployeesController::class, 'updateContribution']);
         Route::post('modifyContribution', [EmployeesController::class, 'modifyContribution']);

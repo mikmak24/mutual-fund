@@ -63,7 +63,7 @@
 
       <div class="row">
         <div class="col-sm">
-          <LineChart />
+          <GChart :type="type" :data="chartData" :options="chartOptions" />
         </div>
         <div class="col-sm">
           <BarChart />
@@ -78,8 +78,9 @@
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import Footer from "../../components/Footer";
-import LineChart from '../../components/charts/LineChart'
 import BarChart from '../../components/charts/BarChart'
+import { GChart } from 'vue-google-charts/legacy';
+
 
 
 export default {
@@ -88,8 +89,8 @@ export default {
 		Navbar,
 		Sidebar,
 		Footer,
-		LineChart,
 		BarChart,
+    GChart
 	},
 	mounted() {
     var date = new Date();
@@ -104,6 +105,24 @@ export default {
       return {
           current_date: '',
           notifications: 0,
+
+          //
+          type: 'LineChart',
+          chartOptions: {
+            title: "Master Account History of Values",
+            curveType: 'function',
+            legend: { position: 'top' },
+            width: 800,
+            height: 600,
+          },
+          chartData: [
+            ['Year', 'Share Value'],
+            ['2004', 1000],
+            ['2005', 1170],
+            ['2006', 660],
+            ['2007', 1030],
+         ]
+
       }
     },
 };

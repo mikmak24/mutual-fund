@@ -4,43 +4,20 @@
 		<!-- Page Content  -->
 		<div id="content">
 			<Navbar />
-				  <div  class="p-4 p-md-5">
-
-            <h2 class="mb-4">Employee Dashboard</h2>
-
-			  <b-card-group deck>
-			
-				<b-card
-					overlay
-					:img-src="require('../../assets/images/account.jpg')"
-					img-alt="Card Image"
-					text-variant="black"
-				>
-				<p style="color: black; font-size: 20px;"><b-icon-calendar2-date></b-icon-calendar2-date> Date Today: {{current_date}} </p>
-				<p style="color: black;  font-size: 20px;"><b-icon-currency-dollar ></b-icon-currency-dollar>Total shares in the Company: ${{$store.getters["monthlycontribution/gettotalEmployeeContr"] + $store.getters["monthlycontribution/gettotalEmployerContr"]}}</p>
-				</b-card>
-
-				<b-card
-					overlay
-					img-alt="Card Image"
-					text-variant="black"
-				>
-					<h2><b-icon-currency-dollar ></b-icon-currency-dollar>Current Dollar Rate: <b>{{$store.getters["authentication/getCurrentDollar"]}}</b></h2>
-
-				</b-card>
-
-				</b-card-group>
-				<br>
-
-				  <b-card-group deck>
+			<div class="p-4 p-md-5">
+				<b-card-group deck>
 					<b-card
 						border-variant="primary"
-						header="Number of Month Contributed"
+						header="Number of times you Contributed"
 						header-bg-variant="primary"
 						header-text-variant="white"
 						align="center"
 					>
-						<b-card-text><h6 style="color: blue;">{{$store.getters["monthlycontribution/gettotalMonthContr"]}}</h6></b-card-text>
+						<b-card-text
+							><h6 style="color: blue;">
+								{{ $store.getters["monthlycontribution/gettotalMonthContr"] }}
+							</h6></b-card-text
+						>
 					</b-card>
 
 					<b-card
@@ -50,7 +27,11 @@
 						header-text-variant="white"
 						align="center"
 					>
-						<b-card-text><h6 style="color: green;">${{$store.getters["monthlycontribution/gettotalEmployeeContr"]}}</h6></b-card-text>
+						<b-card-text
+							><h6 style="color: green;">
+								${{ $store.getters["monthlycontribution/gettotalEmployeeContr"] }}
+							</h6></b-card-text
+						>
 					</b-card>
 
 					<b-card
@@ -60,7 +41,11 @@
 						header-text-variant="white"
 						align="center"
 					>
-						<b-card-text><h6 style="color: skyblue;">${{$store.getters["monthlycontribution/gettotalEmployerContr"]}}</h6></b-card-text>
+						<b-card-text
+							><h6 style="color: skyblue;">
+								${{ $store.getters["monthlycontribution/gettotalEmployerContr"] }}
+							</h6></b-card-text
+						>
 					</b-card>
 
 					<b-card
@@ -70,51 +55,127 @@
 						header-text-variant="white"
 						align="center"
 					>
-						<b-card-text><h6 style="color: red;">{{$store.getters["monthlycontribution/getmonthlyContribution"]}}% - per month</h6></b-card-text>
+						<b-card-text
+							><h6 style="color: red;">
+								{{ $store.getters["monthlycontribution/getmonthlyContribution"] }}% -
+								per month
+							</h6></b-card-text
+						>
 					</b-card>
 				</b-card-group>
-				<br>
-		</div>
+				<br />
+				<b-jumbotron >
+					<template #lead>
+						<h1 style="color:black;"><b>PERSONAL COMPANY SHARE: </b></h1>
+
+						<h3 style="color:red;" v-if="showValue">
+							${{
+								$store.getters["monthlycontribution/gettotalEmployeeContr"] +
+									$store.getters["monthlycontribution/gettotalEmployerContr"]
+							}}
+						</h3>
+						<h3 v-if="showString">
+							********************
+						</h3>
+					</template>
+
+					<hr class="my-4" />
+
+                    <b-button v-if="showValue"  @click="clickShowString()" variant="outline-dark">HIDE</b-button>
+					<b-button v-if="showString" @click="clickShowValue()" variant="outline-dark" size="sm" class="mb-2">
+                        <b-icon icon="eye-fill" aria-hidden="true"></b-icon> SHOW
+                    </b-button>
+				</b-jumbotron>
+
+				<b-card-group deck>
+					<b-card
+						overlay
+						:img-src="require('../../assets/images/account.jpg')"
+						img-alt="Card Image"
+						text-variant="black"
+					>
+						
+					</b-card>
+
+  <GChart :type="type" :data="chartData" :options="chartOptions" />
+
+				</b-card-group>
+			</div>
 		</div>
 	</div>
 </template>
 
 <script>
+import { GChart } from 'vue-google-charts/legacy';
+
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import Footer from "../../components/Footer";
+// import LineChart from '../../components/charts/LineChart'
 
 export default {
 	name: "Dashboard",
 	components: {
-    Navbar,
-    Sidebar,
-    Footer
-},
-	mounted(){
-		var currentDate = new Date();
-    	this.current_date = currentDate
+		Navbar,
+		Sidebar,
+		Footer,
+		GChart
 	},
-	// mounted() {
-	// 	this.$store.dispatch("monthlycontribution/fetchEmpDashboardCardDetails").then(response => {
-	// 		this.monthly_contribution = response[0].employee_monthly_contribution
-	// 		this.total_employee_contr = response[0].total_employee_contr
-	// 		this.total_employer_contr = response[0].total_employer_contr
-	// 		this.total_month_contr = response[0].total_month_contr
-	// 	});
-	// },
-	 data() {
-      return {
-		monthly_contribution: 0,
-		total_employee_contr: 0,
-		total_employer_contr: 0,
-		total_month_contr: 0,
-		form: {
-          contribution: '',
-        },
-		current_date: ''
+	mounted() {
+		var currentDate = new Date();
+		this.current_date = currentDate;
+	},
+	mounted() {
+		this.$store.dispatch("employees/fetchChartData").then(response => {
 
-      }
-    },
+			let array = this.chartData
+			for (let i = 0; i < response.length; i++) {
+				array.push([response[i].year, response[i].employee_contribution])
+			}
+			console.log(array)
+		});
+	},
+	data() {
+		return {
+			monthly_contribution: 0,
+			total_employee_contr: 0,
+			total_employer_contr: 0,
+			total_month_contr: 0,
+			form: {
+				contribution: ""
+			},
+			current_date: "",
+			showString: true,
+            showValue: false,
+
+			//
+			type: 'LineChart',
+			chartOptions: {
+				title: "You're Contribution every month",
+				curveType: 'function',
+				legend: { position: 'top' },
+				width: 800,
+				height: 600,
+			},
+			chartData: [
+				[
+					'Year', 
+					'Contribution'
+				]
+			]
+		};
+	},
+	methods: {
+        clickShowValue(){
+            this.showString = false
+            this.showValue = true
+        },
+
+        clickShowString(){
+            this.showString = true
+            this.showValue = false
+        },
+
+	}
 };
 </script>

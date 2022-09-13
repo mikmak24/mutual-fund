@@ -34,6 +34,12 @@ const actions = {
         commit('setArrayEmployeeRequest', response.data)
     },
 
+    async fetchChartData({ commit }) {
+        const response = await axios.get("/api/fetchChartData")
+        return response.data;
+        // commit('setArrayEmployeeRequest', response.data)
+    },
+
     async acceptEmpContribution({commit}, payload) {
         const response = await axios.post("api/acceptContribution", payload)
         return response.data

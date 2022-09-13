@@ -16,18 +16,18 @@ export default {
     return {
       type: 'LineChart',
       chartOptions: {
-        title: 'Employee Contribution in ther ',
+        title: "You're Contribution every month",
         curveType: 'function',
-        legend: { position: 'bottom' },
+        legend: { position: 'top' },
         width: 800,
         height: 600,
       },
        chartData: [
-        ['Year', 'Sales', 'Expenses'],
-        ['2004', 1000, 400],
-        ['2005', 1170, 460],
-        ['2006', 660, 1120],
-        ['2007', 1030, 540],
+        ['Year', 'Contibution'],
+        ['2004', 1000],
+        ['2005', 1170],
+        ['2006', 660],
+        ['2007', 1030],
      ]
 
 

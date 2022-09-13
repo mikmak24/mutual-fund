@@ -16,7 +16,9 @@
                         <input style="color:black; font-size: 30px;" v-if="showString" value="*********************" class="form-control">
                         <input style="color:black; font-size: 30px;" v-if="showValue" type="number" v-model="value" class="form-control">
                     </div>
-                        <b-button v-if="showString" @click="clickShowValue()" variant="outline-dark">SHOW</b-button>
+                        <b-button v-if="showString" @click="clickShowValue()" variant="outline-dark" size="sm" class="mb-2">
+                            <b-icon icon="eye-fill" aria-hidden="true"></b-icon> SHOW
+                        </b-button>                        
                         <b-button v-if="showValue"  @click="clickShowString()" variant="outline-dark">HIDE</b-button>
 
                          <b-button v-if="showValue" type="submit" variant="success" @click="updateMasterAccount()">

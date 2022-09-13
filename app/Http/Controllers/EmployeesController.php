@@ -35,6 +35,17 @@ class EmployeesController extends Controller
         ->get();
     }
 
+    public function fetchChartData(){
+
+        return EmployeeContribution::select('username', 'employee_contribution', 'employer_contribution',
+        DB::raw('CONVERT(date_of_contribution,CHAR)AS year'), 
+        )
+        ->where('username', Auth::user()->username)
+        ->orderBy('created_at', 'ASC')
+        ->get();
+
+    }
+
     public function fetchemployeesrequest(){
         return EmployeeContributionRequest::select('*')
         ->orderBy('created_at', 'DESC')
