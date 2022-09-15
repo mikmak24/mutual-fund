@@ -32,6 +32,12 @@ const actions = {
         return response.data;
         // commit('setArrayEmployeeRequest', response.data)
     },
+
+    async fetchMasterValueHistory({ commit }) {
+        const response = await axios.get("/api/fetchMasterValueHistory")
+        return response.data;
+        // commit('setArrayEmployeeRequest', response.data)
+    },
 }
 const mutations = {
 

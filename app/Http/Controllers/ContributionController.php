@@ -29,7 +29,7 @@ class ContributionController extends Controller
             MasterValueHistory::create([
                 'amount' => $master_account_amount[0]['master_account_amount'] ,
                 'date_of_change' => date('Y-m-d'),
-                'changed_by' => Auth::user()->username . 'uploaded a contribution for employees'
+                'changed_by' => Auth::user()->username . ' uploaded a contribution for employees'
             ]);
 
 

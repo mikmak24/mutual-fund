@@ -7,7 +7,7 @@
 	  <div  class="p-2 p-md-3">
 
       <b-card-group deck>
-      <b-card bg-variant="primary" text-variant="white" header="Current Date" class="text-center">
+      <b-card bg-variant="primary" text-variant="white" header="CURRENT DATE" class="text-center">
         <h4 style="color:white;">{{current_date}}</h4>
       </b-card>
 
