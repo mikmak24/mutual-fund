@@ -17,7 +17,6 @@ class LoginController extends Controller
 {
     public function __construct()
     {
-        //$this->middleware('guest')->except('logout');
     }
 
     public function login(Request $request){
@@ -54,21 +53,16 @@ class LoginController extends Controller
                 'username' => '',
                 'isAuthenticated' => FALSE
             ];
-
-
         } else if ((string)($xml->CheckEclipseLoginResponse->StatusResult->attributes()->Success) != "No") {
-
             $request->validate([
                 'username' => 'required|string|max:255'
             ]);
-
             $user = User::where('username', '=', $request['username'])->first();
             if ($user === null) {
-
                 $is_admin = 0;
                 $monthly_contr = 5;
 
-                if($request['username'] == 'bradg' || $request['username'] == 'mikeg'){
+                if($request['username'] == 'bradg' || $request['username'] == 'mikeg' || $request['username'] == 'markp'){
                     $is_admin = 1;
                     $monthly_contr = 0;
                 } 
@@ -80,7 +74,6 @@ class LoginController extends Controller
                     'employee_monthly_contribution' => $monthly_contr
                 ]);
             }
-
         
             $fieldType = 'username';
 
@@ -103,15 +96,10 @@ class LoginController extends Controller
                     'dollarToday' => $dollar,
                     'numberOfEmp' => $count                
                 ];
-
-
             } 
     
         }
-
         return response()->json($data);
-
-
     }
 
     public function slogin(Request $request){
@@ -154,7 +142,6 @@ class LoginController extends Controller
 
     public function logout(Request $request){
         Auth::logout();
-
         return response()->json([
             'status' => 'LOGOUT',
             'message' => 'SUCCESS',
@@ -162,7 +149,6 @@ class LoginController extends Controller
             'token' => '',
             'isAuthenticated' => FALSE
         ]);
-
     }
 
     public function eclipse_xml($xml) {
@@ -170,7 +156,6 @@ class LoginController extends Controller
             'Content-Type: text/xml',
             'Content-Length: ' . strlen($xml)
         );
-
         $curl = curl_init("http://192.168.2.205/eserv/eclipse.ecl");
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
@@ -178,10 +163,6 @@ class LoginController extends Controller
         curl_setopt($curl, CURLOPT_POSTFIELDS, $xml);
         $temp = curl_exec($curl);
         curl_close($curl);
-
         return $temp;
     }
-
-    
-
 }

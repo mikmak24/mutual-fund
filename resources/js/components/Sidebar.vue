@@ -43,15 +43,15 @@
 							</h6>
 						</router-link>
 					</li>
-					<li class="nav-item">
+					<!-- <li class="nav-item">
 						<router-link to="/requestlist" class="nav-link active" href="#">
 							<h6 style="color: white">
 								<b-icon icon="list" variant="light"></b-icon> Change Employee Contribution
 							</h6>
 						</router-link>
-					</li>
+					</li> -->
 					<li class="nav-item">
-						<router-link to="/ss" class="nav-link active" href="#">
+						<router-link to="#" class="nav-link active" href="#">
 							<h6 style="color: white">
 								<b-icon icon="file-bar-graph" variant="light"></b-icon> Reports
 							</h6>
@@ -81,7 +81,7 @@
 						</router-link>
 					</li>
 					<li class="nav-item">
-						<router-link to="/ss" class="nav-link active" href="#">
+						<router-link to="#" class="nav-link active" href="#">
 							<h6 style="color: white">
 								<b-icon icon="file-bar-graph" variant="light"></b-icon> Reports
 							</h6>

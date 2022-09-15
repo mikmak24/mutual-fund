@@ -19,14 +19,19 @@
 
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="nav navbar-nav ml-auto">
-					<li class="nav-item active">
-						<a class="nav-link" href="#">HOME</a>
-					</li>
 					<li v-if="isAdmin == 1" class="nav-item">
 						<router-link to="/masteraccount" class="nav-link active" href="#">
 							<h6 style="color: dark">
-								<b-icon icon="exclamation-triangle-fill" variant="warning"></b-icon>
+								<b-icon icon="cash-coin" variant="warning"></b-icon>
 								Master Account
+							</h6>
+						</router-link>
+					</li>
+					<li v-if="isAdmin == 1" class="nav-item">
+						<router-link to="/requestlist" class="nav-link active" href="#">
+							<h6 style="color: dark">
+								<b-icon icon="bell-fill" variant="danger"></b-icon> 
+								Employee Request ({{notifications}})
 							</h6>
 						</router-link>
 					</li>
@@ -50,8 +55,8 @@ export default {
 			username: "",
 			token: "",
 			isAdmin: "",
-			fullPage: false
-
+			fullPage: false,
+			notifications: 0
 		};
 	},
 	mounted() {
@@ -63,6 +68,10 @@ export default {
 		this.isAdmin = this.$store.getters[
 			"authentication/isAdmin"
 		];
+
+		this.$store.dispatch("monthlycontribution/countContributionRequest").then(response => {
+			this.notifications = response.count
+		});
 	},
 	methods: {
 		logout() {

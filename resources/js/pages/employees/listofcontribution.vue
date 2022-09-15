@@ -115,7 +115,7 @@
                     <p style="color: red;">${{row.item.employee_gained}}</p>
                   </template>
                 <template #cell(actions)="row">
-                  <b-button
+                  <!-- <b-button
                     variant="info"
                     size="sm"
                     @click="info(row.item, row.index, $event.target)"
@@ -124,11 +124,12 @@
                       <b-icon-arrow-up></b-icon-arrow-up>
 
                     Show details
-                  </b-button>
+                  </b-button> -->
                   <b-button size="sm" @click="row.toggleDetails"
                   variant="warning"
                   >
-                   EDIT Contribution
+                  <b-icon-eye></b-icon-eye>
+                   Show Details
                   </b-button>
                 </template>
 

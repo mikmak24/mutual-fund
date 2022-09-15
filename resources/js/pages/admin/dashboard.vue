@@ -6,61 +6,20 @@
       <Navbar />
 	  <div  class="p-2 p-md-3">
 
-      <div class="row">
-        <div class="col-xl-3 col-md-6">
-          <div class="card bg-primary text-white mb-4">
-            <div class="card-body"><h5 style="color:white;"><b-icon-calendar2-date></b-icon-calendar2-date> Date Today</h5></div>
-            <div
-              class="card-footer d-flex align-items-center justify-content-between"
-            >
-              <h2>{{current_date}}</h2>
-              <div class="small text-white">
-                <i class="fas fa-angle-right"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-md-6">
-          <div class="card bg-warning text-white mb-4">
-            <div class="card-body"><h5 style="color:white;"><b-icon-currency-dollar ></b-icon-currency-dollar> Dollar as the moment</h5></div>
-            <div
-              class="card-footer d-flex align-items-center justify-content-between"
-            >
-              <h2>{{$store.getters["authentication/getCurrentDollar"]}}</h2>
-              <div class="small text-white">
-                <i class="fas fa-angle-right"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-md-6">
-          <div class="card bg-success text-white mb-4">
-            <div class="card-body"><h5 style="color:white;"><b-icon-person-circle ></b-icon-person-circle> Number of Employees:</h5></div>
-            <div
-              class="card-footer d-flex align-items-center justify-content-between"
-            >
-              <h2>{{$store.getters["authentication/getNumberOfEmp"]}}</h2>
-              <div class="small text-white">
-                <i class="fas fa-angle-right"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-md-6">
-          <div class="card bg-danger text-white mb-4">
-            <div class="card-body"><h5 style="color:white;"> <b-icon-arrow-up></b-icon-arrow-up> Notifications</h5> </div>
-            <div
-              class="card-footer d-flex align-items-center justify-content-between"
-            >
-              <h2>{{notifications}}</h2>
-              <div class="small text-white">
-                <i class="fas fa-angle-right"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <b-card-group deck>
+      <b-card bg-variant="primary" text-variant="white" header="Current Date" class="text-center">
+        <h4 style="color:white;">{{current_date}}</h4>
+      </b-card>
 
+      <b-card bg-variant="secondary" text-variant="white" header="Dollar Rate as the moment" class="text-center">
+        <h4 style="color:white;">{{$store.getters["authentication/getCurrentDollar"]}}</h4>
+      </b-card>
+
+      <b-card bg-variant="success" text-variant="white" header="Number of Employees:" class="text-center">
+        <h4 style="color:white;">{{$store.getters["authentication/getNumberOfEmp"]}}</h4>
+      </b-card>
+    </b-card-group>
+      <hr>
       <div class="row">
         <div class="col-sm">
           <GChart :type="type" :data="chartData" :options="chartOptions" />
@@ -125,7 +84,8 @@ export default {
             height: 600,
           },
           chartData: [
-            ['Year', 'Share Value']
+            ['Year', 'Share Value'],
+            ['Start Year: 2022', 0]
          ]
 
       }

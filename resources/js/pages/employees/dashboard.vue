@@ -158,10 +158,8 @@ export default {
 				height: 600,
 			},
 			chartData: [
-				[
-					'Year', 
-					'Contribution'
-				]
+				['Year', 'Contribution'],
+				['Start Year: 2022', 0]
 			]
 		};
 	},
