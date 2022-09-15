@@ -62,6 +62,7 @@ Route::group(['middleware' => ['web']], function () {
         //MasterAccount
         Route::get('masteraccount', [MasterAccountController::class, 'fetch']);
         Route::post('updateMasterAccount', [MasterAccountController::class, 'updateMasterAccount']);
+        Route::get('fetchLineChartData', [MasterAccountController::class, 'fetchLineChartData']);
 
 
     });

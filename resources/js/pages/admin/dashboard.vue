@@ -100,6 +100,15 @@ export default {
     this.$store.dispatch("monthlycontribution/countContributionRequest").then(response => {
       this.notifications = response.count
 		});
+
+    this.$store.dispatch("masteraccount/fetchLineChartData").then(response => {
+
+			let array = this.chartData
+			for (let i = 0; i < response.length; i++) {
+				array.push([response[i].date_of_change, response[i].amount])
+			}
+			console.log(array)
+		});
 	},
   data() {
       return {
@@ -116,11 +125,7 @@ export default {
             height: 600,
           },
           chartData: [
-            ['Year', 'Share Value'],
-            ['2004', 1000],
-            ['2005', 1170],
-            ['2006', 660],
-            ['2007', 1030],
+            ['Year', 'Share Value']
          ]
 
       }

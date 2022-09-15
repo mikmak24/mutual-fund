@@ -60,6 +60,7 @@ export default {
 	},
 	mounted() {
 		this.$store.dispatch("monthlycontribution/downloadEmployees").then(response => {
+			console.log(response)
         	this.json_data = response
         })
     },
@@ -68,8 +69,9 @@ export default {
 			date: "",
 			file: null,
 			json_fields: {
+				ContributionPercentage: "employee_monthly_contribution",
 				Eclipse_ID: "username",
-				Employee_Contribution: "employee_monthly_contribution",
+				Employee_Contribution: "employer_cont",
 				Employer_Contribution: "employer_cont",
 			},
 

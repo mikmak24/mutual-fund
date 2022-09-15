@@ -21,10 +21,12 @@ use App\Models\MasterAccount;
 class ImportContribution implements ToModel,  WithHeadingRow, WithChunkReading, ShouldQueue, WithBatchInserts, WithCalculatedFormulas, WithStartRow
 {
     private $date_of_contribution;
+    private $i;
 
     public function __construct($date_of_contribution)
     {
-        $this->date_of_contribution= $date_of_contribution;
+        $this->date_of_contribution = $date_of_contribution;
+        $this->i = 1;
     }
     /**
     * @param array $row
@@ -66,6 +68,9 @@ class ImportContribution implements ToModel,  WithHeadingRow, WithChunkReading, 
                 'date_of_contribution' =>  $this->date_of_contribution,
                 'uploaded_by' => Auth::user()->username
             ]);
+
+            $this->i++;
+            
 
         }catch(\Exception $e){
             Log::alert($e);

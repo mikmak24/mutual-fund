@@ -26,6 +26,12 @@ const actions = {
 
         return response.data
     },
+
+    async fetchLineChartData({ commit }) {
+        const response = await axios.get("/api/fetchLineChartData")
+        return response.data;
+        // commit('setArrayEmployeeRequest', response.data)
+    },
 }
 const mutations = {
 
