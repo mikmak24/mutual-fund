@@ -1,35 +1,31 @@
 <template>
   <div class="wrapper d-flex align-items-stretch">
-    <Sidebar />
-    <!-- Page Content  -->
-    <div id="content">
-      <Navbar />
-	  <div  class="p-2 p-md-3">
+      <Sidebar />
+      <!-- Page Content  -->
+      <div id="content">
+          <Navbar />
+          <div  class="p-2 p-md-3">
+              <b-card-group deck>
+                <b-card bg-variant="primary" text-variant="white" header="CURRENT DATE" class="text-center">
+                  <h4 style="color:white;">{{current_date}}</h4>
+                </b-card>
 
-      <b-card-group deck>
-      <b-card bg-variant="primary" text-variant="white" header="CURRENT DATE" class="text-center">
-        <h4 style="color:white;">{{current_date}}</h4>
-      </b-card>
+                <b-card bg-variant="secondary" text-variant="white" header="Dollar Rate as the moment" class="text-center">
+                  <h4 style="color:white;">{{$store.getters["authentication/getCurrentDollar"]}}</h4>
+                </b-card>
 
-      <b-card bg-variant="secondary" text-variant="white" header="Dollar Rate as the moment" class="text-center">
-        <h4 style="color:white;">{{$store.getters["authentication/getCurrentDollar"]}}</h4>
-      </b-card>
+                <b-card bg-variant="success" text-variant="white" header="Number of Employees:" class="text-center">
+                  <h4 style="color:white;">{{$store.getters["authentication/getNumberOfEmp"]}}</h4>
+                </b-card>
+              </b-card-group>
+            <hr>
+            <b-row>
+              <b-col><GChart :type="type" :data="chartData" :options="chartOptions" /></b-col>
+              <b-col><BarChart /></b-col>
+            </b-row>
 
-      <b-card bg-variant="success" text-variant="white" header="Number of Employees:" class="text-center">
-        <h4 style="color:white;">{{$store.getters["authentication/getNumberOfEmp"]}}</h4>
-      </b-card>
-    </b-card-group>
-      <hr>
-      <div class="row">
-        <div class="col-sm">
-          <GChart :type="type" :data="chartData" :options="chartOptions" />
-        </div>
-        <div class="col-sm">
-          <BarChart />
-        </div>
+          </div>
       </div>
-	</div>
-    </div>
   </div>
 </template>
 
