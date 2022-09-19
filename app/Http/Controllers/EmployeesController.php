@@ -23,7 +23,7 @@ class EmployeesController extends Controller
     }
 
     public function fetch(){
-        return User::select('users.username',
+        return User::select('users.username', 'users.is_active', 'users.created_at', 'users.updated_at',
         DB::raw('SUM(employee_contributions.employee_contribution) as total_employee_contr'), 
         DB::raw('SUM(employee_contributions.employer_contribution) as total_employer_contr'), 
         DB::raw('SUM(employee_contributions.employee_gained) as total_employee_shares'), 

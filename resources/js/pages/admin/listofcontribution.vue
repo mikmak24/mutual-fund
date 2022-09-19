@@ -104,12 +104,12 @@
                   >
                     SHOW DETAILS
                   </b-button> -->
-                <b-button
-                  size="sm"
-                  @click="showModifyModal(row.item, row.index, $event.target)"
+                <b-button size="sm" 
                   variant="warning"
-                >
-                  Modify Contribution
+                  @click="showModifyModal(row.item, row.index, $event.target)"
+                  >
+                  <b-icon-eye></b-icon-eye>
+                   Modify Contribution
                 </b-button>
               </template>
 

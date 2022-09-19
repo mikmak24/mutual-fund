@@ -99,12 +99,12 @@
                   >
                     SHOW DETAILS
                   </b-button> -->
-                <b-button
-                  size="sm"
+                <b-button size="sm" 
                   @click="showModifyModal(row.item, row.index, $event.target)"
                   variant="warning"
-                >
-                  Modify Contribution
+                  >
+                  <b-icon-eye></b-icon-eye>
+                   Show Employee Details
                 </b-button>
               </template>
 
@@ -155,31 +155,94 @@
       </div>
 
       <b-modal
-        ref="my-modal"
-        id="modal-lg"
-        size="lg"
-        title="Modify Contribution"
+         header-bg-variant="light"
+          header-text-variant="dark"
+          ref="my-modal"
+          id="modal-lg"
+          size="lg"
       >
-        <b-form-group
-          id="input-group-1"
-          label="Total Employee Shares"
-          label-for="input-1"
-          description="We'll never share you're total contribution value with anyone else."
-        >
-          <b-form-input
-            id="input-1"
-            v-model="form.total_employee_shares"
-            required
-          ></b-form-input>
-        </b-form-group>
+        <b-card-group deck>
+          
+            <b-card
+              style="color: black; font-size: 20px;"
+               border-variant="info"
+               header-bg-variant="info"
+              header-text-variant="white"
+               align="center"
+               header="Eclipse Username" class="text-center">
+              <h3>{{form.username}}</h3>
+            </b-card>
 
-        <b-form-group id="input-group-2" label="Your Name:" label-for="input-2">
-          <b-form-input
-            id="input-2"
-            placeholder="Enter name"
-            required
-          ></b-form-input>
-        </b-form-group>
+        </b-card-group>
+        <br>
+        <b-card-group deck>
+          
+            <b-card
+              style="font-size: 20px;"
+              border-variant="info"
+              header-bg-variant="info"
+              header-text-variant="white"
+              align="center"
+              header="Total Employee Share in the Company" class="text-center">
+              <h3>${{form.total_employee_shares}}</h3>
+            </b-card>
+
+        </b-card-group>
+         
+         <br>
+         <b-card-group deck>
+
+            <b-card 
+              style="color: black;"
+              border-variant="info"
+              header-bg-variant="transparent"
+              align="center"
+              header="Employee Total Individual Contribution" class="text-center">
+              <h3>${{form.employee_contribution}}</h3>
+            </b-card>
+
+            <b-card 
+              style="color: black;"
+              border-variant="info"
+              header-bg-variant="transparent"
+              align="center"
+              header="Employer Total Contribution" class="text-center">
+              <h3>${{form.employer_contribution}}</h3>
+            </b-card>
+
+        </b-card-group>
+        <hr>
+        <b-card-group deck>
+          
+            <b-card
+              v-if="form.status === 1"
+              style="font-size: 20px;"
+              bg-variant="success"
+              header-bg-variant="success"
+              header-text-variant="white"
+              align="center"
+              class="text-center">
+              <h5 style="color:white;"><b>ACTIVE</b><br>since ~ {{form.created_at}}
+              </h5>
+              <b-button @click="updateEmployeeStatus(0)" variant="outline-light">ACTIVE -> INACTIVE</b-button>
+
+            </b-card>
+
+             <b-card
+              v-if="form.status === 0"
+              style="font-size: 20px;"
+              bg-variant="danger"
+              header-bg-variant="danger"
+              header-text-variant="white"
+              align="center"
+              class="text-center">
+              <h5 style="color:white;"><b>INACTIVE</b><br>since ~ {{form.updated_at}}
+              </h5>
+              <b-button @click="updateEmployeeStatus(1)" variant="outline-light">INACTIVE -> ACTIVE</b-button>
+            </b-card>
+
+        </b-card-group>
+
       </b-modal>
     </div>
   </div>
@@ -189,6 +252,7 @@
 import Navbar from '../../components/Navbar'
 import Sidebar from '../../components/Sidebar'
 import Footer from '../../components/Footer'
+import moment from 'moment'
 
 export default {
     name: 'Dashboard',
@@ -211,15 +275,22 @@ export default {
           loader.hide()
           this.items = response;
           this.totalRows = response.length;
+
       })
     },
     data() {
       return {
         form: {
+          id: 0,
           total_employee_shares: '',
-          name: '',
-          food: null,
-          checked: []
+          date_of_contribution: '',
+          employee_contribution: 0,
+          employer_contribution: 0,
+          username: '',
+          uploaded_by: '',
+          status: '',
+          created_at: '',
+          updated_at: ''
         },
         perPage: 10,
         pageOptions: [5, 10, 15, { value: 100, text: "Show a lot" }],
@@ -271,7 +342,18 @@ export default {
 
       showModifyModal(item, index, button){
         this.form.total_employee_shares = item.total_employee_shares
+        this.form.username = item.username
+        this.form.employee_contribution = item.total_employee_contr
+        this.form.employer_contribution = item.total_employer_contr
+        this.form.status = item.is_active
+        this.form.created_at = moment(String(item.created_at)).format('LLLL')
+        this.form.updated_at = moment(String(item.updated_at)).format('LLLL')
+        // this.form.id = item.id
         this.$refs['my-modal'].show()
+      },
+
+      updateEmployeeStatus(status){
+        alert(status)
       }
     }
 }

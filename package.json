@@ -29,6 +29,7 @@
         "@smartweb/vue-flash-message": "^0.6.10",
         "chart.js": "^3.9.1",
         "jquery": "^3.6.0",
+        "moment": "^2.29.4",
         "vue-chartjs": "^4.1.1",
         "vue-google-charts": "^1.1.0",
         "vue-json-excel": "^0.3.0",
