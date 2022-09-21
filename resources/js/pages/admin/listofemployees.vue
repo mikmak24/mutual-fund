@@ -352,6 +352,7 @@ export default {
       },
 
       updateEmployeeStatus(is_active, username){
+        this.$refs['my-modal'].hide()
         let loader = this.$loading.show({
             // Optional parameters
             container: this.fullPage ? null : this.$refs.formContainer,
@@ -368,8 +369,6 @@ export default {
         })
             .then(response => {
               loader.hide()
-              this.$refs['my-modal'].hide()
-
               if(response.status == 'ERROR'){
                   this.flashMessage.setStrategy('single');
                   this.flashMessage.error({
