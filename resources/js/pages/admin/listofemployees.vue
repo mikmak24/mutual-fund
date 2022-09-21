@@ -384,7 +384,7 @@ export default {
                     message: 'Employess active status has been changed successfully-- Reloading screen',
                     icon: false,
                   });
-                  this.$refs['my-modal'].show()
+                  this.$refs['my-modal'].hide()
                   this.fetchEmployee()
               } 
             })
