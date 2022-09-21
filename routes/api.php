@@ -58,6 +58,8 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('acceptContribution', [EmployeesController::class, 'acceptContribution']);
         Route::post('declineContribution', [EmployeesController::class, 'declineContribution']);
 
+        Route::post('updateEmployeeStatus', [EmployeesController::class, 'updateEmployeeStatus']);
+
 
         //MasterAccount
         Route::get('masteraccount', [MasterAccountController::class, 'fetch']);

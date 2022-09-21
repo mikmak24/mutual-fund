@@ -312,9 +312,8 @@ export default {
                 });
          this.$store.dispatch("monthlycontribution/updateContribution",[this.form])
             .then(response => {
-                            loader.hide()
-                                    this.$refs['my-modal'].hide()
-
+              loader.hide()
+              this.$refs['my-modal'].hide()
 
               if(response.status == 'ERROR'){
                   this.flashMessage.setStrategy('single');

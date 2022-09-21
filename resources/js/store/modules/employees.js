@@ -49,6 +49,11 @@ const actions = {
         const response = await axios.post("api/declineContribution", payload)
         return response.data
     },
+
+    async updateEmployeeStatus({commit}, payload) {
+        const response = await axios.post("api/updateEmployeeStatus", payload)
+        return response.data
+    },
 }
 const mutations = {
     setArrayEmployeeRequest (state, payload) {

@@ -155,7 +155,7 @@
       </div>
 
       <b-modal
-         header-bg-variant="light"
+         header-bg-variant="info"
           header-text-variant="dark"
           ref="my-modal"
           id="modal-lg"
@@ -224,7 +224,7 @@
               class="text-center">
               <h5 style="color:white;"><b>ACTIVE</b><br>since ~ {{form.created_at}}
               </h5>
-              <b-button @click="updateEmployeeStatus(0)" variant="outline-light">ACTIVE -> INACTIVE</b-button>
+              <b-button @click="updateEmployeeStatus(0, form.username)" variant="outline-light">ACTIVE -> INACTIVE</b-button>
 
             </b-card>
 
@@ -238,7 +238,7 @@
               class="text-center">
               <h5 style="color:white;"><b>INACTIVE</b><br>since ~ {{form.updated_at}}
               </h5>
-              <b-button @click="updateEmployeeStatus(1)" variant="outline-light">INACTIVE -> ACTIVE</b-button>
+              <b-button @click="updateEmployeeStatus(1, form.username)" variant="outline-light">INACTIVE -> ACTIVE</b-button>
             </b-card>
 
         </b-card-group>
@@ -263,13 +263,14 @@ export default {
     },
     mounted() {
       let loader = this.$loading.show({
-                    // Optional parameters
-                    container: this.fullPage ? null : this.$refs.formContainer,
-                    canCancel: true,
-                    onCancel: this.onCancel,
-                    loader: 'spinner',
-                    color: '#000000'
-        });
+        // Optional parameters
+        container: this.fullPage ? null : this.$refs.formContainer,
+        canCancel: true,
+        onCancel: this.onCancel,
+        loader: 'spinner',
+        color: '#000000'
+      });
+
       this.$store.dispatch("employees/fetch")
       .then(response => {
           loader.hide()
@@ -277,6 +278,7 @@ export default {
           this.totalRows = response.length;
 
       })
+      
     },
     data() {
       return {
@@ -335,9 +337,6 @@ export default {
     methods: {
       info(item, index, button) {
         console.log(button)
-        // this.infoModal.title = `Row index: ${index}`
-        // this.infoModal.content = JSON.stringify(item, null, 2)
-        // this.$root.$emit('bv::show::modal', this.infoModal.id, button)
       },
 
       showModifyModal(item, index, button){
@@ -352,8 +351,54 @@ export default {
         this.$refs['my-modal'].show()
       },
 
-      updateEmployeeStatus(status){
-        alert(status)
+      updateEmployeeStatus(is_active, username){
+        let loader = this.$loading.show({
+            // Optional parameters
+            container: this.fullPage ? null : this.$refs.formContainer,
+            canCancel: true,
+            onCancel: this.onCancel,
+            loader: 'spinner',
+            color: '#54e375'
+        });
+
+        this.$store.dispatch("employees/updateEmployeeStatus", {
+          'is_active': is_active,
+          'username': username
+          
+        })
+            .then(response => {
+              loader.hide()
+
+              if(response.status == 'ERROR'){
+                  this.flashMessage.setStrategy('single');
+                  this.flashMessage.error({
+                    title: 'INVALID',
+                    message: 'There was an error requesting to update your contribution. Please contact your administration.',
+                    icon: false,
+                  });
+
+              } else if (response.status == 'SUCCESS'){
+                 this.flashMessage.setStrategy('single');
+                  this.flashMessage.success({
+                    title: 'Change Active Status',
+                    message: 'Employess active status has been changed successfully-- Reloading screen',
+                    icon: false,
+                  });
+                  this.$refs['my-modal'].show()
+                  this.fetchEmployee()
+              } 
+            })
+            .catch((error) => {
+            
+            });
+      },
+
+      fetchEmployee(){
+        this.$store.dispatch("employees/fetch")
+          .then(response => {
+            this.items = response;
+            this.totalRows = response.length;
+        })
       }
     }
 }

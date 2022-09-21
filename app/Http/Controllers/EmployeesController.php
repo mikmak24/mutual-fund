@@ -115,6 +115,18 @@ class EmployeesController extends Controller
  
     }
 
+    public function updateEmployeeStatus(Request $request){
+        User::where('username', $request['username'])->update([
+            'is_active' => $request['is_active'],
+        ]);
+
+        return $data = [
+            'status' => 'SUCCESS',
+            'message' => 'Updated Successfully...'
+        ];
+
+    }
+
     public function fetchEmployeeContribution(){
         return EmployeeContribution::where('username', Auth::user()->username)->get();
     }
