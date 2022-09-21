@@ -359,7 +359,7 @@ export default {
             canCancel: true,
             onCancel: this.onCancel,
             loader: 'spinner',
-            color: '#54e375'
+            color: '#000000'
         });
 
         this.$store.dispatch("employees/updateEmployeeStatus", {
