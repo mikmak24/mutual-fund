@@ -368,6 +368,7 @@ export default {
         })
             .then(response => {
               loader.hide()
+              this.$refs['my-modal'].hide()
 
               if(response.status == 'ERROR'){
                   this.flashMessage.setStrategy('single');
@@ -384,7 +385,6 @@ export default {
                     message: 'Employess active status has been changed successfully-- Reloading screen',
                     icon: false,
                   });
-                  this.$refs['my-modal'].hide()
                   this.fetchEmployee()
               } 
             })
