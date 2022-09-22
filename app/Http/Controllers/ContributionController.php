@@ -48,6 +48,7 @@ class ContributionController extends Controller
 
     public function fetch(){
         return EmployeeContribution::select('*')
+        ->orderBy('created_at', 'DESC')
         ->get();
 
     }
