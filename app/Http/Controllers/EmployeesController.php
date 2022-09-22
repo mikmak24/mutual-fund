@@ -43,7 +43,17 @@ class EmployeesController extends Controller
         ->where('username', Auth::user()->username)
         ->orderBy('created_at', 'ASC')
         ->get();
+    }
 
+    public function fetchActiveInActiveEmployee(){
+
+        $active = User::where('is_active', '1')->count();
+        $inactive = User::where('is_active', '0')->count();
+
+        return $data = [
+            'active' => $active,
+            'inactive' => $inactive
+        ];
     }
 
     public function fetchemployeesrequest(){

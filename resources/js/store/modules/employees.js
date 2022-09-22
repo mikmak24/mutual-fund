@@ -54,6 +54,12 @@ const actions = {
         const response = await axios.post("api/updateEmployeeStatus", payload)
         return response.data
     },
+
+    async fetchActiveInActiveEmployee({ commit }) {
+        const response = await axios.get("/api/fetchActiveInActiveEmployee")
+        return response.data;
+        // commit('setArrayEmployeeRequest', response.data)
+    },
 }
 const mutations = {
     setArrayEmployeeRequest (state, payload) {
