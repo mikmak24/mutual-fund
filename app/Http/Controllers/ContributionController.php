@@ -53,6 +53,14 @@ class ContributionController extends Controller
 
     }
 
+    public function fetchIndvContribution(Request $request){
+        return EmployeeContribution::select('*')
+        ->where('username', $request['username'])
+        ->orderBy('created_at', 'DESC')
+        ->get();
+
+    }
+
     public function getContributionRequestCount(){
         $data = [
             'count' => EmployeeContributionRequest::where('status', 'Pending')->count()

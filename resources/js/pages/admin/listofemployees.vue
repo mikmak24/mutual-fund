@@ -91,14 +91,14 @@
                 <p style="color: red">${{row.item.total_employee_shares}}</p>
               </template>
               <template #cell(actions)="row">
-                <!-- <b-button
-                    variant="info"
-                    size="sm"
-                    @click="info(row.item, row.index, $event.target)"
-                    class="mr-1"
+                 <b-button size="sm" 
+                  @click="showBreakdownModal(row.item, row.index, $event.target)"
+                  variant="info"
                   >
-                    SHOW DETAILS
-                  </b-button> -->
+                  <b-icon-eye></b-icon-eye>
+                    Breakdown of Contribution
+                </b-button>
+
                 <b-button size="sm" 
                   @click="showModifyModal(row.item, row.index, $event.target)"
                   variant="warning"
@@ -244,6 +244,22 @@
         </b-card-group>
 
       </b-modal>
+      
+        <b-modal
+         header-bg-variant="info"
+          header-text-variant="dark"
+          ref="my-modal-breakdown"
+          id="modal-lg"
+          size="lg"
+        >
+        <h2>Breakdown of Contribution for {{form.username}}</h2>
+        <b-list-group>
+          <b-list-group-item variant="secondary" button>{{indvContribution}}</b-list-group-item>
+        </b-list-group>
+        
+        </b-modal>
+
+
     </div>
   </div>
 </template>
@@ -330,7 +346,8 @@ export default {
             // variant: 'danger'
           }
         ],
-        items: []
+        items: [],
+        indvContribution: []
 
       }
     },
@@ -350,6 +367,26 @@ export default {
         // this.form.id = item.id
         this.$refs['my-modal'].show()
       },
+
+      showBreakdownModal(item, index, button){
+        this.form.total_employee_shares = item.total_employee_shares
+        this.form.username = item.username
+        this.form.employee_contribution = item.total_employee_contr
+        this.form.employer_contribution = item.total_employer_contr
+        this.form.status = item.is_active
+        this.form.created_at = moment(String(item.created_at)).format('LLLL')
+        this.form.updated_at = moment(String(item.updated_at)).format('LLLL')
+        
+        this.$store.dispatch("monthlycontribution/fetchIndvContribution", {
+            'username': item.username
+        })
+        .then(response => {
+           this.indvContribution = response
+        })
+
+        this.$refs['my-modal-breakdown'].show()
+      },
+
 
       updateEmployeeStatus(is_active, username){
         this.$refs['my-modal'].hide()

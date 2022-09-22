@@ -89,7 +89,15 @@ const actions = {
 
     async removeState({ commit }) {
         commit('setStatetoEmpty')
-    },}
+    },
+
+    async fetchIndvContribution({commit}, payload) {
+        const response = await axios.post("/api/fetchIndvContribution", payload)
+        return response.data;
+    },
+
+
+}
 const mutations = {
 
     setMonthlyContribution (state, payload) {
