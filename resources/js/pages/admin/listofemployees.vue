@@ -8,7 +8,7 @@
       <div class="p-4 p-md-5">
         <h2 class="mb-4">List of Employees</h2>
 
-        <FlashMessage :position="'right bottom'" />
+        <FlashMessage :position="'right top'" />
 
         <b-row>
           <b-col>
