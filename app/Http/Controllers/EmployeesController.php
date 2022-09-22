@@ -142,7 +142,10 @@ class EmployeesController extends Controller
     }
 
     public function downloadEmployees(){
-        return User::select('*')->where('is_admin', '=', 0)->get();
+        return User::select('*')
+        ->where('is_admin', '=', 0)
+        ->where('is_active', '=', 1)
+        ->get();
     }
 
     public function fetchEmpDashboardCardDetails(){
