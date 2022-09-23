@@ -252,11 +252,8 @@
           id="modal-lg"
           size="lg"
         >
-        <h2>Breakdown of Contribution for {{form.username}}</h2>
-        <b-list-group>
-          <b-list-group-item variant="secondary" button>{{indvContribution}}</b-list-group-item>
-        </b-list-group>
-        
+        <h3 style="font-family: monospace">Breakdown of Contribution for: {{form.username}}</h3>
+           <b-table striped hover :items="items2" :fields="fields2"></b-table>
         </b-modal>
 
 
@@ -316,7 +313,7 @@ export default {
         currentPage: 1,
         filter: null,
         filterOn: [],
-         fields: [
+        fields: [
           {
             key: 'username',
             label: 'Eclipse Username',
@@ -347,8 +344,35 @@ export default {
           }
         ],
         items: [],
-        indvContribution: []
-
+        indvContribution: [],
+        fields2: [
+          {
+             key: 'employee_contribution',
+             label: 'Employee Contribution',
+             sortable: true
+          },
+          {
+             key: 'employer_contribution',
+             label: 'Employee Contribution',
+             sortable: true
+          },
+          {
+             key: 'employee_gained',
+             label: 'Employee Gained',
+             sortable: true
+          },
+          {
+             key: 'uploaded_by',
+             label: 'Uploaded by',
+             sortable: true
+          },
+          {
+             key: 'date_of_contribution',
+             label: 'Date of Contribution',
+             sortable: true
+          }
+        ],
+        items2: []
       }
     },
     methods: {
@@ -369,6 +393,15 @@ export default {
       },
 
       showBreakdownModal(item, index, button){
+         this.items2 = []
+         let loader = this.$loading.show({
+          // Optional parameters
+          container: this.fullPage ? null : this.$refs.formContainer,
+          canCancel: true,
+          onCancel: this.onCancel,
+          loader: 'spinner',
+          color: '#000000'
+        });
         this.form.total_employee_shares = item.total_employee_shares
         this.form.username = item.username
         this.form.employee_contribution = item.total_employee_contr
@@ -381,7 +414,8 @@ export default {
             'username': item.username
         })
         .then(response => {
-           this.indvContribution = response
+          loader.hide()
+           this.items2 = response
         })
 
         this.$refs['my-modal-breakdown'].show()
