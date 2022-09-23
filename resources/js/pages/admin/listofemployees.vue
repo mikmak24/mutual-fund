@@ -365,7 +365,7 @@ export default {
           },
           {
              key: 'employer_contribution',
-             label: 'Employee Contribution',
+             label: 'Employer Contribution',
              sortable: true
           },
           {
