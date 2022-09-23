@@ -253,7 +253,19 @@
           size="lg"
         >
         <h3 style="font-family: monospace">Breakdown of Contribution for: {{form.username}}</h3>
-           <b-table striped hover :items="items2" :fields="fields2"></b-table>
+           <b-table striped hover :items="items2" :fields="fields2">
+              <template #cell(employee_contribution)="row">
+                <p style="color: red">${{row.item.employee_contribution}}</p>
+              </template>
+              <template #cell(employer_contribution)="row">
+                <p style="color: red">${{row.item.employer_contribution}}</p>
+              </template>
+              <template #cell(employee_gained)="row">
+                <p style="color: red">${{row.item.employee_gained}}</p>
+              </template>
+
+
+           </b-table>
         </b-modal>
 
 
