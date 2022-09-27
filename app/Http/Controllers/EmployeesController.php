@@ -14,7 +14,7 @@ use App\Models\EmployeeContribution;
 use App\Models\EmployeeContributionRequest;
 use Spatie\QueryBuilder\QueryBuilder;
 use App\Models\EmployeeContributionHistory;
-
+use App\Models\EmployeeNotification;
 
 class EmployeesController extends Controller
 {
@@ -97,6 +97,13 @@ class EmployeesController extends Controller
             'employer_contribution_change' => is_string($request[0]['employer_contribution']) ?? 0,
             'updated_by' => Auth::user()->username
 
+        ]);
+
+        EmployeeNotification::create([
+            'from' => Auth::user()->username,
+            'to' =>  $request[0]['username'],
+            'message' =>  'Admin ' .  Auth::user()->username . ' modified a contribution to you, Please check or contact administration for more details',
+            'is_read' =>  false,
         ]);
 
         return $data = [

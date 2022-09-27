@@ -16,6 +16,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Maatwebsite\Excel\Concerns\WithCalculatedFormulas;
 use AmrShawky\LaravelCurrency\Facade\Currency;
 use App\Models\MasterAccount;
+use App\Models\EmployeeNotification;
 
 
 class ImportContribution implements ToModel,  WithHeadingRow, WithChunkReading, ShouldQueue, WithBatchInserts, WithCalculatedFormulas, WithStartRow
@@ -67,6 +68,13 @@ class ImportContribution implements ToModel,  WithHeadingRow, WithChunkReading, 
                 'employee_gained' =>  ($row['employee_contribution'] +  $row['employer_contribution']),
                 'date_of_contribution' =>  $this->date_of_contribution,
                 'uploaded_by' => Auth::user()->username
+            ]);
+
+            EmployeeNotification::create([
+                'from' => Auth::user()->username,
+                'to' =>   $row['eclipse_id'],
+                'message' =>  'Admin ' .  Auth::user()->username . ' uploaded a new contribution at ' . $this->date_of_contribution,
+                'is_read' =>  false,
             ]);
 
             $this->i++;
