@@ -373,7 +373,7 @@ export default {
       },
 
       showContributionHistory(item){
-         this.items2 = []
+        //  this.items2 = []
           let loader = this.$loading.show({
             // Optional parameters
             container: this.fullPage ? null : this.$refs.formContainer,

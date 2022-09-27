@@ -1,4 +1,5 @@
 <template>
+<div>
 	<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: black;">
 		<div class="container-fluid">
 			 <b-button size="s" id="sidebarCollapse"  class="mb-2 mt-2">
@@ -37,13 +38,17 @@
 					</li>
 
 					<li v-if="isAdmin != 1" class="nav-item">
-						<router-link to="/requestlist" class="nav-link active" href="#">
-							<h6 style="color: dark">
-								<b-icon icon="bell-fill" variant="danger"></b-icon> 
-								Notifications (2)
-							</h6>
-						</router-link>
+						
+							<b-button 
+							@click="showNotificationModal()"
+							variant="danger"
+							style="margin-right: 5px;"
+							>
+							<b-icon-bell-fill></b-icon-bell-fill>
+							Notifications ({{$store.getters["authentication/getNumberOfNotf"]}})
+                			</b-button>
 					</li>
+					
 					
 					<li class="nav-item">
 						<b-button variant="light" @click="logout()"  right>
@@ -53,7 +58,25 @@
 				</ul> 
 			</div>
 		</div>
+
 	</nav>
+	 <b-modal
+         header-bg-variant="dark"
+          header-text-variant="light"
+          ref="my-modal-notification"
+          id="modal-lg"
+          size="lg"
+        >
+         <b-list-group>
+			<b-list-group-item href="#some-link">Awesome link</b-list-group-item>
+			<b-list-group-item href="#" active>Link with active state</b-list-group-item>
+			<b-list-group-item href="#">Action links are easy</b-list-group-item>
+			<b-list-group-item href="#foobar" disabled>Disabled link</b-list-group-item>
+		</b-list-group>
+        </b-modal>
+
+</div>
+	
 </template>
 
 <script>
@@ -103,6 +126,10 @@ export default {
                     this.$router.replace("/");
 				})
 				.catch(error => {});
+		},
+
+		showNotificationModal(){
+			this.$refs['my-modal-notification'].show()
 		}
 	}
 };

@@ -10,7 +10,8 @@ const state = {
     credentials: [],
     isAdmin: false,
     dollarToday: '',
-    numberOfEmp: 0
+    numberOfEmp: 0,
+    notifications: 0
 }
 const getters = {
     getUserCredential (state, getters) {
@@ -30,6 +31,10 @@ const getters = {
         return state.numberOfEmp
     },
 
+    getNumberOfNotf(state, getters){
+        return state.notifications
+    },
+
 }
 
 const actions = {
@@ -41,6 +46,7 @@ const actions = {
             commit('setIsAdmin', response.data.isAdmin)
             commit('setDollar',  response.data.dollarToday)
             commit('setNumberOfEmployee',  response.data.numberOfEmp)
+            commit('setNumberOfNotf',  response.data.notifications)
         } else {
             commit('setUserCredentials', response.data)
             commit('setIsAuthenticated', false)
@@ -81,6 +87,10 @@ const mutations = {
 
     setNumberOfEmployee(state, payload){
         state.numberOfEmp = payload
+    },
+
+    setNumberOfNotf(state, payload){
+        state.notifications = payload
     }
 }
 

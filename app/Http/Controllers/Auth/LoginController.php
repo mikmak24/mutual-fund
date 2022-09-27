@@ -12,6 +12,8 @@ use App\User;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Ui\Presets\React;
 use AmrShawky\LaravelCurrency\Facade\Currency;
+use App\Models\EmployeeNotification;
+
 
 class LoginController extends Controller
 {
@@ -87,6 +89,7 @@ class LoginController extends Controller
                 ->get();
 
                 $count = User::where('is_admin', 0)->count();
+                $count2 = EmployeeNotification::where('to', $request['username'])->where('is_read', FALSE)->count();
 
                 $data = [
                     'status' => 'SUCCESS',
@@ -95,7 +98,8 @@ class LoginController extends Controller
                     'isAuthenticated' => TRUE,
                     'isAdmin' => Auth::user()->is_admin,
                     'dollarToday' => $dollar,
-                    'numberOfEmp' => $count                
+                    'numberOfEmp' => $count,
+                    'notifications' => $count2               
                 ];
             } 
     
