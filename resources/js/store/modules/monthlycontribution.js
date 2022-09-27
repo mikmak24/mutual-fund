@@ -49,7 +49,6 @@ const actions = {
     },
 
     async updateContribution ({commit}, payload) {
-        console.log(payload)
         const response = await axios.post("api/modifyContribution", payload)
         return response.data
     },

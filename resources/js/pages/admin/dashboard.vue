@@ -52,6 +52,14 @@
             />
           </b-card>
         </b-card-group>
+
+        <br>
+
+        <!-- <b-card-group deck>
+          <b-card bg-variant="light" text-variant="white" class="text-center">
+            <GChart type="BarChart" :data="chartData" :options="chartOptions" />
+          </b-card>
+        </b-card-group> -->
       </div>
     </div>
   </div>

@@ -244,6 +244,7 @@ export default {
       return {
         form: {
           id: 0,
+          username: '',
           total_employee_shares: '',
           date_of_contribution: '',
           employee_contribution: 0,
@@ -350,6 +351,8 @@ export default {
         this.form.employer_contribution = item.employer_contribution
         this.form.uploaded_by = item.uploaded_by
         this.form.id = item.id
+        this.form.username = item.username
+
         this.$refs['my-modal'].show()
       }
 

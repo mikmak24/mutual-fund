@@ -13,6 +13,7 @@ use App\User;
 use App\Models\EmployeeContribution;
 use App\Models\EmployeeContributionRequest;
 use Spatie\QueryBuilder\QueryBuilder;
+use App\Models\EmployeeContributionHistory;
 
 
 class EmployeesController extends Controller
@@ -86,13 +87,24 @@ class EmployeesController extends Controller
             'employee_gained' => ($request[0]['employee_contribution'] +  $request[0]['employer_contribution'])
         ]);
 
+        EmployeeContributionHistory::create([
+            'employee_contribution_id' =>  $request[0]['id'],
+            'username' => $request[0]['username'],
+            'employee_contribution' =>  $request[0]['employee_contribution'],
+            'employer_contribution' =>  $request[0]['employer_contribution'],
+            'employee_gained' => ($request[0]['employee_contribution'] +  $request[0]['employer_contribution']),
+            'employee_contribution_change' => is_string($request[0]['employee_contribution']) ?? 0,
+            'employer_contribution_change' => is_string($request[0]['employer_contribution']) ?? 0,
+            'updated_by' => Auth::user()->username
+
+        ]);
+
         return $data = [
             'status' => 'SUCCESS',
             'message' => 'Updated Successfully...'
         ];
 
     }
-
     
 
     public function acceptContribution(Request $request){
