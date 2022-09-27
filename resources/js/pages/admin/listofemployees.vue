@@ -380,7 +380,7 @@ export default {
           },
           {
              key: 'date_of_contribution',
-             label: 'Date of Contribution',
+             label: 'Period',
              sortable: true
           }
         ],
