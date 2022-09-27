@@ -94,8 +94,6 @@ const actions = {
         const response = await axios.post("/api/fetchIndvContribution", payload)
         return response.data;
     },
-
-
 }
 const mutations = {
 

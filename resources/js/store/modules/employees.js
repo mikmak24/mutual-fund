@@ -60,6 +60,13 @@ const actions = {
         return response.data;
         // commit('setArrayEmployeeRequest', response.data)
     },
+
+    async fetchContributionHistory({commit}, payload) {
+        const response = await axios.post("/api/fetchContributionHistory", payload)
+        return response.data;
+    },
+
+    
 }
 const mutations = {
     setArrayEmployeeRequest (state, payload) {

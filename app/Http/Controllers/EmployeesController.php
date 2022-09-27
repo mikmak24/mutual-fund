@@ -149,6 +149,14 @@ class EmployeesController extends Controller
 
     }
 
+    public function fetchContributionHistory(Request $request){
+        return EmployeeContributionHistory::select('*')
+        ->where('username', $request['username'])
+        ->where('employee_contribution_id', $request['id'])
+        ->orderBy('created_at', 'DESC')
+        ->get();
+    }
+
     public function fetchEmployeeContribution(){
         return EmployeeContribution::where('username', Auth::user()->username)->get();
     }
