@@ -115,22 +115,14 @@
                     <p style="color: red;">${{row.item.employee_gained}}</p>
                   </template>
                 <template #cell(actions)="row">
-                  <!-- <b-button
-                    variant="info"
-                    size="sm"
-                    @click="info(row.item, row.index, $event.target)"
-                    class="mr-1"
-                  >
-                      <b-icon-arrow-up></b-icon-arrow-up>
-
-                    Show details
-                  </b-button> -->
-                  <b-button size="sm" @click="row.toggleDetails"
-                  variant="warning"
-                  >
-                  <b-icon-eye></b-icon-eye>
-                   Show Details
+                
+                  <b-button @click="showContributionHistory(row.item)"
+                  variant="outline-warning"><b-icon-eye></b-icon-eye> View History
                   </b-button>
+
+
+
+
                 </template>
 
                 <template #row-details="row">
@@ -178,36 +170,38 @@
             </b-col>
           </b-row>
 
-           <div v-if="showModal">
-    <transition name="modal">
-      <div class="modal-mask">
-        <div class="modal-wrapper">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true" @click="showModal = false">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <p>Modal body text goes here.</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" @click="showModal = false">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </transition>
-  </div>
+           
 
 
 
 
         </div>
+
+    <b-modal
+        header-bg-variant="info"
+        header-text-variant="dark"
+        ref="my-modal-showContributionHistory"
+        id="modal-lg"
+        size="xl"
+      >
+
+       <h3 style="font-family: monospace">Changes on this contribution of: {{form.username}}</h3>
+           <b-table striped hover :items="items2" :fields="fields2">
+              <template #cell(created_at)="row">
+                <p style="color: red">{{convertDate(row.item.created_at)}}</p>
+              </template>
+              <template #cell(employee_contribution)="row">
+                <p v-if="row.item.employee_contribution_change === 1" style="color: green">${{row.item.employee_contribution}}</p>
+                <p v-else >${{row.item.employee_contribution}}</p>
+              </template>
+              <template #cell(employer_contribution)="row">
+                <p v-if="row.item.employer_contribution_change === 1" style="color: green">${{row.item.employer_contribution}}</p>
+                <p v-else >${{row.item.employer_contribution}}</p>
+              </template>
+           </b-table>
+        
+
+      </b-modal>
 		
 		</div>
 	</div>
@@ -217,6 +211,7 @@
 import Navbar from '../../components/Navbar'
 import Sidebar from '../../components/Sidebar'
 import Footer from '../../components/Footer'
+import moment from 'moment'
 
 export default {
     name: 'Dashboard',
@@ -293,11 +288,43 @@ export default {
             // variant: 'danger'
           }
         ],
+        fields2: [
+          {
+             key: 'employee_contribution_id',
+             label: 'Employee Contribution Id',
+             sortable: true
+          },
+          {
+             key: 'employee_contribution',
+             label: 'Employee Contribution',
+             sortable: true
+          },
+          {
+             key: 'employer_contribution',
+             label: 'Employer Contribution',
+             sortable: true
+          },
+          {
+             key: 'employee_gained',
+             label: 'Employer Gained',
+             sortable: true
+          },
+          {
+             key: 'updated_by',
+             label: 'Updated by',
+             sortable: true
+          },
+          {
+             key: 'created_at',
+             label: 'Updated At',
+             sortable: true
+          }
+        ],
         items: [],
         form: {
           contribution: '',
         },
-
+        items2: [],
       }
     },
     methods: {
@@ -343,6 +370,32 @@ export default {
             
             });
 
+      },
+
+      showContributionHistory(item){
+         this.items2 = []
+          let loader = this.$loading.show({
+            // Optional parameters
+            container: this.fullPage ? null : this.$refs.formContainer,
+            canCancel: true,
+            onCancel: this.onCancel,
+            loader: 'spinner',
+            color: '#000000'
+          });
+          this.$refs['my-modal-showContributionHistory'].show()
+
+          this.$store.dispatch("employees/fetchContributionHistory", {
+              'id': item.id,
+              'username': item.username
+          })
+          .then(response => {
+            loader.hide()
+            this.items2 = response
+          })
+      },
+
+      convertDate(date){
+        return moment(date).format('LLLL')
       }
     }
 }

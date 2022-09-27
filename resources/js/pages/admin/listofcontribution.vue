@@ -327,7 +327,7 @@ export default {
         ],
         items: [],
         items2: [],
-           fields2: [
+        fields2: [
           {
              key: 'employee_contribution_id',
              label: 'Employee Contribution Id',
