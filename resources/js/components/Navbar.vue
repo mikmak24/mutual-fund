@@ -35,6 +35,15 @@
 							</h6>
 						</router-link>
 					</li>
+
+					<li v-if="isAdmin != 1" class="nav-item">
+						<router-link to="/requestlist" class="nav-link active" href="#">
+							<h6 style="color: dark">
+								<b-icon icon="bell-fill" variant="danger"></b-icon> 
+								Notifications
+							</h6>
+						</router-link>
+					</li>
 					
 					<li class="nav-item">
 						<b-button variant="light" @click="logout()"  right>
