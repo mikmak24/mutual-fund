@@ -40,7 +40,7 @@
 						<router-link to="/requestlist" class="nav-link active" href="#">
 							<h6 style="color: dark">
 								<b-icon icon="bell-fill" variant="danger"></b-icon> 
-								Notifications
+								Notifications (2)
 							</h6>
 						</router-link>
 					</li>
