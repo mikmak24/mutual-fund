@@ -185,7 +185,7 @@
         size="xl"
       >
 
-       <h3 style="font-family: monospace">Changes on this contribution of: {{form.username}}</h3>
+       <h3 style="font-family: monospace">Changes on this contribution</h3>
            <b-table striped hover :items="items2" :fields="fields2">
               <template #cell(created_at)="row">
                 <p style="color: red">{{convertDate(row.item.created_at)}}</p>
