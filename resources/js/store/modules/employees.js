@@ -66,6 +66,12 @@ const actions = {
         return response.data;
     },
 
+    async fetchNotifications({ commit }) {
+        const response = await axios.get("/api/fetchNotifications")
+        return response.data;
+        // commit('setArrayEmployeeRequest', response.data)
+    },
+
     
 }
 const mutations = {

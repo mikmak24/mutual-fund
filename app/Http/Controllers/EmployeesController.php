@@ -63,6 +63,13 @@ class EmployeesController extends Controller
         ->get();
     }
 
+    public function fetchNotifications(){
+        return EmployeeNotification::select('*')
+        ->where('to', Auth::user()->username)
+        ->orderBy('created_at', 'DESC')
+        ->get(); 
+    }
+
     public function updateContribution(Request $request){
         EmployeeContributionRequest::create([
             'username' => Auth::user()->username,

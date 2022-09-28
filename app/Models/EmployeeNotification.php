@@ -21,7 +21,7 @@ class EmployeeNotification extends Model
      * @var array
      */
     protected $hidden = [
-        'updated_at', 'created_at',
+        'updated_at',
     ];
 
     

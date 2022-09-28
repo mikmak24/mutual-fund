@@ -1,217 +1,233 @@
 <template>
-	<div class="wrapper d-flex align-items-stretch">
-		<Sidebar />
-		<!-- Page Content  -->
-		<div id="content">
-				<Navbar />
-        <FlashMessage :position="'right top'"/>
-        <div  class="p-4 p-md-5">
-          <div
-            class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+  <div class="wrapper d-flex align-items-stretch">
+    <Sidebar />
+    <!-- Page Content  -->
+    <div id="content">
+      <Navbar />
+      <FlashMessage :position="'right top'" />
+      <div class="p-4 p-md-5">
+        <div
+          class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+        >
+          <b-button v-b-modal.modal-lg-gg variant="info"
+            >Update Monthly Personal Contribution</b-button
           >
-            <h5 class="">
-              List of All Contribution
-            </h5>
-              <b-button v-b-modal.modal-lg variant="info">Update Monthly Personal Contribution</b-button>
-          </div>
+        </div>
 
-          <!-- Mdal -->
-          <b-modal id="modal-lg" size="lg" title="Personal Contribution">
-            <b-form @submit="updateContribution">
-             <b-form-group id="input-group-2" label="*Note: The amount is subject for approval by the Admin" label-for="input-2">
+        <!-- Mdal -->
+        <b-modal id="modal-lg-gg" size="lg">
+          <b-form @submit="updateContribution">
+            <b-form-group
+              id="input-group-2"
+              label="*Note: The amount is subject for approval by the Admin"
+              label-for="input-2"
+            >
               <b-form-input
                 id="input-2"
                 v-model="form.contribution"
                 placeholder="Enter Percentage of Contribution"
                 required
               ></b-form-input>
-              </b-form-group>
+            </b-form-group>
 
-              <b-button type="submit" variant="outline-success">Submit</b-button>
+            <b-button type="submit" variant="outline-success">Submit</b-button>
+          </b-form>
+           <template #modal-footer>
+            <div class="w-100"></div>
+          </template>
 
+          <template #modal-header>
+            <div class="w-100">
+              <h4><b-icon-person-fill></b-icon-person-fill> Personal Contribution</h4>
+            </div>
+          </template>
+        </b-modal>
 
-            </b-form>
+        <b-row>
+          <b-col>
+            <b-form-group
+              label="Filter"
+              label-for="filter-input"
+              label-cols-sm="3"
+              label-align-sm="right"
+              label-size="sm"
+              class="mb-0"
+            >
+              <b-input-group size="sm">
+                <b-form-input
+                  id="filter-input"
+                  v-model="filter"
+                  type="search"
+                  placeholder="Type to Search"
+                ></b-form-input>
 
-          </b-modal>
+                <b-input-group-append>
+                  <b-button
+                    :disabled="!filter"
+                    @click="filter = ''"
+                    variant="primary"
+                    >Clear</b-button
+                  >
+                </b-input-group-append>
+              </b-input-group>
+            </b-form-group>
+          </b-col>
 
-
-          <b-row>
-            <b-col>
-              <b-form-group
-                label="Filter"
-                label-for="filter-input"
-                label-cols-sm="3"
-                label-align-sm="right"
-                label-size="sm"
-                class="mb-0"
+          <b-col>
+            <b-form-group
+              label="Filter On"
+              label-cols-sm="3"
+              label-align-sm="right"
+              label-size="sm"
+              class="mb-0"
+              v-slot="{ ariaDescribedby }"
+            >
+              <b-form-checkbox-group
+                v-model="filterOn"
+                :aria-describedby="ariaDescribedby"
+                class="mt-1"
               >
-                <b-input-group size="sm">
-                  <b-form-input
-                    id="filter-input"
-                    v-model="filter"
-                    type="search"
-                    placeholder="Type to Search"
-                  ></b-form-input>
-
-                  <b-input-group-append>
-                    <b-button :disabled="!filter" @click="filter = ''"
-                      variant="primary"
-                      >Clear</b-button
-                    >
-                  </b-input-group-append>
-                </b-input-group>
-              </b-form-group>
-            </b-col>
-
-            <b-col>
-              <b-form-group
-                label="Filter On"
-                label-cols-sm="3"
-                label-align-sm="right"
-                label-size="sm"
-                class="mb-0"
-                v-slot="{ ariaDescribedby }"
-              >
-                <b-form-checkbox-group
-                  v-model="filterOn"
-                  :aria-describedby="ariaDescribedby"
-                  class="mt-1"
+                <b-form-checkbox value="username"
+                  >Eclipse Username</b-form-checkbox
                 >
-                  <b-form-checkbox value="username"
-                    >Eclipse Username</b-form-checkbox
-                  >
-                  <b-form-checkbox value="total_employee_contr"
-                    >Employee Contribution</b-form-checkbox
-                  >
-                  <b-form-checkbox value="total_employer_contr"
-                    >Employer Contribution</b-form-checkbox
-                  >
-                </b-form-checkbox-group>
-              </b-form-group>
-            </b-col>
-          </b-row>
-          <br />
+                <b-form-checkbox value="total_employee_contr"
+                  >Employee Contribution</b-form-checkbox
+                >
+                <b-form-checkbox value="total_employer_contr"
+                  >Employer Contribution</b-form-checkbox
+                >
+              </b-form-checkbox-group>
+            </b-form-group>
+          </b-col>
+        </b-row>
+        <br />
 
-          <b-row>
-            <b-col>
-              <b-table
-                striped
-                hover
-                :items="items"
-                :fields="fields"
-                :current-page="currentPage"
-                :per-page="perPage"
-                :filter="filter"
-                :filter-included-fields="filterOn"
-                
-              >
-               <template #cell(employee_contribution)="row">
-                    <p style="color: red;">${{row.item.employee_contribution}}</p>
-                  </template>
-                  <template #cell(employer_contribution)="row">
-                    <p style="color: red;">${{row.item.employer_contribution}}</p>
-                  </template>
-                  <template #cell(employee_gained)="row">
-                    <p style="color: red;">${{row.item.employee_gained}}</p>
-                  </template>
-                <template #cell(actions)="row">
-                
-                  <b-button @click="showContributionHistory(row.item)"
-                  variant="outline-warning"><b-icon-eye></b-icon-eye> View History
-                  </b-button>
+        <b-row>
+          <b-col>
+            <b-table
+              striped
+              hover
+              :items="items"
+              :fields="fields"
+              :current-page="currentPage"
+              :per-page="perPage"
+              :filter="filter"
+              :filter-included-fields="filterOn"
+            >
+              <template #cell(date_of_contribution)="row">
+                <p >{{moment(row.item.date_of_contribution).format('LLLL')}}</p>
+              </template>
+              <template #cell(employee_contribution)="row">
+                <p style="color: red">${{row.item.employee_contribution}}</p>
+              </template>
+              <template #cell(employer_contribution)="row">
+                <p style="color: red">${{row.item.employer_contribution}}</p>
+              </template>
+              <template #cell(employee_gained)="row">
+                <p style="color: red">${{row.item.employee_gained}}</p>
+              </template>
+              <template #cell(actions)="row">
+                <b-button
+                  @click="showContributionHistory(row.item)"
+                  variant="outline-warning"
+                  ><b-icon-eye></b-icon-eye> View History
+                </b-button>
+              </template>
 
+              <template #row-details="row">
+                <b-card>
+                  <ul>
+                    <li v-for="(value, key) in row.item" :key="key">
+                      {{ key }}: {{ value }}
+                    </li>
+                  </ul>
+                </b-card>
+              </template>
+            </b-table>
+          </b-col>
+        </b-row>
 
-
-
-                </template>
-
-                <template #row-details="row">
-                  <b-card>
-                    <ul>
-                      <li v-for="(value, key) in row.item" :key="key">
-                        {{ key }}: {{ value }}
-                      </li>
-                    </ul>
-                  </b-card>
-                </template>
-              </b-table>
-            </b-col>
-          </b-row>
-
-          <b-row>
-            <b-col>
-              <b-form-group
-                label="Per page"
-                label-for="per-page-select"
-                label-cols-sm="6"
-                label-cols-md="4"
-                label-cols-lg="3"
-                label-align-sm="left"
-                label-size="sm"
-                class="mb-0"
-              >
-                <b-form-select
-                  id="per-page-select"
-                  v-model="perPage"
-                  :options="pageOptions"
-                  size="sm"
-                ></b-form-select>
-              </b-form-group>
-            </b-col>
-            <b-col>
-              <b-pagination
-                v-model="currentPage"
-                :total-rows="totalRows"
-                :per-page="perPage"
-                align="fill"
+        <b-row>
+          <b-col>
+            <b-form-group
+              label="Per page"
+              label-for="per-page-select"
+              label-cols-sm="6"
+              label-cols-md="4"
+              label-cols-lg="3"
+              label-align-sm="left"
+              label-size="sm"
+              class="mb-0"
+            >
+              <b-form-select
+                id="per-page-select"
+                v-model="perPage"
+                :options="pageOptions"
                 size="sm"
-                class="my-0"
-              ></b-pagination>
-            </b-col>
-          </b-row>
+              ></b-form-select>
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-pagination
+              v-model="currentPage"
+              :total-rows="totalRows"
+              :per-page="perPage"
+              align="fill"
+              size="sm"
+              class="my-0"
+            ></b-pagination>
+          </b-col>
+        </b-row>
+      </div>
 
-           
-
-
-
-
-        </div>
-
-    <b-modal
-        header-bg-variant="info"
+      <b-modal
+        header-bg-variant="light"
         header-text-variant="dark"
         ref="my-modal-showContributionHistory"
         id="modal-lg"
         size="xl"
       >
+        <b-table striped hover :items="items2" :fields="fields2">
+          <template #cell(created_at)="row">
+            <p style="color: red">{{moment(row.item.created_at).format('LLLL')}}</p>
+          </template>
+          <template #cell(employee_contribution)="row">
+            <p
+              v-if="row.item.employee_contribution_change === 1"
+              style="color: green"
+            >
+              ${{row.item.employee_contribution}}
+            </p>
+            <p v-else>${{row.item.employee_contribution}}</p>
+          </template>
+          <template #cell(employer_contribution)="row">
+            <p
+              v-if="row.item.employer_contribution_change === 1"
+              style="color: green"
+            >
+              ${{row.item.employer_contribution}}
+            </p>
+            <p v-else>${{row.item.employer_contribution}}</p>
+          </template>
+        </b-table>
+         <template #modal-footer>
+            <div class="w-100"></div>
+          </template>
 
-       <h3 style="font-family: monospace">Changes on this contribution</h3>
-           <b-table striped hover :items="items2" :fields="fields2">
-              <template #cell(created_at)="row">
-                <p style="color: red">{{convertDate(row.item.created_at)}}</p>
-              </template>
-              <template #cell(employee_contribution)="row">
-                <p v-if="row.item.employee_contribution_change === 1" style="color: green">${{row.item.employee_contribution}}</p>
-                <p v-else >${{row.item.employee_contribution}}</p>
-              </template>
-              <template #cell(employer_contribution)="row">
-                <p v-if="row.item.employer_contribution_change === 1" style="color: green">${{row.item.employer_contribution}}</p>
-                <p v-else >${{row.item.employer_contribution}}</p>
-              </template>
-           </b-table>
-        
-
+          <template #modal-header>
+            <div class="w-100">
+              <h4><b-icon-record-fill></b-icon-record-fill> Changes on this Contribution</h4>
+            </div>
+          </template>
       </b-modal>
-		
-		</div>
-	</div>
+    </div>
+  </div>
 </template>
 
 <script>
 import Navbar from '../../components/Navbar'
 import Sidebar from '../../components/Sidebar'
 import Footer from '../../components/Footer'
-import moment from 'moment'
 
 export default {
     name: 'Dashboard',
@@ -219,7 +235,7 @@ export default {
         Navbar,
         Sidebar,
         Footer
-    }, 
+    },
     mounted() {
        let loader = this.$loading.show({
                     // Optional parameters
@@ -271,7 +287,7 @@ export default {
           },
           {
             key: 'date_of_contribution',
-            label: 'For the month of',
+            label: 'Contribution Date',
             sortable: true,
             // variant: 'danger'
           },
@@ -331,7 +347,7 @@ export default {
       info(item, index, button) {
         console.log(button)
         this.infoModal =true
-     
+
       },
 
       updateContribution(event){
@@ -362,12 +378,12 @@ export default {
                     message: 'Your request for Contribution change has been submitted Successfully',
                     icon: false,
                   });
-                
-              } 
-           
+
+              }
+
             })
             .catch((error) => {
-            
+
             });
 
       },
@@ -393,10 +409,6 @@ export default {
             this.items2 = response
           })
       },
-
-      convertDate(date){
-        return moment(date).format('LLLL')
-      }
     }
 }
 </script>
