@@ -72,6 +72,11 @@ const actions = {
         // commit('setArrayEmployeeRequest', response.data)
     },
 
+    async markAsReadNotf({commit}, payload) {
+        const response = await axios.post("/api/markAsReadNotf", payload)
+        return response.data;
+    },
+
     
 }
 const mutations = {

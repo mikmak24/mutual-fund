@@ -84,7 +84,7 @@
             {{list.message}}
           </p>
           <p>- {{ moment(list.created_at).format('LLLL')}}</p>
-          <b-button size="sm" variant="success">Mark as Read</b-button>
+          <b-button size="sm" @click="markAsRead(list)" variant="success">Mark as Read</b-button>
         </b-card>
 
         <b-card v-else bg-variant="primary" text-variant="white">
@@ -170,7 +170,27 @@ export default {
 
 		showNotificationModal(){
 			this.$refs['my-modal-notification'].show()
+		},
+
+
+		markAsRead(list){
+			console.log(list.id)
+			this.$store.dispatch("employees/markAsReadNotf", {
+            'id': list.id,
+			})
+			.then(response => {
+				this.fetchNotifications()
+			})
+
+		},
+
+		fetchNotifications(){
+			this.$store.dispatch("employees/fetchNotifications").then(response => {
+				this.notfList = response
+			});
 		}
+
+		
 	}
 };
 </script>

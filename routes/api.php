@@ -64,10 +64,9 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('updateEmployeeStatus', [EmployeesController::class, 'updateEmployeeStatus']);
 
         Route::post('fetchContributionHistory', [EmployeesController::class, 'fetchContributionHistory']);
-        Route::post('fetchContributionHistory', [EmployeesController::class, 'fetchContributionHistory']);
 
         Route::get('fetchNotifications', [EmployeesController::class, 'fetchNotifications']);
-
+        Route::post('markAsReadNotf', [EmployeesController::class, 'markAsReadNotf']);
 
 
         //MasterAccount

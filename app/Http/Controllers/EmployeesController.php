@@ -36,6 +36,17 @@ class EmployeesController extends Controller
         ->get();
     }
 
+    public function markAsReadNotf(Request $request){
+        EmployeeNotification::where('id', $request['id'])->update([
+            'is_read' => TRUE
+        ]);
+
+        return $data = [
+            'status' => 'SUCCESS',
+            'message' => 'Updated Successfully...'
+        ];
+    }
+
     public function fetchChartData(){
 
         return EmployeeContribution::select('username', 'employee_contribution', 'employer_contribution',
