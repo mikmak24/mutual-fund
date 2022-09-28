@@ -33,7 +33,6 @@ class EmployeesController extends Controller
         ->leftJoin('employee_contributions', 'users.username', '=', 'employee_contributions.username')
         ->groupBy('users.username')
         ->where('users.is_admin', 0)
-        ->orderBy('created_at', 'DESC')
         ->get();
     }
 
@@ -184,7 +183,9 @@ class EmployeesController extends Controller
     }
 
     public function fetchEmployeeContribution(){
-        return EmployeeContribution::where('username', Auth::user()->username)->get();
+        return EmployeeContribution::where('username', Auth::user()->username)
+        ->orderBy('created_at', 'DESC')
+        ->get();
     }
 
     public function downloadEmployees(){
