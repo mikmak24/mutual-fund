@@ -239,13 +239,11 @@
       </b-modal>
       
         <b-modal
-         header-bg-variant="info"
           header-text-variant="dark"
           ref="my-modal-breakdown"
           id="modal-lg"
           size="lg"
         >
-        <h3 style="font-family: monospace">Breakdown of Contribution for: {{form.username}}</h3>
            <b-table striped hover :items="items2" :fields="fields2">
               <template #cell(employee_contribution)="row">
                 <p style="color: red">${{row.item.employee_contribution}}</p>
@@ -259,6 +257,15 @@
 
 
            </b-table>
+            <template #modal-footer>
+              <div class="w-100"></div>
+            </template>
+
+            <template #modal-header>
+              <div class="w-100">
+                <h4><b-icon-record-fill></b-icon-record-fill> Contribution Breakdown</h4>
+              </div>
+            </template>
         </b-modal>
 
 

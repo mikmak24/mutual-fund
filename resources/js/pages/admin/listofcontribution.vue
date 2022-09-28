@@ -160,13 +160,11 @@
       </div>
 
       <b-modal
-        header-bg-variant="warning"
         header-text-variant="dark"
         ref="my-modal"
         id="modal-lg"
         size="lg"
       >
-        <h4>For the month of: {{form.date_of_contribution }}</h4>
         <h6 style="color: red">Uploaded Initially By: {{form.uploaded_by }}</h6>
         <hr />
 
@@ -208,6 +206,15 @@
         <b-button @click="showContributionHistory(form.id, form.username)"
           variant="outline-warning"><b-icon-eye></b-icon-eye> View History</b-button>
 
+           <template #modal-footer>
+            <div class="w-100"></div>
+          </template>
+
+          <template #modal-header>
+            <div class="w-100">
+              <h4><b-icon-calendar></b-icon-calendar>  For the month of: {{ form.date_of_contribution }}</h4>
+            </div>
+          </template>
       </b-modal>
 
        <b-modal
