@@ -98,6 +98,14 @@
                   <b-icon-eye></b-icon-eye>
                     Breakdown of Contribution
                 </b-button>
+
+                   <b-button size="sm" 
+                  @click="showModifyModal(row.item, row.index, $event.target)"
+                  variant="info"
+                  >
+                  <b-icon-eye></b-icon-eye>
+                    Employee Details
+                </b-button>
  
               </template>
 
