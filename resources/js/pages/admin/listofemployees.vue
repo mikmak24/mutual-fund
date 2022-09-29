@@ -93,10 +93,10 @@
               <template #cell(actions)="row">
                  <b-button size="sm" 
                   @click="showBreakdownModal(row.item, row.index, $event.target)"
-                  variant="info"
+                  variant="danger"
                   >
                   <b-icon-eye></b-icon-eye>
-                    Breakdown of Contribution
+                    Breakdown of Contributions
                 </b-button>
 
                    <b-button size="sm" 
