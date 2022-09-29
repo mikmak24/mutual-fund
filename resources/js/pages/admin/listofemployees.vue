@@ -6,7 +6,7 @@
       <Navbar />
 
       <div class="p-4 p-md-5">
-        <h2 class="mb-4">List of Employees</h2>
+        <h2 class="mb-4">List of G.OGreen Employees</h2>
 
         <FlashMessage :position="'right top'" />
 
