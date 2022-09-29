@@ -6,7 +6,7 @@
       <Navbar />
 
       <div class="p-4 p-md-5">
-        <h2 class="mb-4">List of G.OGreen Employees</h2>
+        <h2 class="mb-4">List of Employees</h2>
 
         <FlashMessage :position="'right top'" />
 
@@ -103,7 +103,7 @@
                   @click="showModifyModal(row.item, row.index, $event.target)"
                   variant="info"
                   >
-                  <b-icon-eye></b-icon-eye>
+                    <b-icon icon="bar-chart-fill" flip-v></b-icon>
                     Employee Details
                 </b-button>
  
