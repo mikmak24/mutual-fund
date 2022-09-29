@@ -24,6 +24,7 @@ class LoginController extends Controller
     public function login(Request $request){
         $data = [];
 
+        Log::alert('jesus');
         $username = strtoupper($request["username"]);
         $password = strtoupper($request["password"]);
 
@@ -61,17 +62,18 @@ class LoginController extends Controller
             ]);
             $user = User::where('username', '=', $request['username'])->first();
             if ($user === null) {
+
+                Log::alert("I am here");
                 $is_admin = 0;
                 $monthly_contr = 5;
 
-                if($request['username'] == 'bradg' || $request['username'] == 'mikeg' || $request['username'] == 'markp'){
+                if($request['username'] == 'bradg' || $request['username'] == 'mikeg'){
                     $is_admin = 1;
                     $monthly_contr = 0;
                 } 
                
-                User::create([
+                $user = User::create([
                     'username' => $request['username'],
-                    'password' => Hash::make($request['password']),
                     'is_admin' => $is_admin,
                     'is_active' => 1,
                     'employee_monthly_contribution' => $monthly_contr
@@ -79,9 +81,9 @@ class LoginController extends Controller
             }
         
             $fieldType = 'username';
+            Auth::login($user);
 
-            if(auth()->attempt(array($fieldType => $request['username'], 'password' => $request['password'])))
-            {
+                Log::alert('hehe');
                 $dollar = Currency::convert()
                 ->from('USD')
                 ->to('PHP')
@@ -101,7 +103,7 @@ class LoginController extends Controller
                     'numberOfEmp' => $count,
                     'notifications' => $count2               
                 ];
-            } 
+            
     
         }
         return response()->json($data);

@@ -17,8 +17,6 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('username');
             $table->string('email')->unique()->nullable();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
             $table->boolean('is_admin')->nullable();
             $table->boolean('is_active')->nullable();
             $table->float('employee_monthly_contribution')->nullable();
