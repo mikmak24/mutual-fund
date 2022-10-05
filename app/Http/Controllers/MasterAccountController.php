@@ -23,11 +23,24 @@ class MasterAccountController extends Controller
     }
 
     public function updateMasterAccount(Request $request){
+        $ov = MasterValueHistory::select('amount')
+        ->orderBy('id', 'DESC')
+        ->first();
+
+        if($ov['amount'] == 0){
+            $ov['amount'] = 1;
+        }
+
+        $nv = $request['value'];
+        $sbt = ($nv - $ov['amount']);
+        $percentage = ($sbt / $ov['amount']) * 100;
+        
         MasterAccount::find(1)->update(['master_account_amount' => $request['value']]);
         MasterValueHistory::create([
             'amount' => $request['value'],
             'date_of_change' => date('Y-m-d'),
-            'changed_by' => 'Updated by ' .  Auth::user()->username
+            'changed_by' => 'Updated by ' .  Auth::user()->username,
+            'percentage' => round($percentage, 2)
         ]);
 
         return $data = [
@@ -45,7 +58,7 @@ class MasterAccountController extends Controller
     }
 
     public function fetchMasterValueHistory(){
-        return MasterValueHistory::select('amount', 'changed_by', 'created_at', 'updated_at',
+        return MasterValueHistory::select('amount', 'changed_by', 'created_at', 'updated_at', 'percentage',
         DB::raw('CONVERT(created_at,CHAR)AS date_of_change'), 
         )
         ->orderBy('id', 'DESC')

@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->boolean('is_admin')->nullable();
             $table->boolean('is_active')->nullable();
             $table->float('employee_monthly_contribution')->nullable();
+            $table->float('employee_share_percentage')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

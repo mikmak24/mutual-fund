@@ -82,8 +82,8 @@ export default {
     GChart
 	},
 	mounted() {
-    var date = new Date();
-    this.current_date = date.getMonth()+"-"+ date.getDate()+"-"+date.getFullYear();
+     this.current_date = new Date().format('m-d-Y h:i:s');
+    // this.current_date = date.getMonth()+"-"+ date.getDate()+"-"+date.getFullYear();
    	this.$store.dispatch("masteraccount/fetch");
 
     this.$store.dispatch("monthlycontribution/countContributionRequest").then(response => {

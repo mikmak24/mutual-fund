@@ -82,14 +82,22 @@
               :filter-included-fields="filterOn"
             >
               <template #cell(total_employee_contr)="row">
-                <p style="color: red">${{row.item.total_employee_contr}}</p>
+                <p style="color: blue">${{row.item.total_employee_contr}}</p>
               </template>
               <template #cell(total_employer_contr)="row">
-                <p style="color: red">${{row.item.total_employer_contr}}</p>
+                <p style="color: blue">${{row.item.total_employer_contr}}</p>
               </template>
               <template #cell(total_employee_shares)="row">
-                <p style="color: red">${{row.item.total_employee_shares}}</p>
+                <p style="color: green">{{calculatePercentageEarned(row.item.total_employee_shares)}}%</p>
+
               </template>
+              <template #cell(total_employee_get)="row">
+                <p style="color: green">${{calculateAmountEarned(row.item.total_employee_shares)}}</p>
+
+              </template>
+
+
+              
               <template #cell(actions)="row">
                  <b-button size="sm" 
                   @click="showBreakdownModal(row.item, row.index, $event.target)"
@@ -306,10 +314,16 @@ export default {
 
       this.$store.dispatch("employees/fetch")
       .then(response => {
-          loader.hide()
           this.items = response;
           this.totalRows = response.length;
+          console.log(response)
 
+      })
+
+       this.$store.dispatch("masteraccount/fetch")
+      .then(response => {
+          loader.hide()
+          this.master_account_amount = response[0]['master_account_amount']
       })
       
     },
@@ -352,7 +366,13 @@ export default {
           },
           {
             key: 'total_employee_shares',
-            label: 'Total Employee Shares',
+            label: 'Percentage of Shares Owned by the employee',
+            sortable: true,
+            // variant: 'danger'
+          },
+          {
+            key: 'total_employee_get',
+            label: 'Total Amount of Employee Shares',
             sortable: true,
             // variant: 'danger'
           },
@@ -392,12 +412,23 @@ export default {
              sortable: true
           }
         ],
-        items2: []
+        items2: [],
+        master_account_amount: 0
       }
     },
     methods: {
       info(item, index, button) {
         console.log(button)
+      },
+      
+      calculatePercentageEarned(total){
+          let val = (total / this.master_account_amount) * 100
+          return val.toFixed(2)
+      },
+
+      calculateAmountEarned(total){
+          let percentage = this.calculatePercentageEarned(total)
+          return (percentage / 100) * this.master_account_amount
       },
 
       showModifyModal(item, index, button){

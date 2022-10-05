@@ -18,6 +18,7 @@ class MasterValueHistory extends Migration
             $table->double('amount', 10,5);
             $table->date('date_of_change');
             $table->string('changed_by', 120);
+            $table->float('percentage')->nullable();
             $table->timestamps();
         });
     }

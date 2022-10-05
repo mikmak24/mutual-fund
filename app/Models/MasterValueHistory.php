@@ -14,7 +14,7 @@ class MasterValueHistory extends Model
     protected $table = 'master_value_history';
 
     protected $fillable = [
-        'amount', 'date_of_change', 'changed_by'
+        'amount', 'date_of_change', 'changed_by', 'percentage'
     ];
 
     /**

@@ -237,6 +237,7 @@ export default {
            loader.hide()
             this.value = response[0].master_account_amount
             this.$store.dispatch("masteraccount/fetchMasterValueHistory").then(response => {
+              
                 this.items = response;
                 this.totalRows = response.length;
             });
@@ -273,6 +274,16 @@ export default {
                 key: 'changed_by',
                 label: 'Reason of Change',
                 sortable: true
+            },
+            {
+                key: 'date_of_change',
+                label: 'Date of Change',
+                sortable: true,
+            },
+            {
+                key: 'percentage',
+                label: 'Percentage',
+                sortable: true,
             },
             {
                 key: 'date_of_change',
