@@ -323,6 +323,7 @@ export default {
        this.$store.dispatch("masteraccount/fetch")
       .then(response => {
           loader.hide()
+          console.log(response[0]['master_account_amount'])
           this.master_account_amount = response[0]['master_account_amount']
       })
       
@@ -373,6 +374,12 @@ export default {
           {
             key: 'total_employee_get',
             label: 'Total Amount of Employee Shares',
+            sortable: true,
+            // variant: 'danger'
+          },
+          {
+            key: 'total_employee_get',
+            label: 'Total Amount of Employee Gained/Loss',
             sortable: true,
             // variant: 'danger'
           },

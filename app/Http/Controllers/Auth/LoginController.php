@@ -76,7 +76,8 @@ class LoginController extends Controller
                     'username' => $request['username'],
                     'is_admin' => $is_admin,
                     'is_active' => 1,
-                    'employee_monthly_contribution' => $monthly_contr
+                    'employee_monthly_contribution' => $monthly_contr,
+                    'employee_total_share' => 0
                 ]);
             }
         

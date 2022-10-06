@@ -12,7 +12,7 @@
             header="CURRENT DATE"
             class="text-center"
           >
-            <h4 style="color: white">{{current_date}}</h4>
+            <h4 style="color: white">{{}}</h4>
           </b-card>
 
           <b-card
@@ -82,7 +82,7 @@ export default {
     GChart
 	},
 	mounted() {
-     this.current_date = new Date().format('m-d-Y h:i:s');
+    //  this.current_date = new Date().format('m-d-Y h:i:s');
     // this.current_date = date.getMonth()+"-"+ date.getDate()+"-"+date.getFullYear();
    	this.$store.dispatch("masteraccount/fetch");
 

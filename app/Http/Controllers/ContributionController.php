@@ -26,11 +26,25 @@ class ContributionController extends Controller
             Excel::import(new ImportContribution($request['date']), $request['file']);
             
             $master_account_amount = MasterAccount::select('master_account_amount')->get();
+            
+            $ov = MasterValueHistory::select('amount')
+            ->orderBy('id', 'DESC')
+            ->first();
+
+            $difference =  $master_account_amount[0]['master_account_amount'] -  $ov['amount'];
+
+            $percentage = ($difference / $ov['amount']) * 100;
+
             MasterValueHistory::create([
-                'amount' => $master_account_amount[0]['master_account_amount'] ,
+                'amount' => $master_account_amount[0]['master_account_amount'],
                 'date_of_change' => date('Y-m-d'),
-                'changed_by' => Auth::user()->username . ' uploaded a contribution for employees'
+                'changed_by' => Auth::user()->username . ' uploaded a contribution for employees',
+                'percentage' => round($percentage, 2),
+                'difference' => $difference,
+                'status' => 'increases'
             ]);
+
+            
 
 
             return response()->json([

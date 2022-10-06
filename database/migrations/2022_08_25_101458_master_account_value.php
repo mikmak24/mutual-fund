@@ -3,6 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
+
 
 class MasterAccountValue extends Migration
 {
@@ -18,6 +20,12 @@ class MasterAccountValue extends Migration
             $table->double('master_account_amount', 10,5);
             $table->timestamps();
         });
+
+        DB::table('master_accounts')->insert([
+            [
+                'master_account_amount' => 1,
+                
+            ]]);
     }
 
     /**

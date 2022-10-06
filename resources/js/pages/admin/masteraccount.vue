@@ -276,20 +276,26 @@ export default {
                 sortable: true
             },
             {
-                key: 'date_of_change',
-                label: 'Date of Change',
-                sortable: true,
-            },
-            {
                 key: 'percentage',
                 label: 'Percentage',
                 sortable: true,
             },
             {
+                key: 'difference',
+                label: 'Difference',
+                sortable: true,
+            },
+            {
+                key: 'status',
+                label: 'Status',
+                sortable: true,
+            },
+            {
                 key: 'date_of_change',
                 label: 'Date of Change',
                 sortable: true,
-            },
+            }
+          
             ],
             items: []
 
@@ -338,6 +344,10 @@ export default {
                  this.$store.dispatch("masteraccount/fetch")
                     .then(res => {
                     this.value = res[0].master_account_amount
+                    this.$store.dispatch("masteraccount/fetchMasterValueHistory").then(response => {
+                        this.items = response;
+                        this.totalRows = response.length;
+                    });
                     })
               }
             })

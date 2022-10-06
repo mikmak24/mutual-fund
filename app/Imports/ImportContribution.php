@@ -17,6 +17,8 @@ use Maatwebsite\Excel\Concerns\WithCalculatedFormulas;
 use AmrShawky\LaravelCurrency\Facade\Currency;
 use App\Models\MasterAccount;
 use App\Models\EmployeeNotification;
+use App\User;
+
 
 
 class ImportContribution implements ToModel,  WithHeadingRow, WithChunkReading, ShouldQueue, WithBatchInserts, WithCalculatedFormulas, WithStartRow
@@ -60,6 +62,10 @@ class ImportContribution implements ToModel,  WithHeadingRow, WithChunkReading, 
             $master_account_amount = MasterAccount::select('master_account_amount')->get();
             $totalMasterAccount = $master_account_amount[0]['master_account_amount'] + ($row['employee_contribution'] +  $row['employer_contribution']);
             MasterAccount::find(1)->update(['master_account_amount' => $totalMasterAccount]);
+
+            $employee_total_share = User::select('employee_total_share')->where('username', $row['eclipse_id'])->get();
+            $totalShare = $employee_total_share[0]['employee_total_share'] + ($row['employee_contribution'] +  $row['employer_contribution']);
+            User::where('username', $row['eclipse_id'])->update(['employee_total_share' => $totalShare]);
 
             EmployeeContribution::create([
                 'username' => $row['eclipse_id'],
