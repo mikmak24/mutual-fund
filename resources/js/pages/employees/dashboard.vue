@@ -215,13 +215,13 @@ export default {
         },
 
         calculatePercentageEarned(){
-          let val = ((this.items.total_contribution + this.items.total_employee_gained) / this.master_account_amount) * 100
-          return this.items.total_contribution + this.items.total_employee_gained
+          // let val = ((this.items.total_contribution + this.items.total_employee_gained) / this.master_account_amount) * 100
+          return ((this.items.total_contribution + this.items.total_employee_gained) / this.master_account_amount) * 100
         },
 
         calculateAmountEarned(){
-            let percentage = this.calculatePercentageEarned(this.items.total_contribution + this.items.total_employee_gained)
-            return ((percentage / 100) * this.master_account_amount).toFixed(2)
+            // let percentage = this.calculatePercentageEarned(this.items.total_contribution + this.items.total_employee_gained)
+            return this.items.total_contribution + this.items.total_employee_gained
         },
 
 	}
