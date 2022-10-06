@@ -214,12 +214,12 @@ export default {
             this.showValue = false
         },
 
-        calculatePercentageEarned(total){
+        calculatePercentageEarned(){
           let val = ((this.items.total_contribution + this.items.total_employee_gained) / this.master_account_amount) * 100
           return val.toFixed(2)
         },
 
-        calculateAmountEarned(total){
+        calculateAmountEarned(){
             let percentage = this.calculatePercentageEarned(this.items.total_contribution + this.items.total_employee_gained)
             return ((percentage / 100) * this.master_account_amount).toFixed(2)
         },
