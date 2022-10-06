@@ -277,12 +277,12 @@ export default {
             },
             {
                 key: 'percentage',
-                label: 'Percentage',
+                label: 'Percentage (Gaines/Loss)',
                 sortable: true,
             },
             {
                 key: 'difference',
-                label: 'Difference',
+                label: 'Difference (Gaines/Loss)',
                 sortable: true,
             },
             {

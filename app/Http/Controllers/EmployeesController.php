@@ -24,16 +24,15 @@ class EmployeesController extends Controller
     }
 
     public function fetch(){
-        return User::select('users.username', 'users.is_active', 'users.created_at', 'users.updated_at',
-        DB::raw('SUM(employee_contributions.employee_contribution) as total_employee_contr'), 
-        DB::raw('SUM(employee_contributions.employer_contribution) as total_employer_contr'), 
-        DB::raw('SUM(employee_contributions.employee_gained) as total_employee_shares'), 
-
+        return User::select('*',
+        DB::raw('(SELECT SUM(amount) FROM `master_account_employee_gained` AS maeg WHERE maeg.username=users.username) total_employee_gained'), 
+        DB::raw('(SELECT SUM(employee_contribution) FROM `employee_contributions` AS empye_cntr WHERE empye_cntr.username=users.username) total_employee_contr'), 
+        DB::raw('(SELECT SUM(employer_contribution) FROM `employee_contributions` AS empyr_cntr WHERE empyr_cntr.username=users.username) total_employer_contr'), 
+        DB::raw('(SELECT SUM(employee_gained) FROM `employee_contributions` AS empye_gained WHERE empye_gained.username=users.username) total_contribution'), 
         )
-        ->leftJoin('employee_contributions', 'users.username', '=', 'employee_contributions.username')
-        ->groupBy('users.username')
-        ->where('users.is_admin', 0)
+        ->where('is_admin', 0)
         ->get();
+
     }
 
     public function markAsReadNotf(Request $request){

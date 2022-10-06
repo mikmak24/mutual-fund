@@ -88,17 +88,26 @@
                 <p style="color: blue">${{row.item.total_employer_contr}}</p>
               </template>
               <template #cell(total_employee_shares)="row">
-                <p style="color: green">{{calculatePercentageEarned(row.item.total_employee_shares)}}%</p>
+                <p style="color: green">{{calculatePercentageEarned(row.item.total_contribution + row.item.total_employee_gained)}}%</p>
 
               </template>
               <template #cell(total_employee_get)="row">
-                <p style="color: green">${{calculateAmountEarned(row.item.total_employee_shares)}}</p>
+                <p style="color: green">${{calculateAmountEarned(row.item.total_contribution + row.item.total_employee_gained)}}</p>
 
               </template>
 
 
               
               <template #cell(actions)="row">
+                
+                  <b-button size="sm" 
+                  @click="showModifyModal(row.item, row.index, $event.target)"
+                  variant="info"
+                  >
+                    <b-icon icon="person-fill"></b-icon>
+                    Employee Details
+                 </b-button>
+
                  <b-button size="sm" 
                   @click="showBreakdownModal(row.item, row.index, $event.target)"
                   variant="danger"
@@ -107,14 +116,13 @@
                     Breakdown of Contributions
                 </b-button>
 
-                   <b-button size="sm" 
-                  @click="showModifyModal(row.item, row.index, $event.target)"
-                  variant="info"
+                <b-button size="sm" 
+                  @click="showBreakdownOfGainsAndLoss(row.item, row.index, $event.target)"
+                  variant="success"
                   >
-                    <b-icon icon="bar-chart-fill" flip-v></b-icon>
-                    Employee Details
+                  <b-icon-eye></b-icon-eye>
+                    Breakdown of Gains and Loss
                 </b-button>
- 
               </template>
 
               <template #row-details="row">
@@ -284,6 +292,32 @@
             </template>
         </b-modal>
 
+          <b-modal
+          header-text-variant="dark"
+          ref="my-modal-breakdown-gains"
+          id="modal-lg"
+          size="lg"
+        >
+           <b-table striped hover :items="items3" :fields="fields3">
+              <template #cell(status)="row">
+                <p v-if="row.item.status === 'increases'" style="color: green"><b-icon-arrow-up-square-fill></b-icon-arrow-up-square-fill></p>
+                <p v-else style="color: red"><b-icon-arrow-down-square-fill></b-icon-arrow-down-square-fill></p>
+              </template>
+           
+
+
+           </b-table>
+            <template #modal-footer>
+              <div class="w-100"></div>
+            </template>
+
+            <template #modal-header>
+              <div class="w-100">
+                <h4><b-icon-record-fill></b-icon-record-fill>Gains and Loss Breakdown</h4>
+              </div>
+            </template>
+        </b-modal>
+
 
     </div>
   </div>
@@ -349,6 +383,7 @@ export default {
         filter: null,
         filterOn: [],
         fields: [
+        
           {
             key: 'username',
             label: 'Eclipse Username',
@@ -356,18 +391,30 @@ export default {
           },
           {
             key: 'total_employee_contr',
-            label: 'Total Employee Contribution',
+            label: 'Employee Contribution',
             sortable: true
           },
           {
             key: 'total_employer_contr',
-            label: 'Total Employer Contribution',
+            label: 'Employer Contribution',
+            sortable: true,
+            // variant: 'danger'
+          },
+          {
+            key: 'total_contribution',
+            label: 'Total Contribution',
+            sortable: true,
+            // variant: 'danger'
+          },
+          {
+            key: 'total_employee_gained',
+            label: 'Total Amount of Employee Gained/Loss',
             sortable: true,
             // variant: 'danger'
           },
           {
             key: 'total_employee_shares',
-            label: 'Percentage of Shares Owned by the employee',
+            label: 'Percentage of Shares Owned by the Employee (Total Contribution + Gained/loss)',
             sortable: true,
             // variant: 'danger'
           },
@@ -378,17 +425,12 @@ export default {
             // variant: 'danger'
           },
           {
-            key: 'total_employee_get',
-            label: 'Total Amount of Employee Gained/Loss',
+            key: 'actions',
+            label: '',
             sortable: true,
             // variant: 'danger'
           },
-          {
-            key: 'actions',
-            label: 'Action',
-            sortable: true,
-            // variant: 'danger'
-          }
+          
         ],
         items: [],
         indvContribution: [],
@@ -419,7 +461,41 @@ export default {
              sortable: true
           }
         ],
+
+        fields3: [
+          {
+             key: 'id',
+             label: 'Id',
+             sortable: true
+          },
+          {
+             key: 'amount',
+             label: 'Amount Gain/Loss',
+             sortable: true
+          },
+          {
+             key: 'amount_total',
+             label: 'Amount Total from Contribution',
+             sortable: true
+          },
+          {
+             key: 'percentage',
+             label: 'Percentage',
+             sortable: true
+          },
+          {
+             key: 'status',
+             label: 'Trend',
+             sortable: true
+          },
+          {
+             key: 'date_of_change',
+             label: 'Date of Change',
+             sortable: true
+          }
+        ],
         items2: [],
+        items3: [],
         master_account_amount: 0
       }
     },
@@ -435,7 +511,7 @@ export default {
 
       calculateAmountEarned(total){
           let percentage = this.calculatePercentageEarned(total)
-          return (percentage / 100) * this.master_account_amount
+          return ((percentage / 100) * this.master_account_amount).toFixed(2)
       },
 
       showModifyModal(item, index, button){
@@ -477,6 +553,29 @@ export default {
         })
 
         this.$refs['my-modal-breakdown'].show()
+      },
+
+      showBreakdownOfGainsAndLoss(item, index, button){
+         this.items3 = []
+         let loader = this.$loading.show({
+          // Optional parameters
+          container: this.fullPage ? null : this.$refs.formContainer,
+          canCancel: true,
+          onCancel: this.onCancel,
+          loader: 'spinner',
+          color: '#000000'
+        });
+        this.form.username = item.username
+        
+        this.$store.dispatch("monthlycontribution/fetchGainsandLoss", {
+            'username': item.username
+        })
+        .then(response => {
+          loader.hide()
+           this.items3 = response
+        })
+
+        this.$refs['my-modal-breakdown-gains'].show()
       },
 
 

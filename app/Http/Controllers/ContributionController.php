@@ -13,6 +13,7 @@ use App\Models\EmployeeContribution;
 use App\Models\EmployeeContributionRequest;
 use App\Models\MasterAccount;
 use App\Models\MasterValueHistory;
+use App\Models\MasterAccountEmployeeGained;
 
 class ContributionController extends Controller
 {
@@ -69,6 +70,14 @@ class ContributionController extends Controller
 
     public function fetchIndvContribution(Request $request){
         return EmployeeContribution::select('*')
+        ->where('username', $request['username'])
+        ->orderBy('created_at', 'DESC')
+        ->get();
+
+    }
+
+    public function fetchGainsandLoss(Request $request){
+        return MasterAccountEmployeeGained::select('*')
         ->where('username', $request['username'])
         ->orderBy('created_at', 'DESC')
         ->get();

@@ -41,6 +41,8 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('countContributionRequest', [ContributionController::class, 'getContributionRequestCount']);
         Route::post('fetchIndvContribution', [ContributionController::class, 'fetchIndvContribution']);
 
+        Route::post('fetchGainsandLoss', [ContributionController::class, 'fetchGainsandLoss']);
+
 
         //Employee
         Route::get('employeeslist', [EmployeesController::class, 'fetch']);
