@@ -351,7 +351,6 @@ export default {
           this.items = response;
           this.totalRows = response.length;
           console.log(response)
-
       })
 
        this.$store.dispatch("masteraccount/fetch")

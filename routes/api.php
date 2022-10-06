@@ -42,7 +42,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('fetchIndvContribution', [ContributionController::class, 'fetchIndvContribution']);
 
         Route::post('fetchGainsandLoss', [ContributionController::class, 'fetchGainsandLoss']);
-
+        
 
         //Employee
         Route::get('employeeslist', [EmployeesController::class, 'fetch']);
@@ -50,6 +50,8 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('fetchChartData', [EmployeesController::class, 'fetchChartData']);
         
         Route::get('fetchActiveInActiveEmployee', [EmployeesController::class, 'fetchActiveInActiveEmployee']);
+
+        Route::get('fetchIndvDashboardDetails', [EmployeesController::class, 'fetchIndvDashboardDetails']);
 
 
         Route::post('updateEmpContribution', [EmployeesController::class, 'updateContribution']);

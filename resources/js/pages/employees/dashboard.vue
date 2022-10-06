@@ -5,64 +5,81 @@
     <div id="content">
       <Navbar />
       <div class="p-4 p-md-5">
+      
         <b-card-group deck>
           <b-card
             border-variant="primary"
-            header="Number of times you Contributed"
+            header="Your Total Contribution"
             header-bg-variant="primary"
             header-text-variant="white"
             align="center"
           >
             <b-card-text
               ><h6 style="color: blue">
-                {{ $store.getters["monthlycontribution/gettotalMonthContr"] }}
+                ${{ items.total_employee_contr }}
               </h6></b-card-text
             >
           </b-card>
 
           <b-card
             border-variant="success"
-            header="Total Amount Contributed"
+            header="Total Employer Contribution"
+            header-bg-variant="secondary"
+            header-text-variant="white"
+            align="center"
+          >
+            <b-card-text
+              ><h6 style="color: green">
+                ${{ items.total_employer_contr }}
+              </h6></b-card-text
+            >
+          </b-card>
+
+           <b-card
+            border-variant="success"
+            header="Total Contribution (Combined)"
             header-bg-variant="success"
             header-text-variant="white"
             align="center"
           >
             <b-card-text
               ><h6 style="color: green">
-                ${{ $store.getters["monthlycontribution/gettotalEmployeeContr"] }}
+                ${{ items.total_contribution }}
               </h6></b-card-text
             >
           </b-card>
 
-          <b-card
-            border-variant="info"
-            header="Total Contribution By Employer"
-            header-bg-variant="info"
-            header-text-variant="white"
-            align="center"
-          >
-            <b-card-text
-              ><h6 style="color: skyblue">
-                ${{ $store.getters["monthlycontribution/gettotalEmployerContr"] }}
-              </h6></b-card-text
-            >
+      
+
+          
+        </b-card-group>
+        <br>
+        <b-card-group deck>
+          <b-card bg-variant="primary" text-variant="white" header="Total amount you gained" class="text-center">
+            <b-card-text>
+              <h6 style="color: white">
+                ${{ items.total_employee_gained }}
+              </h6>
+            </b-card-text>
           </b-card>
 
-          <b-card
-            border-variant="danger"
-            header="Personal Contribution Amount"
-            header-bg-variant="danger"
-            header-text-variant="white"
-            align="center"
-          >
-            <b-card-text
-              ><h6 style="color: red">
-                {{ $store.getters["monthlycontribution/getmonthlyContribution"]
-                }}% - per month
-              </h6></b-card-text
-            >
+          <b-card bg-variant="secondary" text-variant="white" header="Your Total Percentage of your share in the Company" class="text-center">
+             <b-card-text>
+              <h6 style="color: white">
+                ${{ calculatePercentageEarned()}}
+              </h6>
+            </b-card-text>
+          </b-card>
+
+          <b-card bg-variant="success" text-variant="white" header="Your Total Share in the Company" class="text-center">
+            <b-card-text>
+              <h6 style="color: white">
+                ${{ calculateAmountEarned() }}
+              </h6>
+            </b-card-text>
           </b-card>
         </b-card-group>
+
         <br />
         <b-jumbotron>
           <template #lead>
@@ -139,8 +156,22 @@ export default {
 			for (let i = 0; i < response.length; i++) {
 				array.push([response[i].year, response[i].employee_contribution])
 			}
-			console.log(array)
 		});
+
+    this.$store.dispatch("employees/fetchIndvDashboardDetails")
+      .then(response => {
+          this.items = response;
+          console.log(this.items.total_employee_contr)
+    })
+
+     this.$store.dispatch("masteraccount/fetch")
+      .then(response => {
+          loader.hide()
+          console.log(response[0]['master_account_amount'])
+          this.master_account_amount = response[0]['master_account_amount']
+      })
+
+
 	},
 	data() {
 		return {
@@ -153,7 +184,8 @@ export default {
 			},
 			current_date: "",
 			showString: true,
-            showValue: false,
+      showValue: false,
+      master_account_amount: 0,
 
 			//
 			type: 'LineChart',
@@ -167,7 +199,8 @@ export default {
 			chartData: [
 				['Year', 'Contribution'],
 				['Start Year: 2022', 0]
-			]
+			],
+      items: []
 		};
 	},
 	methods: {
@@ -179,6 +212,16 @@ export default {
         clickShowString(){
             this.showString = true
             this.showValue = false
+        },
+
+        calculatePercentageEarned(total){
+          let val = ((this.items.total_contribution + this.items.total_employee_gained) / this.master_account_amount) * 100
+          return val.toFixed(2)
+        },
+
+        calculateAmountEarned(total){
+            let percentage = this.calculatePercentageEarned(this.items.total_contribution + this.items.total_employee_gained)
+            return ((percentage / 100) * this.master_account_amount).toFixed(2)
         },
 
 	}

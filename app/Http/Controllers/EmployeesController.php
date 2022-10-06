@@ -35,6 +35,19 @@ class EmployeesController extends Controller
 
     }
 
+    public function fetchIndvDashboardDetails(){
+
+        return User::select('*',
+        DB::raw('(SELECT SUM(amount) FROM `master_account_employee_gained` AS maeg WHERE maeg.username=users.username) total_employee_gained'), 
+        DB::raw('(SELECT SUM(employee_contribution) FROM `employee_contributions` AS empye_cntr WHERE empye_cntr.username=users.username) total_employee_contr'), 
+        DB::raw('(SELECT SUM(employer_contribution) FROM `employee_contributions` AS empyr_cntr WHERE empyr_cntr.username=users.username) total_employer_contr'), 
+        DB::raw('(SELECT SUM(employee_gained) FROM `employee_contributions` AS empye_gained WHERE empye_gained.username=users.username) total_contribution'), 
+        )
+        ->where('is_admin', 0)
+        ->where('username', Auth::user()->username)
+        ->first();
+    }
+
     public function markAsReadNotf(Request $request){
         EmployeeNotification::where('id', $request['id'])->update([
             'is_read' => TRUE

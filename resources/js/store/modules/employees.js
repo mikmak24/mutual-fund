@@ -28,6 +28,11 @@ const actions = {
         return response.data;
     },
 
+    async fetchIndvDashboardDetails({ commit }) {
+        const response = await axios.get("/api/fetchIndvDashboardDetails")
+        return response.data;
+    },
+
     async fetchEmployeeRequest({ commit }) {
         const response = await axios.get("/api/employeesrequest")
         return response.data;
