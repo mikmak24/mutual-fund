@@ -127,6 +127,11 @@
                 :filter="filter"
                 :filter-included-fields="filterOn"
               >
+
+               <template #cell(status)="row">
+                <p v-if="row.item.status === 'increases'" style="color: green"><b-icon-arrow-up-square-fill></b-icon-arrow-up-square-fill></p>
+                <p v-else style="color: red"><b-icon-arrow-down-square-fill></b-icon-arrow-down-square-fill></p>
+              </template>
                 <!-- <template #cell(total_employee_contr)="row">
                 <p style="color: red">${{row.item.total_employee_contr}}</p>
               </template>
