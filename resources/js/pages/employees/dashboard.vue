@@ -216,7 +216,7 @@ export default {
 
         calculatePercentageEarned(){
           let val = ((this.items.total_contribution + this.items.total_employee_gained) / this.master_account_amount) * 100
-          return val.toFixed(2)
+          return this.items.total_contribution + this.items.total_employee_gained
         },
 
         calculateAmountEarned(){
