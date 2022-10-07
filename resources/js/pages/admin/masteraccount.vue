@@ -128,28 +128,23 @@
                 :filter-included-fields="filterOn"
               >
 
-               <template #cell(status)="row">
+              <!-- <template #cell(status)="row">
                 <p v-if="row.item.status === 'increases'" style="color: green"><b-icon-arrow-up-square-fill></b-icon-arrow-up-square-fill></p>
                 <p v-else style="color: red"><b-icon-arrow-down-square-fill></b-icon-arrow-down-square-fill></p>
-              </template>
-                <!-- <template #cell(total_employee_contr)="row">
-                <p style="color: red">${{row.item.total_employee_contr}}</p>
-              </template>
-              <template #cell(total_employer_contr)="row">
-                <p style="color: red">${{row.item.total_employer_contr}}</p>
-              </template>
-              <template #cell(total_employee_shares)="row">
-                <p style="color: red">${{row.item.total_employee_shares}}</p>
               </template> -->
+
+              <template #cell(percentage)="row">
+                <p v-if="row.item.status === 'increases'" style="color: green"><b-icon-arrow-up-square-fill></b-icon-arrow-up-square-fill>  {{row.item.percentage}}%</p>
+                <p v-else style="color: red"><b-icon-arrow-down-square-fill></b-icon-arrow-down-square-fill>  {{row.item.percentage}}%</p>       
+              </template>
+
+               <template #cell(difference)="row">
+                <p v-if="row.item.status === 'increases'" style="color: green"><b-icon-arrow-up-square-fill></b-icon-arrow-up-square-fill>  {{row.item.difference}}</p>
+                <p v-else style="color: red"><b-icon-arrow-down-square-fill></b-icon-arrow-down-square-fill>  {{row.item.difference}}</p>       
+              </template>
+          
                 <template #cell(actions)="row">
-                  <!-- <b-button
-                    variant="info"
-                    size="sm"
-                    @click="info(row.item, row.index, $event.target)"
-                    class="mr-1"
-                  >
-                    SHOW DETAILS
-                  </b-button> -->
+             
                   <b-button
                     size="sm"
                     @click="showModifyModal(row.item, row.index, $event.target)"
@@ -282,17 +277,12 @@ export default {
             },
             {
                 key: 'percentage',
-                label: 'Percentage (Gaines/Loss)',
+                label: 'Percentage (Gains/Loss)',
                 sortable: true,
             },
             {
                 key: 'difference',
                 label: 'Difference (Gaines/Loss)',
-                sortable: true,
-            },
-            {
-                key: 'status',
-                label: 'Status',
                 sortable: true,
             },
             {

@@ -1,55 +1,53 @@
 <template>
 <div>
-    <FlashMessage :position="'right top'"/>
-    <b-card no-body class="overflow-hidden" align-v="center" style="max-width: 50%; margin-left: 25%; margin-top: 10%;">
-    <b-row no-gutters>
-      <b-col md="6">
-        <b-card-img src="https://picsum.photos/400/400/?image=309" alt="Image" class="rounded-0"></b-card-img>
-      </b-col>
-      <b-col md="6">
-        <br><br><br><br>
-        <b-card-body>
-          <b-card-text>
+<section class="vh-100" style="background-color: #80acc2;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-xl-10">
+        <div class="card" style="border-radius: 1rem;">
+          <div class="row g-0">
+            <div class="col-md-6 col-lg-5 d-none d-md-block">
+              <img src="https://picsum.photos/500/800/?image=1031"
+                alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
+            </div>
+            <div class="col-md-6 col-lg-7 d-flex align-items-center">
+              <div class="card-body p-4 p-lg-5 text-black">
+                <form @submit="onSubmit" v-if="show">
+                  <div class="d-flex align-items-center mb-3 pb-1">
+                    <img src="../assets/images/logo/gogreen.png" />  
+                  </div>
+                  <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">PH Retirement Portal</h5>
+                  <p style="color: red;">Please use your Eclipse Login</p>
+                  <div class="form-outline mb-4">
+                    <input type="text" v-model="form.username" id="form2Example17" class="form-control form-control-lg" />
+                    <label class="form-label" for="form2Example17">Eclipse Username</label>
+                  </div>
 
-            <div class="text-center"><img src="../assets/images/logo/gogreen.png" /></div>
-            <p class="text-center"><b>PH Retirement Portal</b></p>
-            <p class="text-center">Please use your Eclipse Login</p>
+                  <div class="form-outline mb-4">
+                    <input type="password" v-model="form.password" class="form-control form-control-lg" />
+                    <label class="form-label" for="form2Example27">Password</label>
+                  </div>
 
-                <b-form @submit="onSubmit" v-if="show">     
-                    <b-form-group         
-                        id="input-group-1"
-                        label="Username:"
-                        label-for="input-1"
-                        description="We'll never share your data with anyone else."
-                    >
-                        <b-form-input
-                        id="input-1"
-                        v-model="form.username"
-                        type="text"
-                        placeholder="Enter Username"
-                        required
-                        ></b-form-input>
-                    </b-form-group>
+                  <div class="pt-1 mb-4">
+                    <button class="btn btn-dark btn-lg btn-block" type="submit">Login</button>
+                  </div>
 
-                    <b-form-group class="mb-2" id="input-group-2" label="Password:" label-for="input-2">
-                        <b-form-input
-                        id="input-2"
-                        type="password"
-                        v-model="form.password"
-                        placeholder="Enter Password"
-                        required
-                        ></b-form-input>
-                    </b-form-group>
+                
+                  <a href="#!" class="small text-muted">Terms of use.</a>
+                  <a href="#!" class="small text-muted">Privacy policy</a>
+                </form>
 
-                    <b-button type="submit" variant="info">Submit</b-button>
-                    <b-button type="reset" variant="danger">Reset</b-button>
-                </b-form>
-            </b-card-text>
-        </b-card-body>
-      </b-col>
-    </b-row>
-  </b-card>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 </div>
+    
 </template>
 
 <script>
@@ -109,7 +107,3 @@ export default {
     }
 }
 </script>
-
-<style>
-
-</style>

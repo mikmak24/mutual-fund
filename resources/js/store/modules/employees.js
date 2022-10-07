@@ -82,6 +82,12 @@ const actions = {
         return response.data;
     },
 
+    async fetchTotalEmployeeContribution({ commit }) {
+        const response = await axios.get("/api/fetchTotalEmployeeContribution")
+        return response.data;
+        // commit('setArrayEmployeeRequest', response.data)
+    },
+
     
 }
 const mutations = {

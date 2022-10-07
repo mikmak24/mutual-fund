@@ -93,6 +93,8 @@ class EmployeesController extends Controller
         ->get(); 
     }
 
+    
+
     public function updateContribution(Request $request){
         EmployeeContributionRequest::create([
             'username' => Auth::user()->username,

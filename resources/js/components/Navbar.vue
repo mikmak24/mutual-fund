@@ -2,7 +2,7 @@
   <div>
     <nav
       class="navbar navbar-expand-lg navbar-dark"
-      style="background-color: black"
+      style="background-color: #47778f"
     >
       <div class="container-fluid">
         <b-button size="s" id="sidebarCollapse" class="mb-2 mt-2">

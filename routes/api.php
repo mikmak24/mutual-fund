@@ -42,7 +42,8 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('fetchIndvContribution', [ContributionController::class, 'fetchIndvContribution']);
 
         Route::post('fetchGainsandLoss', [ContributionController::class, 'fetchGainsandLoss']);
-        
+        Route::get('fetchTotalEmployeeContribution', [ContributionController::class, 'fetchTotalEmployeeContribution']);
+
 
         //Employee
         Route::get('employeeslist', [EmployeesController::class, 'fetch']);
@@ -71,6 +72,8 @@ Route::group(['middleware' => ['web']], function () {
 
         Route::get('fetchNotifications', [EmployeesController::class, 'fetchNotifications']);
         Route::post('markAsReadNotf', [EmployeesController::class, 'markAsReadNotf']);
+
+
 
 
         //MasterAccount

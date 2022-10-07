@@ -8215,8 +8215,8 @@ h1, h2, h3, h4, h5,
 #sidebar {
   min-width: 300px;
   max-width: 300px;
-  background: #000000;
-  color: #ffffff;
+  background: #ffffff;
+  color: #f7f7f7;
   -webkit-transition: all 0.3s;
   -o-transition: all 0.3s;
   transition: all 0.3s; }

@@ -6,36 +6,31 @@
       <Navbar />
       <div class="p-2 p-md-3">
         <b-card-group deck>
-          <b-card
-            bg-variant="primary"
-            text-variant="white"
-            header="CURRENT DATE"
-            class="text-center"
-          >
-            <h4 style="color: white">{{}}</h4>
-          </b-card>
+          <div class="card">
+            <img src="../../assets/images/calendar.jpeg" class="card-img-top" alt="Fissure in Sandstone"/>
+            <div class="card-body">
+              <h5 class="card-title">Current Date</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+          </div>
 
-          <b-card
-            bg-variant="secondary"
-            text-variant="white"
-            header="Dollar Rate as the moment"
-            class="text-center"
-          >
-            <h4 style="color: white">
-              {{$store.getters["authentication/getCurrentDollar"]}}
-            </h4>
-          </b-card>
+          <div class="card">
+            <img src="../../assets/images/dollar.jpg" class="card-img-top" alt="Fissure in Sandstone"/>
+            <div class="card-body">
+              <h5 class="card-title">Dollar Rate as of the moment</h5>
+              <h4 class="card-text">{{$store.getters["authentication/getCurrentDollar"]}}</h4>
+            </div>
+          </div>
 
-          <b-card
-            bg-variant="success"
-            text-variant="white"
-            header="Number of Employees:"
-            class="text-center"
-          >
-            <h4 style="color: white">
-              {{$store.getters["authentication/getNumberOfEmp"]}}
-            </h4>
-          </b-card>
+           <div class="card">
+            <img src="../../assets/images/employee.jpeg" class="card-img-top" alt="Fissure in Sandstone"/>
+            <div class="card-body">
+              <h5 class="card-title">Total Number of Employees</h5>
+              <h4 class="card-text">{{$store.getters["authentication/getNumberOfEmp"]}}</h4>
+            </div>
+          </div>
+
+
         </b-card-group>
         <hr />
 
@@ -124,7 +119,7 @@ export default {
           },
           chartData: [
             ['Year', 'Share Value'],
-            ['Start Year: 2022', 0]
+           
           ],
           pieChartData: [
               ['Task', 'Hours per Day']

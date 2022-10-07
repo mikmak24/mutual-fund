@@ -4,10 +4,7 @@
     <!-- Page Content  -->
     <div id="content">
       <Navbar />
-
       <div class="p-4 p-md-5">
-        <h2 class="mb-4">List of Employees</h2>
-
         <FlashMessage :position="'right top'" />
 
         <b-row>
@@ -87,12 +84,15 @@
               <template #cell(total_employer_contr)="row">
                 <p style="color: blue">${{row.item.total_employer_contr}}</p>
               </template>
-              <template #cell(total_employee_shares)="row">
-                <p style="color: green">{{calculatePercentageEarned(row.item.total_contribution + row.item.total_employee_gained)}}%</p>
+              <template #cell(total_contribution)="row">
+                <p style="color: blue">${{row.item.total_contribution}}</p>
+              </template>
+              <template #cell(total_employee_gained)="row">
+                <p style="color: green">{{calculatePercentageEarned(row.item.total_contribution)}}%</p>
 
               </template>
               <template #cell(total_employee_get)="row">
-                <p style="color: green">${{calculateAmountEarned(row.item.total_contribution + row.item.total_employee_gained)}}</p>
+                <p style="color: green">${{calculateAmountEarned(row.item.total_contribution)}}</p>
 
               </template>
 
@@ -116,13 +116,13 @@
                     Breakdown of Contributions
                 </b-button>
 
-                <b-button size="sm" 
+                <!-- <b-button size="sm" 
                   @click="showBreakdownOfGainsAndLoss(row.item, row.index, $event.target)"
                   variant="success"
                   >
                   <b-icon-eye></b-icon-eye>
                     Breakdown of Gains and Loss
-                </b-button>
+                </b-button> -->
               </template>
 
               <template #row-details="row">
@@ -200,7 +200,7 @@
               header-bg-variant="info"
               header-text-variant="white"
               align="center"
-              header="Total Employee Share in the Company" class="text-center">
+              header="Total Amount of Employee Share in the Company" class="text-center">
               <h3>${{form.total_employee_shares}}</h3>
             </b-card>
 
@@ -353,12 +353,19 @@ export default {
           console.log(response)
       })
 
-       this.$store.dispatch("masteraccount/fetch")
+      this.$store.dispatch("employees/fetchTotalEmployeeContribution")
+      .then(response => {
+          this.total_employees_contribution = response
+      })
+
+      this.$store.dispatch("masteraccount/fetch")
       .then(response => {
           loader.hide()
           console.log(response[0]['master_account_amount'])
           this.master_account_amount = response[0]['master_account_amount']
       })
+
+      
       
     },
     data() {
@@ -407,13 +414,7 @@ export default {
           },
           {
             key: 'total_employee_gained',
-            label: 'Total Amount of Employee Gained/Loss',
-            sortable: true,
-            // variant: 'danger'
-          },
-          {
-            key: 'total_employee_shares',
-            label: 'Percentage of Shares Owned by the Employee (Total Contribution + Gained/loss)',
+            label: 'Percentage of shares owned by the Employee',
             sortable: true,
             // variant: 'danger'
           },
@@ -495,7 +496,8 @@ export default {
         ],
         items2: [],
         items3: [],
-        master_account_amount: 0
+        master_account_amount: 0,
+        total_employees_contribution: 0
       }
     },
     methods: {
@@ -504,7 +506,7 @@ export default {
       },
       
       calculatePercentageEarned(total){
-          let val = (total / this.master_account_amount) * 100
+          let val = (total / this.total_employees_contribution) * 100
           return val.toFixed(2)
       },
 
@@ -514,7 +516,7 @@ export default {
       },
 
       showModifyModal(item, index, button){
-        this.form.total_employee_shares = item.total_employee_shares
+        this.form.total_employee_shares = this.calculateAmountEarned(item.total_contribution)
         this.form.username = item.username
         this.form.employee_contribution = item.total_employee_contr
         this.form.employer_contribution = item.total_employer_contr

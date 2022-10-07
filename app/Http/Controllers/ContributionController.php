@@ -84,6 +84,10 @@ class ContributionController extends Controller
 
     }
 
+    public function fetchTotalEmployeeContribution(){
+        return EmployeeContribution::sum('employee_gained');
+    }
+
     public function getContributionRequestCount(){
         $data = [
             'count' => EmployeeContributionRequest::where('status', 'Pending')->count()
