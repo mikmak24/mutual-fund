@@ -9,8 +9,7 @@
           <div class="card">
             <img src="../../assets/images/calendar.jpeg" class="card-img-top" alt="Fissure in Sandstone"/>
             <div class="card-body">
-              <h5 class="card-title">Current Date</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <p class="card-text"> <vue-clock /></p>
             </div>
           </div>
 
@@ -66,6 +65,7 @@ import Sidebar from "../../components/Sidebar";
 import Footer from "../../components/Footer";
 import BarChart from '../../components/charts/BarChart'
 import { GChart } from 'vue-google-charts/legacy';
+import VueClock from '@dangvanthanh/vue-clock';
 
 export default {
 	name: "Dashboard",
@@ -74,7 +74,8 @@ export default {
 		Sidebar,
 		Footer,
 		BarChart,
-    GChart
+    GChart,
+    VueClock 
 	},
 	mounted() {
     //  this.current_date = new Date().format('m-d-Y h:i:s');

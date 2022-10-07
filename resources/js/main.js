@@ -18,9 +18,11 @@ import 'vue-loading-overlay/dist/vue-loading.css';
 
 import moment from 'moment'
 
+import VueClock from '@dangvanthanh/vue-clock';
+
 Vue.prototype.moment = moment
 
-
+Vue.use(VueClock);
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 Vue.use(FlashMessage);
