@@ -8,23 +8,23 @@
       
         <b-card-group deck>
           <div class="card" style="width: 18rem;">
-            <img src="https://mdbcdn.b-cdn.net/img/new/standard/nature/182.webp" class="card-img-top" alt="Sunset Over the Sea"/>
+            <img src="../../assets/images/account.jpg" class="card-img-top" alt="Sunset Over the Sea"/>
             <div class="card-body">
-              <p class="card-text">Your Total Personal Contribution: ${{ items.total_employee_contr }}</p>
+              <h5 class="card-text">Your Total Personal Contribution: ${{ items.total_employee_contr }}</h5>
             </div>
           </div>
 
           <div class="card" style="width: 18rem;">
-            <img src="https://mdbcdn.b-cdn.net/img/new/standard/nature/182.webp" class="card-img-top" alt="Sunset Over the Sea"/>
+            <img src="../../assets/images/employee.jpeg" class="card-img-top" alt="Sunset Over the Sea"/>
             <div class="card-body">
-              <p class="card-text">Your Employer Total Contribution: ${{ items.total_employer_contr }}</p>
+              <h5 class="card-text">Your Employer Total Contribution: ${{ items.total_employer_contr }}</h5>
             </div>
           </div>
 
            <div class="card" style="width: 18rem;">
-            <img src="https://mdbcdn.b-cdn.net/img/new/standard/nature/182.webp" class="card-img-top" alt="Sunset Over the Sea"/>
+            <img src="../../assets/images/dollar.jpg" class="card-img-top" alt="Sunset Over the Sea"/>
             <div class="card-body">
-              <p class="card-text">Total Contribution (Combined): ${{ items.total_contribution }}</p>
+              <h5  class="card-text">Total Contribution (Combined): ${{ items.total_contribution }}</h5>
             </div>
           </div>
   
@@ -32,9 +32,11 @@
         <br>
         <b-card-group deck>
 
-          <b-card bg-variant="secondary" text-variant="white" header="Your Total Percentage of your share in the Company" class="text-center">
+          <b-card bg-variant="success" text-variant="white" header="Your Total Percentage of your share in the Company" class="text-center">
              <b-card-text>
-                {{ (items.total_contribution / total_employees_contribution) * 100}}%
+              <h6 style="color: white">
+                {{ calculatePercentageEarned(items.total_contribution)}}%
+              </h6>
             </b-card-text>
           </b-card>
 
@@ -47,7 +49,7 @@
             <h1 style="color: black"><b>PERSONAL COMPANY SHARE: </b></h1>
 
             <h3 style="color: red" v-if="showValue">
-              {{ calculateAmountEarned(items.total_contribution)}}
+              ${{ calculateAmountEarned(items.total_contribution)}}
 
             </h3>
             <h3 v-if="showString">********************</h3>
@@ -125,8 +127,8 @@ export default {
 
       this.$store.dispatch("employees/fetchTotalEmployeeContribution")
       .then(response => {
-                  loader.hide()
-
+          console.log("++++++++++++++++++")
+          console.log(response)
           this.total_employees_contribution = response
       })
 

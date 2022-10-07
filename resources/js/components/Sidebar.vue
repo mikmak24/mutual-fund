@@ -62,14 +62,14 @@
 					<li class="nav-item pd-10">
 						<router-link to="/empdashboard" class="nav-link active" href="#">
 							<h6 style="color: #000000">
-								<b-icon icon="box-arrow-right" variant="light"></b-icon> Dashboard
+								<b-icon icon="box-arrow-right" variant="dark"></b-icon> Dashboard
 							</h6>
 						</router-link>
 					</li>
 					<li class="nav-item">
 						<router-link to="/empcontributionlist" class="nav-link active" href="#">
 							<h6 style="color: #000000">
-								<b-icon icon="file-earmark" variant="light"></b-icon> Personal Contribution
+								<b-icon icon="file-earmark" variant="dark"></b-icon> Personal Contribution
 							</h6>
 						</router-link>
 					</li>

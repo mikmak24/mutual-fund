@@ -364,9 +364,7 @@ export default {
           console.log(response[0]['master_account_amount'])
           this.master_account_amount = response[0]['master_account_amount']
       })
-
-      
-      
+  
     },
     data() {
       return {
