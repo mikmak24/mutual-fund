@@ -55,30 +55,30 @@
 			</div>
                                                     
 			<div v-if="isAdmin == 0 || isAdmin == null">
-				<h5 style="color: white; font-family:verdana;">Employees</h5>
+				<h5 style="color: #000000; font-family:verdana;">Employees</h5>
 							<br/>
 
 				<ul class="nav flex-column">
 					<li class="nav-item pd-10">
 						<router-link to="/empdashboard" class="nav-link active" href="#">
-							<h6 style="color: white">
+							<h6 style="color: #000000">
 								<b-icon icon="box-arrow-right" variant="light"></b-icon> Dashboard
 							</h6>
 						</router-link>
 					</li>
 					<li class="nav-item">
 						<router-link to="/empcontributionlist" class="nav-link active" href="#">
-							<h6 style="color: white">
+							<h6 style="color: #000000">
 								<b-icon icon="file-earmark" variant="light"></b-icon> Personal Contribution
 							</h6>
 						</router-link>
 					</li>
 					<li class="nav-item">
-						<router-link to="#" class="nav-link active" href="#">
-							<h6 style="color: white">
+						<!-- <router-link to="#" class="nav-link active" href="#">
+							<h6 style="color: #000000">
 								<b-icon icon="file-bar-graph" variant="light"></b-icon> Reports
 							</h6>
-						</router-link>
+						</router-link> -->
 					</li>
 				</ul>
 			</div>

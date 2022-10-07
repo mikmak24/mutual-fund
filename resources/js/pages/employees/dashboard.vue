@@ -7,77 +7,38 @@
       <div class="p-4 p-md-5">
       
         <b-card-group deck>
-          <b-card
-            border-variant="primary"
-            header="Your Total Contribution"
-            header-bg-variant="primary"
-            header-text-variant="white"
-            align="center"
-          >
-            <b-card-text
-              ><h6 style="color: blue">
-                ${{ items.total_employee_contr }}
-              </h6></b-card-text
-            >
-          </b-card>
+          <div class="card" style="width: 18rem;">
+            <img src="https://mdbcdn.b-cdn.net/img/new/standard/nature/182.webp" class="card-img-top" alt="Sunset Over the Sea"/>
+            <div class="card-body">
+              <p class="card-text">Your Total Personal Contribution: ${{ items.total_employee_contr }}</p>
+            </div>
+          </div>
 
-          <b-card
-            border-variant="success"
-            header="Total Employer Contribution"
-            header-bg-variant="secondary"
-            header-text-variant="white"
-            align="center"
-          >
-            <b-card-text
-              ><h6 style="color: green">
-                ${{ items.total_employer_contr }}
-              </h6></b-card-text
-            >
-          </b-card>
+          <div class="card" style="width: 18rem;">
+            <img src="https://mdbcdn.b-cdn.net/img/new/standard/nature/182.webp" class="card-img-top" alt="Sunset Over the Sea"/>
+            <div class="card-body">
+              <p class="card-text">Your Employer Total Contribution: ${{ items.total_employer_contr }}</p>
+            </div>
+          </div>
 
-           <b-card
-            border-variant="success"
-            header="Total Contribution (Combined)"
-            header-bg-variant="success"
-            header-text-variant="white"
-            align="center"
-          >
-            <b-card-text
-              ><h6 style="color: green">
-                ${{ items.total_contribution }}
-              </h6></b-card-text
-            >
-          </b-card>
-
-      
-
-          
+           <div class="card" style="width: 18rem;">
+            <img src="https://mdbcdn.b-cdn.net/img/new/standard/nature/182.webp" class="card-img-top" alt="Sunset Over the Sea"/>
+            <div class="card-body">
+              <p class="card-text">Total Contribution (Combined): ${{ items.total_contribution }}</p>
+            </div>
+          </div>
+  
         </b-card-group>
         <br>
         <b-card-group deck>
-          <b-card bg-variant="primary" text-variant="white" header="Total amount you gained" class="text-center">
-            <b-card-text>
-              <h6 style="color: white">
-                ${{ items.total_employee_gained }}
-              </h6>
-            </b-card-text>
-          </b-card>
 
           <b-card bg-variant="secondary" text-variant="white" header="Your Total Percentage of your share in the Company" class="text-center">
              <b-card-text>
-              <h6 style="color: white">
-                ${{ calculatePercentageEarned()}}
-              </h6>
+                {{ (items.total_contribution / total_employees_contribution) * 100}}%
             </b-card-text>
           </b-card>
 
-          <b-card bg-variant="success" text-variant="white" header="Your Total Share in the Company" class="text-center">
-            <b-card-text>
-              <h6 style="color: white">
-                ${{ calculateAmountEarned() }}
-              </h6>
-            </b-card-text>
-          </b-card>
+         
         </b-card-group>
 
         <br />
@@ -86,10 +47,8 @@
             <h1 style="color: black"><b>PERSONAL COMPANY SHARE: </b></h1>
 
             <h3 style="color: red" v-if="showValue">
-              ${{
-					$store.getters["monthlycontribution/gettotalEmployeeContr"] +
-					$store.getters["monthlycontribution/gettotalEmployerContr"]
-              }}
+              {{ calculateAmountEarned(items.total_contribution)}}
+
             </h3>
             <h3 v-if="showString">********************</h3>
           </template>
@@ -114,13 +73,7 @@
         </b-jumbotron>
 
         <b-card-group deck>
-          <b-card
-            overlay
-            :img-src="require('../../assets/images/account.jpg')"
-            img-alt="Card Image"
-            text-variant="black"
-          >
-          </b-card>
+        
 
           <GChart :type="type" :data="chartData" :options="chartOptions" />
         </b-card-group>
@@ -166,9 +119,15 @@ export default {
 
      this.$store.dispatch("masteraccount/fetch")
       .then(response => {
-          loader.hide()
           console.log(response[0]['master_account_amount'])
           this.master_account_amount = response[0]['master_account_amount']
+      })
+
+      this.$store.dispatch("employees/fetchTotalEmployeeContribution")
+      .then(response => {
+                  loader.hide()
+
+          this.total_employees_contribution = response
       })
 
 
@@ -186,8 +145,7 @@ export default {
 			showString: true,
       showValue: false,
       master_account_amount: 0,
-
-			//
+      total_employees_contribution: 0,
 			type: 'LineChart',
 			chartOptions: {
 				title: "You're Contribution every month",
@@ -214,14 +172,14 @@ export default {
             this.showValue = false
         },
 
-        calculatePercentageEarned(){
-          // let val = ((this.items.total_contribution + this.items.total_employee_gained) / this.master_account_amount) * 100
-          return ((this.items.total_contribution + this.items.total_employee_gained) / this.master_account_amount) * 100
+         calculatePercentageEarned(total){
+          let val = (total / this.total_employees_contribution) * 100
+          return val.toFixed(2)
         },
 
-        calculateAmountEarned(){
-            // let percentage = this.calculatePercentageEarned(this.items.total_contribution + this.items.total_employee_gained)
-            return this.items.total_contribution + this.items.total_employee_gained
+        calculateAmountEarned(total){
+            let percentage = this.calculatePercentageEarned(total)
+            return ((percentage / 100) * this.master_account_amount).toFixed(2)
         },
 
 	}
