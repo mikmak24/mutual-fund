@@ -7,30 +7,29 @@
       <div class="p-2 p-md-3">
         <b-card-group deck>
           <div class="card">
-            <img src="../../assets/images/calendar.jpeg" class="card-img-top" alt="Fissure in Sandstone"/>
-            <div class="card-body">
-              <p class="card-text"> <vue-clock /></p>
+            <a class="img-card" href="#">
+              <img src="../../assets/images/calendar.jpeg" />
+            </a>
+            <div class="card-content">
+              <p class="">
+                <vue-clock />
+              </p>
             </div>
           </div>
 
           <div class="card">
-            <img src="../../assets/images/dollar.jpg" class="card-img-top" alt="Fissure in Sandstone"/>
-            <div class="card-body">
+            <a class="img-card" href="#">
+              <img src="../../assets/images/dollar.jpg" />
+            </a>
+            <div class="card-content">
               <h5 class="card-title">Dollar Rate as of the moment</h5>
-              <h4 class="card-text">{{$store.getters["authentication/getCurrentDollar"]}}</h4>
+              <h4 class="card-text">
+                {{$store.getters["authentication/getCurrentDollar"]}}
+              </h4>
             </div>
           </div>
-
-           <div class="card">
-            <img src="../../assets/images/employee.jpeg" class="card-img-top" alt="Fissure in Sandstone"/>
-            <div class="card-body">
-              <h5 class="card-title">Total Number of Employees</h5>
-              <h4 class="card-text">{{$store.getters["authentication/getNumberOfEmp"]}}</h4>
-            </div>
-          </div>
-
-
         </b-card-group>
+
         <hr />
 
         <b-card-group deck>
@@ -47,13 +46,7 @@
           </b-card>
         </b-card-group>
 
-        <br>
-
-        <!-- <b-card-group deck>
-          <b-card bg-variant="light" text-variant="white" class="text-center">
-            <GChart type="BarChart" :data="chartData" :options="chartOptions" />
-          </b-card>
-        </b-card-group> -->
+        <br />
       </div>
     </div>
   </div>
@@ -75,7 +68,7 @@ export default {
 		Footer,
 		BarChart,
     GChart,
-    VueClock 
+    VueClock
 	},
 	mounted() {
     //  this.current_date = new Date().format('m-d-Y h:i:s');
@@ -120,7 +113,7 @@ export default {
           },
           chartData: [
             ['Year', 'Share Value'],
-           
+
           ],
           pieChartData: [
               ['Task', 'Hours per Day']
@@ -135,3 +128,104 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+html,
+body {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  background: #fff;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+}
+
+.wrapper {
+  display: table;
+  height: 100%;
+  width: 100%;
+}
+
+.container-fostrap {
+  display: table-cell;
+  padding: 1em;
+  text-align: center;
+  vertical-align: middle;
+}
+.fostrap-logo {
+  width: 100px;
+  margin-bottom: 15px;
+}
+h1.heading {
+  color: #fff;
+  font-size: 1.15em;
+  font-weight: 900;
+  margin: 0 0 0.5em;
+  color: #505050;
+}
+@media (min-width: 450px) {
+  h1.heading {
+    font-size: 3.55em;
+  }
+}
+@media (min-width: 760px) {
+  h1.heading {
+    font-size: 3.05em;
+  }
+}
+@media (min-width: 900px) {
+  h1.heading {
+    font-size: 3.25em;
+    margin: 0 0 0.3em;
+  }
+}
+.card {
+  display: block;
+  margin-bottom: 20px;
+  line-height: 1.42857143;
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.25s;
+}
+.card:hover {
+  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.img-card {
+  width: 100%;
+  height: 200px;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  display: block;
+  overflow: hidden;
+}
+.img-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: all 0.25s ease;
+}
+.card-content {
+  padding: 15px;
+  text-align: left;
+}
+.card-title {
+  margin-top: 0px;
+  font-weight: 700;
+  font-size: 1.65em;
+}
+.card-title a {
+  color: #000;
+  text-decoration: none !important;
+}
+.card-read-more {
+  border-top: 1px solid #d4d4d4;
+}
+.card-read-more a {
+  text-decoration: none !important;
+  padding: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+</style>

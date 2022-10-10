@@ -8,62 +8,68 @@
       <div class="p-4 p-md-5">
         <FlashMessage :position="'right top'" />
         <div>
+          <div
+            class="p-5 text-center bg-image rounded-3"
+            style="
+              background-image: url('https://images0.plumbersstock.com/content/master_account.jpeg');
+              height: 400px;
+            "
+          >
+            <div class="mask">
+              <div
+                class="d-flex justify-content-center align-items-center h-100"
+              >
+                <div class="text-white">
+                  <h1 class="mb-3"><b>Master Account Value</b></h1>
+                  <p>*Currency: DOLLAR ($)</p>
+                  <div class="form-group">
+                    <input
+                      style="color: black; font-size: 30px"
+                      v-if="showString"
+                      value="*********************"
+                      class="form-control"
+                    />
+                    <input
+                      style="color: black; font-size: 30px"
+                      v-if="showValue"
+                      type="number"
+                      v-model="value"
+                      class="form-control"
+                    />
+                  </div>
 
-          <div class="p-5 text-center bg-image rounded-3" style="background-image: url('https://images0.plumbersstock.com/content/master_account-1.jpeg'); height: 400px;">
-  <div class="mask">
-    <div class="d-flex justify-content-center align-items-center h-100">
-      <div class="text-white">
-        <h1 class="mb-3"><b>Master Account Value</b></h1>
-        <p>*Currency: DOLLAR ($)</p>
-        <div class="form-group">
-                <input
-                  style="color: black; font-size: 30px"
-                  v-if="showString"
-                  value="*********************"
-                  class="form-control"
-                />
-                <input
-                  style="color: black; font-size: 30px"
-                  v-if="showValue"
-                  type="number"
-                  v-model="value"
-                  class="form-control"
-                />
+                  <p>
+                    <b-button
+                      v-if="showString"
+                      @click="clickShowValue()"
+                      variant="outline-dark"
+                      size="sm"
+                      class="mb-2"
+                    >
+                      <b-icon icon="eye-fill" aria-hidden="true"></b-icon> SHOW
+                    </b-button>
+
+                    <b-button
+                      v-if="showValue"
+                      @click="clickShowString()"
+                      variant="outline-dark"
+                      >HIDE</b-button
+                    >
+
+                    <b-button
+                      v-if="showValue"
+                      type="submit"
+                      variant="success"
+                      @click="updateMasterAccount()"
+                    >
+                      <b-icon icon="save"></b-icon> Save Changes
+                    </b-button>
+                  </p>
+                </div>
               </div>
-
-            <p>  <b-button
-                v-if="showString"
-                @click="clickShowValue()"
-                variant="outline-dark"
-                size="sm"
-                class="mb-2"
-              >
-                <b-icon icon="eye-fill" aria-hidden="true"></b-icon> SHOW
-              </b-button>
-              
-              <b-button
-                v-if="showValue"
-                @click="clickShowString()"
-                variant="outline-dark"
-                >HIDE</b-button>
-
-              <b-button
-                v-if="showValue"
-                type="submit"
-                variant="success"
-                @click="updateMasterAccount()"
-              >
-                <b-icon icon="save"></b-icon> Save Changes
-              </b-button>
-              
-              
-              </p>
-        
-      </div>
-    </div>
-  </div>
-</div>
-<br>
+            </div>
+          </div>
+          <br />
           <!-- <b-jumbotron
             bg-variant="warning"
             text-variant="white"
@@ -183,19 +189,35 @@
                 :filter="filter"
                 :filter-included-fields="filterOn"
               >
+                <template #cell(percentage)="row">
+                  <p
+                    v-if="row.item.status === 'increases'"
+                    style="color: green"
+                  >
+                    <b-icon-arrow-up-square-fill></b-icon-arrow-up-square-fill>
+                    {{row.item.percentage}}%
+                  </p>
+                  <p v-else style="color: red">
+                    <b-icon-arrow-down-square-fill></b-icon-arrow-down-square-fill>
+                    {{row.item.percentage}}%
+                  </p>
+                </template>
 
-              <template #cell(percentage)="row">
-                <p v-if="row.item.status === 'increases'" style="color: green"><b-icon-arrow-up-square-fill></b-icon-arrow-up-square-fill>  {{row.item.percentage}}%</p>
-                <p v-else style="color: red"><b-icon-arrow-down-square-fill></b-icon-arrow-down-square-fill>  {{row.item.percentage}}%</p>       
-              </template>
+                <template #cell(difference)="row">
+                  <p
+                    v-if="row.item.status === 'increases'"
+                    style="color: green"
+                  >
+                    <b-icon-arrow-up-square-fill></b-icon-arrow-up-square-fill>
+                    {{row.item.difference}}
+                  </p>
+                  <p v-else style="color: red">
+                    <b-icon-arrow-down-square-fill></b-icon-arrow-down-square-fill>
+                    {{row.item.difference}}
+                  </p>
+                </template>
 
-               <template #cell(difference)="row">
-                <p v-if="row.item.status === 'increases'" style="color: green"><b-icon-arrow-up-square-fill></b-icon-arrow-up-square-fill>  {{row.item.difference}}</p>
-                <p v-else style="color: red"><b-icon-arrow-down-square-fill></b-icon-arrow-down-square-fill>  {{row.item.difference}}</p>       
-              </template>
-          
                 <template #cell(actions)="row">
-             
                   <b-button
                     size="sm"
                     @click="showModifyModal(row.item, row.index, $event.target)"
@@ -288,7 +310,7 @@ export default {
            loader.hide()
             this.value = response[0].master_account_amount
             this.$store.dispatch("masteraccount/fetchMasterValueHistory").then(response => {
-              
+
                 this.items = response;
                 this.totalRows = response.length;
             });
@@ -341,7 +363,7 @@ export default {
                 label: 'Date of Change',
                 sortable: true,
             }
-          
+
             ],
             items: []
 

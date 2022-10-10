@@ -6,6 +6,45 @@
       <Navbar />
       <div class="p-4 p-md-5">
         <FlashMessage :position="'right top'" />
+          
+         <!-- <b-card
+          header="Employees Total Contributions"
+          header-text-variant="white"
+          header-tag="header"
+          header-bg-variant="dark"
+          style="max-width: 50rem;"
+        >
+          <h2>${{total_employees_contribution}}</h2>
+        </b-card> -->
+
+        <div class="mt-3">
+    <b-card-group deck class="mb-3">
+       <b-card
+          header="Employees Total Contributions"
+          header-text-variant="white"
+          header-tag="header"
+          header-bg-variant="dark"
+          style="max-width: 50rem;"
+           align="center"
+        >
+          <h2>${{total_employees_contribution}}</h2>
+        </b-card>
+
+      <b-card
+          header="Total Number of Employees"
+          header-text-variant="white"
+          header-tag="header"
+          header-bg-variant="success"
+          style="max-width: 50rem;"
+           align="center"
+        >
+          <h2>{{$store.getters["authentication/getNumberOfEmp"]}}</h2>
+        </b-card>
+    </b-card-group>
+  </div>
+
+
+  <br>
 
         <b-row>
           <b-col>
