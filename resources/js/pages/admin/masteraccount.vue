@@ -195,11 +195,11 @@
                     style="color: green"
                   >
                     <b-icon-arrow-up-square-fill></b-icon-arrow-up-square-fill>
-                    {{row.item.percentage}}%
+                    {{percentageDecimal(row.item.percentage)}}%
                   </p>
                   <p v-else style="color: red">
                     <b-icon-arrow-down-square-fill></b-icon-arrow-down-square-fill>
-                    {{row.item.percentage}}%
+                    {{percentageDecimal(row.item.percentage)}}%
                   </p>
                 </template>
 
@@ -378,6 +378,10 @@ export default {
         clickShowString(){
             this.showString = true
             this.showValue = false
+        },
+
+        percentageDecimal(percentage){
+          return percentage.toFixed(2)
         },
 
         updateMasterAccount(){
