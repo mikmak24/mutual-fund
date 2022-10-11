@@ -33,20 +33,29 @@
         <hr />
 
         <b-card-group deck>
-          <b-card bg-variant="light" text-variant="white" class="text-center">
-            <GChart :type="type" :data="chartData" :options="chartOptions" />
-          </b-card>
+          <div class="card" v-if="showChart" style="width: 18rem">
+              <GChart :type="type" :data="chartData" :options="chartOptions" />
+          </div>
+          <div class="card" v-if="showChart" style="width: 18rem">
+             <GChart
+              type="ColumnChart"
+              :data="columnchartData"
+              :options="chartOptions"
+            />
+          </div>
+        </b-card-group>
 
-          <b-card bg-variant="light" text-variant="white" class="text-center">
+          <br>
+         <b-card-group deck>
+          <div class="card" v-if="showChart" style="width: 18rem">
             <GChart
               type="PieChart"
               :data="pieChartData"
               :options="piechartOptions"
             />
-          </b-card>
+          </div>
         </b-card-group>
 
-        <br />
       </div>
     </div>
   </div>
@@ -71,10 +80,7 @@ export default {
     VueClock
 	},
 	mounted() {
-    //  this.current_date = new Date().format('m-d-Y h:i:s');
-    // this.current_date = date.getMonth()+"-"+ date.getDate()+"-"+date.getFullYear();
    	this.$store.dispatch("masteraccount/fetch");
-
     this.$store.dispatch("monthlycontribution/countContributionRequest").then(response => {
       this.notifications = response.count
 		});
@@ -82,11 +88,13 @@ export default {
     this.$store.dispatch("masteraccount/fetchLineChartData").then(response => {
 
 			let array = this.chartData
+      let array2 = this.columnchartData
 			for (let i = 0; i < response.length; i++) {
 				array.push([response[i].date_of_change, response[i].amount])
+        array2.push([response[i].date_of_change, response[i].percentage, response[i].amount])
 			}
-			console.log(array)
-		});
+        this.showChart = true
+      });
 
     this.$store.dispatch("employees/fetchActiveInActiveEmployee").then(response => {
         let array = this.pieChartData
@@ -100,6 +108,7 @@ export default {
       return {
           current_date: '',
           notifications: 0,
+          showChart: false,
 
           //
           type: 'LineChart',
@@ -114,6 +123,9 @@ export default {
           chartData: [
             ['Year', 'Share Value'],
 
+          ],
+          columnchartData: [
+            ['Year', 'Percentage', 'Company Share']
           ],
           pieChartData: [
               ['Task', 'Hours per Day']

@@ -89,7 +89,7 @@ class MasterAccountController extends Controller
     }
 
     public function fetchLineChartData(){
-        return MasterValueHistory::select('amount', 'changed_by', 'created_at', 'updated_at',
+        return MasterValueHistory::select('amount', 'changed_by', 'percentage', 'created_at', 'updated_at',
         DB::raw('CONVERT(created_at,CHAR)AS date_of_change'), 
         )
         ->orderBy('id', 'ASC')
