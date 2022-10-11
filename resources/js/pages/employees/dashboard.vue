@@ -5,42 +5,60 @@
     <div id="content">
       <Navbar />
       <div class="p-4 p-md-5">
-      
         <b-card-group deck>
-          <div class="card" style="width: 18rem;">
-            <img src="../../assets/images/account.jpg" class="card-img-top" alt="Sunset Over the Sea"/>
+          <div class="card" style="width: 18rem">
+            <img
+              src="../../assets/images/account.jpg"
+              class="card-img-top"
+              alt="Sunset Over the Sea"
+            />
             <div class="card-body">
-              <h5 class="card-text">Your Total Personal Contribution: ${{ items.total_employee_contr }}</h5>
+              <h5 class="card-text">
+                Your Total Personal Contribution: ${{ items.total_employee_contr }}
+              </h5>
             </div>
           </div>
 
-          <div class="card" style="width: 18rem;">
-            <img src="../../assets/images/employee.jpeg" class="card-img-top" alt="Sunset Over the Sea"/>
+          <div class="card" style="width: 18rem">
+            <img
+              src="../../assets/images/employee.jpeg"
+              class="card-img-top"
+              alt="Sunset Over the Sea"
+            />
             <div class="card-body">
-              <h5 class="card-text">Your Employer Total Contribution: ${{ items.total_employer_contr }}</h5>
+              <h5 class="card-text">
+                Your Employer Total Contribution: ${{ items.total_employer_contr }}
+              </h5>
             </div>
           </div>
 
-           <div class="card" style="width: 18rem;">
-            <img src="../../assets/images/dollar.jpg" class="card-img-top" alt="Sunset Over the Sea"/>
+          <div class="card" style="width: 18rem">
+            <img
+              src="../../assets/images/dollar.jpg"
+              class="card-img-top"
+              alt="Sunset Over the Sea"
+            />
             <div class="card-body">
-              <h5  class="card-text">Total Contribution (Combined): ${{ items.total_contribution }}</h5>
+              <h5 class="card-text">
+                Total Contribution (Combined): ${{ items.total_contribution }}
+              </h5>
             </div>
           </div>
-  
         </b-card-group>
-        <br>
+        <br />
         <b-card-group deck>
-
-          <b-card bg-variant="success" text-variant="white" header="Your Total Percentage of your share in the Company" class="text-center">
-             <b-card-text>
+          <b-card
+            bg-variant="success"
+            text-variant="white"
+            header="Your Total Percentage of your share in the Company"
+            class="text-center"
+          >
+            <b-card-text>
               <h6 style="color: white">
                 {{ calculatePercentageEarned(items.total_contribution)}}%
               </h6>
             </b-card-text>
           </b-card>
-
-         
         </b-card-group>
 
         <br />
@@ -50,7 +68,6 @@
 
             <h3 style="color: red" v-if="showValue">
               ${{ calculateAmountEarned(items.total_contribution)}}
-
             </h3>
             <h3 v-if="showString">********************</h3>
           </template>
@@ -73,12 +90,27 @@
             <b-icon icon="eye-fill" aria-hidden="true"></b-icon> SHOW
           </b-button>
         </b-jumbotron>
+        <br />
 
         <b-card-group deck>
+          <div class="card" v-if="showChart" style="width: 18rem">
+            <GChart :type="type" :data="chartData" :options="chartOptions" />
+          </div>
+
+          <div class="card" v-if="showChart" style="width: 18rem">
+            <GChart
+              type="ColumnChart"
+              :data="columnchartData"
+              :options="chartOptions"
+            />
+          </div>
+        </b-card-group>
+
+        <!-- <b-card-group deck>
         
 
-          <GChart :type="type" :data="chartData" :options="chartOptions" />
-        </b-card-group>
+         
+        </b-card-group> -->
       </div>
     </div>
   </div>
@@ -86,11 +118,9 @@
 
 <script>
 import { GChart } from 'vue-google-charts/legacy';
-
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import Footer from "../../components/Footer";
-// import LineChart from '../../components/charts/LineChart'
 
 export default {
 	name: "Dashboard",
@@ -108,9 +138,13 @@ export default {
 		this.$store.dispatch("employees/fetchChartData").then(response => {
 
 			let array = this.chartData
+      let array2 = this.columnchartData
 			for (let i = 0; i < response.length; i++) {
-				array.push([response[i].year, response[i].employee_contribution])
+				array.push([response[i].year, response[i].amount_total])
+        array2.push([response[i].year, response[i].percentage, response[i].amount_total])
+
 			}
+      this.showChart = true
 		});
 
     this.$store.dispatch("employees/fetchIndvDashboardDetails")
@@ -131,11 +165,10 @@ export default {
           console.log(response)
           this.total_employees_contribution = response
       })
-
-
 	},
 	data() {
 		return {
+      showChart: false,
 			monthly_contribution: 0,
 			total_employee_contr: 0,
 			total_employer_contr: 0,
@@ -150,7 +183,7 @@ export default {
       total_employees_contribution: 0,
 			type: 'LineChart',
 			chartOptions: {
-				title: "You're Contribution every month",
+				title: "Gains and Loss Chart",
 				curveType: 'function',
 				legend: { position: 'top' },
 				width: 800,
@@ -158,7 +191,9 @@ export default {
 			},
 			chartData: [
 				['Year', 'Contribution'],
-				['Start Year: 2022', 0]
+			],
+      columnchartData: [
+				['Year', 'Percentage', 'Company Share']
 			],
       items: []
 		};
@@ -183,7 +218,6 @@ export default {
             let percentage = this.calculatePercentageEarned(total)
             return ((percentage / 100) * this.master_account_amount).toFixed(2)
         },
-
 	}
 };
 </script>

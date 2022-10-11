@@ -15,6 +15,7 @@ use App\Models\EmployeeContributionRequest;
 use Spatie\QueryBuilder\QueryBuilder;
 use App\Models\EmployeeContributionHistory;
 use App\Models\EmployeeNotification;
+use App\Models\MasterAccountEmployeeGained;
 
 class EmployeesController extends Controller
 {
@@ -61,8 +62,8 @@ class EmployeesController extends Controller
 
     public function fetchChartData(){
 
-        return EmployeeContribution::select('username', 'employee_contribution', 'employer_contribution',
-        DB::raw('CONVERT(date_of_contribution,CHAR)AS year'), 
+        return MasterAccountEmployeeGained::select('amount_total', 'percentage',
+        DB::raw('CONVERT(date_of_change,CHAR)AS year'), 
         )
         ->where('username', Auth::user()->username)
         ->orderBy('created_at', 'ASC')
