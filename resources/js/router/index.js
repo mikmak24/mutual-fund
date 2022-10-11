@@ -89,6 +89,8 @@ const router = new VueRouter({
 
 if (store.getters['authentication/isAuthenticated'] === false) {
     router.replace('login')
+} else {
+    router.replace('dashboard')
 }
   
 export default router
