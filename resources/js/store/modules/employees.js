@@ -85,13 +85,16 @@ const actions = {
     async fetchTotalEmployeeContribution({ commit }) {
         const response = await axios.get("/api/fetchTotalEmployeeContribution")
         return response.data;
-        // commit('setArrayEmployeeRequest', response.data)
     },
 
     async countNotification({ commit }) {
         const response = await axios.get("/api/countNotification")
         return response.data;
-        // commit('setArrayEmployeeRequest', response.data)
+    },
+
+    async getEmployeeMonthlyPercentage({ commit }) {
+        const response = await axios.get("/api/getEmployeeMonthlyPercentage")
+        return response.data;
     },
 
 }

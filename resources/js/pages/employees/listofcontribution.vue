@@ -6,15 +6,33 @@
       <Navbar />
       <FlashMessage :position="'right top'" />
       <div class="p-4 p-md-5">
-        <div
-          class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
-        >
-          <b-button v-b-modal.modal-lg-gg variant="info"
-            >Update Monthly Personal Contribution</b-button
-          >
-        </div>
+        <div class="mt-3">
+        <b-card-group deck class="mb-3">
+          <b-card
+              header="Number of Contributions"
+              header-text-variant="white"
+              header-tag="header"
+              header-bg-variant="dark"
+              style="max-width: 50rem;"
+              align="center"
+            >
+              <h2>{{totalRows}}</h2>
+            </b-card>
 
-        <!-- Mdal -->
+          <b-card
+              header="Percentage of you're Contribution"
+              header-text-variant="white"
+              header-tag="header"
+              header-bg-variant="success"
+              style="max-width: 50rem;"
+              align="center"
+            >
+              <h2>{{this.monthlyContribution}}%</h2>
+               <b-button size="sm" v-b-modal.modal-lg-gg variant="info">Update Monthly Percentage</b-button>
+            </b-card>
+        </b-card-group>
+      </div>
+      <br>
         <b-modal id="modal-lg-gg" size="lg">
           <b-form @submit="updateContribution">
             <b-form-group
@@ -238,23 +256,28 @@ export default {
     },
     mounted() {
        let loader = this.$loading.show({
-                    // Optional parameters
-                    container: this.fullPage ? null : this.$refs.formContainer,
-                    canCancel: true,
-                    onCancel: this.onCancel,
-                    loader: 'spinner',
-                    color: '#000'
-        });
+          container: this.fullPage ? null : this.$refs.formContainer,
+          canCancel: true,
+          onCancel: this.onCancel,
+          loader: 'spinner',
+          color: '#000'
+      });
 
       this.$store.dispatch("monthlycontribution/fetchEmployeeContribution")
        .then(response => {
           loader.hide()
           this.items = response;
           this.totalRows = response.length;
+
+          this.$store.dispatch("employees/getEmployeeMonthlyPercentage")
+          .then(response => {
+            this.monthlyContribution = response.employee_monthly_contribution
+          })
        })
     },
     data() {
       return {
+        monthlyContribution: 0,
         infoModal: false,
         perPage: 10,
         pageOptions: [5, 10, 15, { value: 100, text: "Show a lot" }],

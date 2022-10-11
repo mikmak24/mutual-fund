@@ -63,6 +63,9 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('fetchContributionHistory', [EmployeesController::class, 'fetchContributionHistory']);
         Route::get('fetchNotifications', [EmployeesController::class, 'fetchNotifications']);
         Route::post('markAsReadNotf', [EmployeesController::class, 'markAsReadNotf']);
+        Route::get('getEmployeeMonthlyPercentage', [EmployeesController::class, 'getEmployeeMonthlyPercentage']);
+
+        
 
         //MasterAccount
         Route::get('masteraccount', [MasterAccountController::class, 'fetch']);
