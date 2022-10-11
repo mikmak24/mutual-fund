@@ -17,6 +17,7 @@ import MasterAccount from '../pages/admin/masteraccount.vue';
 //EmployeePages
 import EmployeeDashboard from '../pages/employees/dashboard.vue'
 import EmpListOfContribution from '../pages/employees/listofcontribution.vue'
+import EmpListOfGainsAndLoss from '../pages/employees/listofgainsandloss.vue'
 
 
 
@@ -73,14 +74,17 @@ const routes = [
         component: EmpListOfContribution,
         name: 'EmpListOfContribution'
     },
-
+    {
+        path: '/gainsandloss',
+        component: EmpListOfGainsAndLoss,
+        name: 'EmpListOfGainsAndLoss'
+    },
 ]
 
 const router = new VueRouter({
     routes,
     mode: 'history',
     base: process.env.BASE_URL,
-
 })
 
 if (store.getters['authentication/isAuthenticated'] === false) {

@@ -45,9 +45,6 @@ class ContributionController extends Controller
                 'status' => 'increases'
             ]);
 
-            
-
-
             return response()->json([
                 'message' => 'Import Success!',
                 'status' => 'SUCCESS'

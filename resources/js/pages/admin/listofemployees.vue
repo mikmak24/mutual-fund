@@ -7,17 +7,7 @@
       <div class="p-4 p-md-5">
         <FlashMessage :position="'right top'" />
           
-         <!-- <b-card
-          header="Employees Total Contributions"
-          header-text-variant="white"
-          header-tag="header"
-          header-bg-variant="dark"
-          style="max-width: 50rem;"
-        >
-          <h2>${{total_employees_contribution}}</h2>
-        </b-card> -->
-
-        <div class="mt-3">
+    <div class="mt-3">
     <b-card-group deck class="mb-3">
        <b-card
           header="Employees Total Contributions"
@@ -42,10 +32,7 @@
         </b-card>
     </b-card-group>
   </div>
-
-
   <br>
-
         <b-row>
           <b-col>
             <b-form-group
@@ -155,13 +142,13 @@
                     Breakdown of Contributions
                 </b-button>
 
-                <!-- <b-button size="sm" 
+                <b-button size="sm" 
                   @click="showBreakdownOfGainsAndLoss(row.item, row.index, $event.target)"
                   variant="success"
                   >
                   <b-icon-eye></b-icon-eye>
                     Breakdown of Gains and Loss
-                </b-button> -->
+                </b-button>
               </template>
 
               <template #row-details="row">
@@ -342,9 +329,9 @@
                 <p v-if="row.item.status === 'increases'" style="color: green"><b-icon-arrow-up-square-fill></b-icon-arrow-up-square-fill></p>
                 <p v-else style="color: red"><b-icon-arrow-down-square-fill></b-icon-arrow-down-square-fill></p>
               </template>
-           
-
-
+              <template #cell(percentage)="row">
+                <p>{{row.item.percentage}}%</p>
+              </template>
            </b-table>
             <template #modal-footer>
               <div class="w-100"></div>

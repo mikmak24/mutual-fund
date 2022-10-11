@@ -11,6 +11,7 @@ use App\Models\MasterAccount;
 use App\Models\MasterValueHistory;
 use Illuminate\Support\Facades\Auth;
 use App\Models\MasterAccountEmployeeGained;
+use App\Models\EmployeeContribution;
 
 class MasterAccountController extends Controller
 {
@@ -42,18 +43,28 @@ class MasterAccountController extends Controller
             $status = 'decreases';
         }
 
-        $employees = User::where('is_admin', 0)->where('is_active', 1)->get();
+        $employees = User::select('*',
+            DB::raw('(SELECT SUM(amount) FROM `master_account_employee_gained` AS maeg WHERE maeg.username=users.username) total_employee_gained'), 
+            DB::raw('(SELECT SUM(employee_contribution) FROM `employee_contributions` AS empye_cntr WHERE empye_cntr.username=users.username) total_employee_contr'), 
+            DB::raw('(SELECT SUM(employer_contribution) FROM `employee_contributions` AS empyr_cntr WHERE empyr_cntr.username=users.username) total_employer_contr'), 
+            DB::raw('(SELECT SUM(employee_gained) FROM `employee_contributions` AS empye_gained WHERE empye_gained.username=users.username) total_contribution'), 
+            )
+        ->where('is_active', 1)
+        ->where('is_admin', 0)
+        ->get();
+    
         foreach($employees as $employee){
             $employee_monthly_percentage = $employee->employee_monthly_contribution;
 
             $gained = ($employee_monthly_percentage / 100) * $sbt;
-            User::where('username', $employee->username)->update(['employee_total_share' => ($employee->employee_total_share + $gained)]);
 
-           
+            $amount_total = $this->calculateAmountEarned($employee->total_contribution, $request['value']);
+            User::where('username', $employee->username)->update(['employee_total_share' => $amount_total]);
+
             MasterAccountEmployeeGained::create([
                 'username' => $employee->username,
                 'amount' => $gained,
-                'amount_total' => ($employee->employee_total_share + $gained),
+                'amount_total' => $amount_total,
                 'date_of_change' => date('Y-m-d'),
                 'status' => $status,
                 'percentage' => $employee_monthly_percentage
@@ -91,6 +102,22 @@ class MasterAccountController extends Controller
         )
         ->orderBy('id', 'DESC')
         ->get();
+    }
+
+    public function calculateAmountEarned($total, $master_account_amount){
+        $percentage = $this->calculatePercentageEarned($total);
+        $result = (($percentage / 100) * $master_account_amount);
+        return number_format($result,2);
+    }
+
+    public function calculatePercentageEarned($total){
+        $total_employees_contribution = $this->fetchTotalEmployeeContribution();
+        $val = ($total / $total_employees_contribution) * 100;
+        return number_format($val,2);
+    }
+
+    public function fetchTotalEmployeeContribution(){
+        return EmployeeContribution::sum('employee_gained');
     }
 
 }
