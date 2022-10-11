@@ -94,7 +94,9 @@ class EmployeesController extends Controller
         ->get(); 
     }
 
-    
+    public function countNotification(){
+        return EmployeeNotification::where('to', Auth::user()->username)->where('is_read', FALSE)->count();
+    }
 
     public function updateContribution(Request $request){
         EmployeeContributionRequest::create([

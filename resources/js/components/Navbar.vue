@@ -49,8 +49,7 @@
                 style="margin-right: 5px"
               >
                 <b-icon-bell-fill></b-icon-bell-fill>
-                Notifications ({{$store.getters["authentication/getNumberOfNotf"]
-                }})
+                Notifications ({{employeeContributionCount}})
               </b-button>
             </li>
 
@@ -84,7 +83,9 @@
             {{list.message}}
           </p>
           <p>- {{ moment(list.created_at).format('LLLL')}}</p>
-          <b-button size="sm" @click="markAsRead(list)" variant="success">Mark as Read</b-button>
+          <b-button size="sm" @click="markAsRead(list)" variant="success"
+            >Mark as Read</b-button
+          >
         </b-card>
 
         <b-card v-else bg-variant="primary" text-variant="white">
@@ -118,12 +119,13 @@
 export default {
 	data() {
 		return {
-			username: "",
+			username: "", 
 			token: "",
 			isAdmin: "",
 			fullPage: false,
 			notifications: 0,
-			notfList: []
+			notfList: [],
+      employeeContributionCount: 0
 		};
 	},
 	mounted() {
@@ -142,10 +144,20 @@ export default {
 
 		this.$store.dispatch("employees/fetchNotifications").then(response => {
 			this.notfList = response
-
 		});
+
+    if(this.isAdmin == 0){
+        this.countEmployeeNotifications()
+    }
+
 	},
 	methods: {
+    countEmployeeNotifications(){
+      this.$store.dispatch("employees/countNotification").then(response => {
+          this.employeeContributionCount = response
+      });
+    },
+
 		logout() {
 
 			let loader = this.$loading.show({
@@ -180,6 +192,7 @@ export default {
 			})
 			.then(response => {
 				this.fetchNotifications()
+        this.countEmployeeNotifications()
 			})
 
 		},
@@ -189,8 +202,6 @@ export default {
 				this.notfList = response
 			});
 		}
-
-		
 	}
 };
 </script>

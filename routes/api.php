@@ -49,32 +49,20 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('employeeslist', [EmployeesController::class, 'fetch']);
         Route::get('employeesrequest', [EmployeesController::class, 'fetchemployeesrequest']);
         Route::get('fetchChartData', [EmployeesController::class, 'fetchChartData']);
-        
         Route::get('fetchActiveInActiveEmployee', [EmployeesController::class, 'fetchActiveInActiveEmployee']);
-
         Route::get('fetchIndvDashboardDetails', [EmployeesController::class, 'fetchIndvDashboardDetails']);
-
-
         Route::post('updateEmpContribution', [EmployeesController::class, 'updateContribution']);
         Route::post('modifyContribution', [EmployeesController::class, 'modifyContribution']);
-
         Route::get('fetchEmployeeContribution', [EmployeesController::class, 'fetchEmployeeContribution']);
         Route::get('fetchEmpDashboardCardDetails', [EmployeesController::class, 'fetchEmpDashboardCardDetails']);
         Route::get('downloadEmployees', [EmployeesController::class, 'downloadEmployees']);
-
-
+        Route::get('countNotification', [EmployeesController::class, 'countNotification']);
         Route::post('acceptContribution', [EmployeesController::class, 'acceptContribution']);
         Route::post('declineContribution', [EmployeesController::class, 'declineContribution']);
-
         Route::post('updateEmployeeStatus', [EmployeesController::class, 'updateEmployeeStatus']);
-
         Route::post('fetchContributionHistory', [EmployeesController::class, 'fetchContributionHistory']);
-
         Route::get('fetchNotifications', [EmployeesController::class, 'fetchNotifications']);
         Route::post('markAsReadNotf', [EmployeesController::class, 'markAsReadNotf']);
-
-
-
 
         //MasterAccount
         Route::get('masteraccount', [MasterAccountController::class, 'fetch']);

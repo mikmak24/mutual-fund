@@ -88,7 +88,12 @@ const actions = {
         // commit('setArrayEmployeeRequest', response.data)
     },
 
-    
+    async countNotification({ commit }) {
+        const response = await axios.get("/api/countNotification")
+        return response.data;
+        // commit('setArrayEmployeeRequest', response.data)
+    },
+
 }
 const mutations = {
     setArrayEmployeeRequest (state, payload) {
