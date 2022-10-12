@@ -318,9 +318,19 @@ export default {
             sortable: true
           },
           {
+            key: 'percentage_employee_contr',
+            label: '% of Employee Contribution.',
+            sortable: true
+          },
+          {
             key: 'employer_contribution',
             label: 'Employer Contribution',
             sortable: true,
+          },
+          {
+            key: 'percentage_employer_contr',
+            label: '% of Employer Contribution.',
+            sortable: true
           },
           {
             key: 'employee_gained',
@@ -359,20 +369,11 @@ export default {
              label: 'Employee Contribution',
              sortable: true
           },
-           {
-            key: 'percentage_employee_contr',
-            label: '% of Employee Contribution.',
-            sortable: true
-          },
+         
           {
              key: 'employer_contribution',
              label: 'Employer Contribution',
              sortable: true
-          },
-          {
-            key: 'percentage_employee_contr',
-            label: '% of Employee Contribution.',
-            sortable: true
           },
           {
              key: 'employee_gained',
