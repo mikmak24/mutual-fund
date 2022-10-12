@@ -87,13 +87,20 @@
               :filter-included-fields="filterOn"
             >
               <template #cell(employee_contribution)="row">
-                <p style="color: red">${{row.item.employee_contribution}}</p>
+                <p style="color: blue">${{row.item.employee_contribution}}</p>
               </template>
               <template #cell(employer_contribution)="row">
-                <p style="color: red">${{row.item.employer_contribution}}</p>
+                <p style="color: blue">${{row.item.employer_contribution}}</p>
               </template>
               <template #cell(employee_gained)="row">
                 <p style="color: red">${{row.item.employee_gained}}</p>
+              </template>
+              <template #cell(percentage_employee_contr)="row">
+                <p style="color: green">{{calculatePercentageEarned(row.item.employee_contribution)}}%</p>
+              </template>
+
+              <template #cell(percentage_employer_contr)="row">
+                <p style="color: green">{{calculatePercentageEarned(row.item.employer_contribution)}}%</p>
               </template>
               <template #cell(actions)="row">
                 <!-- <b-button
@@ -260,23 +267,30 @@ export default {
         Footer
     },
     mounted() {
+
       let loader = this.$loading.show({
-                    // Optional parameters
-                    container: this.fullPage ? null : this.$refs.formContainer,
-                    canCancel: true,
-                    onCancel: this.onCancel,
-                    loader: 'spinner',
-                    color: '#000000'
-        });
+        container: this.fullPage ? null : this.$refs.formContainer,
+        canCancel: true,
+        onCancel: this.onCancel,
+        loader: 'spinner',
+        color: '#000000'
+      });
       this.$store.dispatch("monthlycontribution/fetch")
       .then(response => {
           loader.hide()
           this.items = response;
           this.totalRows = response.length;
+
+          this.$store.dispatch("employees/fetchTotalEmployeeContribution")
+          .then(response => {
+              this.total_employees_contribution = response
+          })
+
       })
     },
     data() {
       return {
+        total_employees_contribution: 0,
         form: {
           id: 0,
           username: '',
@@ -345,10 +359,20 @@ export default {
              label: 'Employee Contribution',
              sortable: true
           },
+           {
+            key: 'percentage_employee_contr',
+            label: '% of Employee Contribution.',
+            sortable: true
+          },
           {
              key: 'employer_contribution',
              label: 'Employer Contribution',
              sortable: true
+          },
+          {
+            key: 'percentage_employee_contr',
+            label: '% of Employee Contribution.',
+            sortable: true
           },
           {
              key: 'employee_gained',
@@ -370,6 +394,10 @@ export default {
       }
     },
     methods: {
+      calculatePercentageEarned(total){
+          let val = (total / this.total_employees_contribution) * 100
+          return val.toFixed(2)
+      },
       updateContribution() {
            let loader = this.$loading.show({
                     // Optional parameters

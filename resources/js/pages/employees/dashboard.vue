@@ -50,7 +50,7 @@
           <b-card
             bg-variant="success"
             text-variant="white"
-            header="Your Total Percentage of your share in the Company"
+            header="Percentage of Shares in the Mutual Fund"
             class="text-center"
           >
             <b-card-text>

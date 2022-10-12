@@ -118,12 +118,17 @@
 
               </template>
               <template #cell(total_employee_get)="row">
-                <p style="color: green">${{calculateAmountEarned(row.item.total_contribution)}}</p>
-
+                <p style="color: red">${{calculateAmountEarned(row.item.total_contribution)}}</p>
               </template>
 
+              <template #cell(percentage_employee_contr)="row">
+                <p style="color: green">{{calculatePercentageEarned(row.item.total_employee_contr)}}%</p>
+              </template>
 
-              
+              <template #cell(percentage_employer_contr)="row">
+                <p style="color: green">{{calculatePercentageEarned(row.item.total_employer_contr)}}%</p>
+              </template>
+
               <template #cell(actions)="row">
                 
                   <b-button size="sm" 
@@ -425,10 +430,20 @@ export default {
             sortable: true
           },
           {
+            key: 'percentage_employee_contr',
+            label: '% of Employee Contribution.',
+            sortable: true
+          },
+          {
             key: 'total_employer_contr',
             label: 'Employer Contribution',
             sortable: true,
             // variant: 'danger'
+          },
+          {
+            key: 'percentage_employer_contr',
+            label: '% of Employer Contribution.',
+            sortable: true
           },
           {
             key: 'total_contribution',
@@ -438,7 +453,7 @@ export default {
           },
           {
             key: 'total_employee_gained',
-            label: 'Percentage of shares owned by the Employee',
+            label: '$ of shares owned by the Employee',
             sortable: true,
             // variant: 'danger'
           },
