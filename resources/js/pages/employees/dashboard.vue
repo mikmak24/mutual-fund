@@ -163,7 +163,7 @@ export default {
       .then(response => {
           console.log("++++++++++++++++++")
           console.log(response)
-          this.total_employees_contribution = response
+          this.total_employees_contribution = response.employee_gained_sum
       })
 	},
 	data() {
