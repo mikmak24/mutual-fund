@@ -122,11 +122,11 @@
               </template>
 
               <template #cell(percentage_employee_contr)="row">
-                <p style="color: green">{{calculatePercentageEarned(row.item.total_employee_contr)}}%</p>
+                <p style="color: green">{{calculateEmployeeContributionPercentage(row.item.total_employee_contr)}}%</p>
               </template>
 
               <template #cell(percentage_employer_contr)="row">
-                <p style="color: green">{{calculatePercentageEarned(row.item.total_employer_contr)}}%</p>
+                <p style="color: green">{{calculateEmployerContributionPercentage(row.item.total_employer_contr)}}%</p>
               </template>
 
               <template #cell(actions)="row">
@@ -381,18 +381,19 @@ export default {
       .then(response => {
           this.items = response;
           this.totalRows = response.length;
-          console.log(response)
       })
 
       this.$store.dispatch("employees/fetchTotalEmployeeContribution")
       .then(response => {
-          this.total_employees_contribution = response
+          console.log(response)
+          this.total_employees_contribution = response.employee_gained_sum
+          this.total_employee_contribution  = response.employee_contribution_sum
+          this.total_employer_contribution  = response.employer_contribution_sum
       })
 
       this.$store.dispatch("masteraccount/fetch")
       .then(response => {
           loader.hide()
-          console.log(response[0]['master_account_amount'])
           this.master_account_amount = response[0]['master_account_amount']
       })
   
@@ -536,8 +537,10 @@ export default {
         items2: [],
         items3: [],
         master_account_amount: 0,
-        total_employees_contribution: 0
-      }
+        total_employees_contribution: 0,
+        total_employee_contribution: 0,
+        total_employer_contribution: 0
+      } 
     },
     methods: {
       info(item, index, button) {
@@ -552,6 +555,16 @@ export default {
       calculateAmountEarned(total){
           let percentage = this.calculatePercentageEarned(total)
           return ((percentage / 100) * this.master_account_amount).toFixed(2)
+      },
+
+      calculateEmployeeContributionPercentage(total){
+          let val = (total / this.total_employee_contribution) * 100
+          return val.toFixed(2)
+      },
+
+      calculateEmployerContributionPercentage(total){
+          let val = (total / this.total_employer_contribution) * 100
+          return val.toFixed(2)
       },
 
       showModifyModal(item, index, button){

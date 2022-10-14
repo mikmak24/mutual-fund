@@ -82,7 +82,12 @@ class ContributionController extends Controller
     }
 
     public function fetchTotalEmployeeContribution(){
-        return EmployeeContribution::sum('employee_gained');
+        // return EmployeeContribution::sum('employee_gained');
+        return $data = [
+            'employee_gained_sum' => EmployeeContribution::sum('employee_gained'),
+            'employee_contribution_sum' => EmployeeContribution::sum('employee_contribution'),
+            'employer_contribution_sum' => EmployeeContribution::sum('employer_contribution')
+        ];
     }
 
     public function getContributionRequestCount(){
