@@ -1,7 +1,6 @@
 <template>
   <div class="wrapper d-flex align-items-stretch">
     <Sidebar />
-    <!-- Page Content  -->
     <div id="content">
       <Navbar />
       <div class="p-4 p-md-5">
@@ -14,7 +13,6 @@
             List of Contributions
           </h3>
         </div>
-
         <b-row>
           <b-col>
             <b-form-group
@@ -73,7 +71,6 @@
           </b-col>
         </b-row>
         <br />
-
         <b-row>
           <b-col>
             <b-table
@@ -212,18 +209,15 @@
         <b-button @click="updateContribution()" variant="outline-success"><b-icon-save2></b-icon-save2> Save Changes</b-button>
         <b-button @click="showContributionHistory(form.id, form.username)"
           variant="outline-warning"><b-icon-eye></b-icon-eye> View History</b-button>
-
            <template #modal-footer>
             <div class="w-100"></div>
           </template>
-
           <template #modal-header>
             <div class="w-100">
               <h4><b-icon-calendar></b-icon-calendar>  For the month of: {{ form.date_of_contribution }}</h4>
             </div>
           </template>
       </b-modal>
-
        <b-modal
         header-bg-variant="info"
         header-text-variant="dark"
@@ -231,7 +225,6 @@
         id="modal-lg"
         size="xl"
       >
-
        <h3 style="font-family: monospace">Changes on this contribution of: {{form.username}}</h3>
            <b-table striped hover :items="items2" :fields="fields2">
               <template #cell(created_at)="row">
@@ -246,8 +239,6 @@
                 <p v-else >${{row.item.employer_contribution}}</p>
               </template>
            </b-table>
-        
-
       </b-modal>
     </div>
   </div>
@@ -267,7 +258,6 @@ export default {
         Footer
     },
     mounted() {
-
       let loader = this.$loading.show({
         container: this.fullPage ? null : this.$refs.formContainer,
         canCancel: true,
@@ -285,7 +275,6 @@ export default {
           .then(response => {
               this.total_employees_contribution = response
           })
-
       })
     },
     data() {
@@ -317,21 +306,12 @@ export default {
             label: 'Employee Contribution',
             sortable: true
           },
-          // {
-          //   key: 'percentage_employee_contr',
-          //   label: '% of Employee Contribution.',
-          //   sortable: true
-          // },
+        
           {
             key: 'employer_contribution',
             label: 'Employer Contribution',
             sortable: true,
           },
-          // {
-          //   key: 'percentage_employer_contr',
-          //   label: '% of Employer Contribution.',
-          //   sortable: true
-          // },
           {
             key: 'employee_gained',
             label: 'Employee Gained',
@@ -341,19 +321,16 @@ export default {
             key: 'date_of_contribution',
             label: 'For the month of',
             sortable: true,
-            // variant: 'danger'
           },
            {
             key: 'uploaded_by',
             label: 'Uploaded by',
             sortable: true,
-            // variant: 'danger'
           },
           {
             key: 'actions',
             label: 'Action',
             sortable: true,
-            // variant: 'danger'
           }
         ],
         items: [],
@@ -455,7 +432,6 @@ export default {
       showContributionHistory(id, username){
         this.items2 = []
         let loader = this.$loading.show({
-          // Optional parameters
           container: this.fullPage ? null : this.$refs.formContainer,
           canCancel: true,
           onCancel: this.onCancel,
@@ -463,7 +439,6 @@ export default {
           color: '#000000'
         });
         this.$refs['my-modal-showContributionHistory'].show()
-
         this.$store.dispatch("employees/fetchContributionHistory", {
             'id': id,
             'username': username
@@ -472,12 +447,10 @@ export default {
           loader.hide()
            this.items2 = response
         })
-
       },
       convertDate(date){
         return moment(date).format('LLLL')
       }
-
     }
 }
 </script>

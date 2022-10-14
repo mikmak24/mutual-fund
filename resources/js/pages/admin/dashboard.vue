@@ -1,7 +1,6 @@
 <template>
   <div class="wrapper d-flex align-items-stretch">
     <Sidebar />
-    <!-- Page Content  -->
     <div id="content">
       <Navbar />
       <div class="p-2 p-md-3">
@@ -16,7 +15,6 @@
               </p>
             </div>
           </div>
-
           <div class="card">
             <a class="img-card" href="#">
               <img src="../../assets/images/dollar.jpg" />
@@ -29,9 +27,7 @@
             </div>
           </div>
         </b-card-group>
-
         <hr />
-
         <b-card-group deck>
           <div class="card" v-if="showChart" style="width: 18rem">
               <GChart :type="type" :data="chartData" :options="chartOptions" />
@@ -44,8 +40,7 @@
             />
           </div>
         </b-card-group>
-
-          <br>
+        <br>
          <b-card-group deck>
           <div class="card" v-if="showChart" style="width: 18rem">
             <GChart
@@ -55,7 +50,6 @@
             />
           </div>
         </b-card-group>
-
       </div>
     </div>
   </div>
@@ -84,33 +78,27 @@ export default {
     this.$store.dispatch("monthlycontribution/countContributionRequest").then(response => {
       this.notifications = response.count
 		});
-
     this.$store.dispatch("masteraccount/fetchLineChartData").then(response => {
-
 			let array = this.chartData
       let array2 = this.columnchartData
 			for (let i = 0; i < response.length; i++) {
 				array.push([response[i].date_of_change, response[i].amount])
         array2.push([response[i].date_of_change, response[i].percentage, response[i].amount])
 			}
-        this.showChart = true
-      });
+      this.showChart = true
+    });
 
     this.$store.dispatch("employees/fetchActiveInActiveEmployee").then(response => {
         let array = this.pieChartData
         array.push(['Active', response['active']])
         array.push(['Inactive', response['inactive']])
 		});
-
-
 	},
   data() {
       return {
           current_date: '',
           notifications: 0,
           showChart: false,
-
-          //
           type: 'LineChart',
           pietype: 'PieChart',
           chartOptions: {
@@ -135,12 +123,10 @@ export default {
             width: 800,
             height: 600,
           }
-
       }
     },
 };
 </script>
-
 <style scoped>
 html,
 body {

@@ -4,7 +4,6 @@
     <!-- Page Content  -->
     <div id="content">
       <Navbar />
-
       <div class="p-4 p-md-5">
         <FlashMessage :position="'right top'" />
         <div>
@@ -326,10 +325,10 @@ export default {
 				Employer_Contribution: "employer_cont",
 				Employee_Salary: "employer_cont"
 			},
-            value: 0,
+      value: 0,
 			json_data: [{}],
-            showString: true,
-            showValue: false,
+      showString: true,
+      showValue: false,
 
             perPage: 10,
             pageOptions: [5, 10, 15, { value: 100, text: "Show a lot" }],
@@ -366,7 +365,6 @@ export default {
 
             ],
             items: []
-
 		};
 	},
 	methods: {

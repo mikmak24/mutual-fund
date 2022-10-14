@@ -369,7 +369,6 @@ export default {
     },
     mounted() {
       let loader = this.$loading.show({
-        // Optional parameters
         container: this.fullPage ? null : this.$refs.formContainer,
         canCancel: true,
         onCancel: this.onCancel,
@@ -396,7 +395,6 @@ export default {
           loader.hide()
           this.master_account_amount = response[0]['master_account_amount']
       })
-  
     },
     data() {
       return {
@@ -501,7 +499,6 @@ export default {
              sortable: true
           }
         ],
-
         fields3: [
           {
              key: 'id',
@@ -630,8 +627,6 @@ export default {
 
         this.$refs['my-modal-breakdown-gains'].show()
       },
-
-
       updateEmployeeStatus(is_active, username){
         this.$refs['my-modal'].hide()
         let loader = this.$loading.show({
